@@ -8,19 +8,22 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/blume_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BlumeMobile"
         tools:targetApi="31">
-        <activity
-            android:name=".views.Inputs.Input"
-            android:exported="false"
-            android:label="@string/title_activity_input"
-            android:theme="@style/Theme.BlumeMobile" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="Blume"
+            android:theme="@style/Theme.BlumeMobile">
+        </activity>
+
+        <activity
+            android:name=".activties.RegisterActivity"
+            android:exported="true"
+            android:label="Blume"
             android:theme="@style/Theme.BlumeMobile">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

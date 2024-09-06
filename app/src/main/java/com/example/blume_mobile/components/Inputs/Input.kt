@@ -48,7 +48,7 @@ fun validTextError(text: String, qtdCaracteres: Int): Boolean{
 }
 
 @Composable
-fun Input(textValue: String, label: String, placeholder: String, qtdCaracteres: Int){
+fun Input(textValue: String, type: String, label: String, placeholder: String, qtdCaracteres: Int){
     var showText by remember {
         mutableStateOf(true)
     }
@@ -62,21 +62,22 @@ fun Input(textValue: String, label: String, placeholder: String, qtdCaracteres: 
         mutableStateOf("")
     }
 
-    
     if(validTextError(text, qtdCaracteres)){
         isError = true
         errorMessage = "Digite no mínimo $qtdCaracteres caracteres"
-
-        if(label.lowercase() == "senha" || label.lowercase() == "confirmar senha") {
-            showText = false
-            errorMessage += ", sua senha deve conter também 1 letra maiúscula, 1 número e um " +
-                    "caracter especial"
-        }
 
     }else{
         isError = false
         errorMessage = ""
     }
+
+    if(type.lowercase() == "senha") {
+        showText = false
+        if (isError) {
+            errorMessage += ", sua senha deve conter também 1 letra maiúscula, 1 número e um caracter especial"
+        }
+    }
+
 
     OutlinedTextField(
         modifier = Modifier,
@@ -97,7 +98,7 @@ fun Input(textValue: String, label: String, placeholder: String, qtdCaracteres: 
                 color = Color.Gray
             ),
         )},
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(12.dp),
         label = {Text(
             modifier = Modifier,
             text = label,
@@ -120,12 +121,12 @@ fun Input(textValue: String, label: String, placeholder: String, qtdCaracteres: 
         supportingText = {
             Text(text = errorMessage, style = TextStyle(color = Color.Red))
         },
-        isError = isError
+        isError = isError,
     )
 }
 
 @Composable
 @Preview
 fun InputPreview(){
-    Input("Kevin", "Teste", "Ex: Kevin Rodrigues da Silva", 8)
+    Input("Kevin", "Teste", "Senha","Ex: Kevin Rodrigues da Silva", 8)
 }

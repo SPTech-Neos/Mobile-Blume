@@ -9,11 +9,12 @@ import androidx.compose.ui.text.Placeholder
 
 
 @Composable
-fun InputText(textValue: String, qtdCaracteres: Int, label: String, placeholder: String){
+fun InputText(textValue: String, qtdCaracteres: Int, type: String, label: String, placeholder: String){
     Input(
         textValue,
+        type,
         label,
         placeholder,
-        qtdCaracteres
+        qtdCaracteres,
     )
 }

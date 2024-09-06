@@ -1,13 +1,6 @@
 package com.example.blume_mobile.components.Inputs
 
-import android.util.Patterns
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -19,23 +12,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-fun validEmail(email: String): Boolean{
-    return false
-}
+import androidx.core.text.isDigitsOnly
+import com.example.blume_mobile.utils.PhoneMask
 
 @Composable
-fun InputEmail(textValue: String, placeholder: String, label: String){
-    var showText by remember {
-        mutableStateOf(true)
-    }
+fun InputPhone(textValue: String, placeholder: String, label: String){
     var text by remember {
         mutableStateOf(textValue)
     }
+
     var isError by remember {
         mutableStateOf(false)
     }
@@ -43,19 +31,17 @@ fun InputEmail(textValue: String, placeholder: String, label: String){
         mutableStateOf("")
     }
 
-
-    if(text.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(text).matches()){
-        isError = true
-        errorMessage = "Insira um email válido!"
-    }else{
-        isError = false
-        errorMessage = ""
-    }
-
     OutlinedTextField(
         modifier = Modifier,
         value = text,
-        onValueChange = { text = it },
+        onValueChange = {
+            if(it.isDigitsOnly()) {
+                isError = false
+                if (it.length < 12) {
+                    text = it
+                }
+            }
+        },
         maxLines = 1,
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Color(150, 154, 255),
@@ -74,30 +60,19 @@ fun InputEmail(textValue: String, placeholder: String, label: String){
         )
         },
         shape = RoundedCornerShape(12.dp),
-        label = {
-            Text(
+        label = {Text(
             modifier = Modifier,
             text = label,
             style = TextStyle(
                 fontSize = 12.sp,
                 color = Color.Black
             ),
-        )
-        },
-        trailingIcon = {
-            if(!showText){
-                Icon(
-                    Icons.Default.Lock,
-                    contentDescription = "",
-                    tint = Color.Black,
-                    modifier = Modifier.clickable { showText = true }
-                )
-            }
-        },
-        visualTransformation = if(showText) VisualTransformation.None else PasswordVisualTransformation(),
+        )},
+        visualTransformation = PhoneMask(),
         supportingText = {
             Text(text = errorMessage, style = TextStyle(color = Color.Red))
         },
         isError = isError,
     )
+
 }

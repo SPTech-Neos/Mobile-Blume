@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Blume-Mobile</string>
     <string name="title_activity_input">Input</string>
+    <string name="title_activity_main2">MainActivity2</string>
 </resources>
