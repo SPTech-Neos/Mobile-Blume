@@ -12,14 +12,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BlumeMobile"
         tools:targetApi="31">
+        <activity
+            android:name=".activties.LoginActivity"
+            android:exported="true"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.BlumeMobile">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activties.LoginActivity"
+            android:exported="true"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.BlumeMobile">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="Blume"
-            android:theme="@style/Theme.BlumeMobile">
-        </activity>
-
+            android:theme="@style/Theme.BlumeMobile" />
         <activity
             android:name=".activties.RegisterActivity"
             android:exported="true"

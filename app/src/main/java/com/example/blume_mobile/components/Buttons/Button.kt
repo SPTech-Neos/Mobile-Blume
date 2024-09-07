@@ -16,18 +16,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CustomButton(text: String, onClick: ()-> Unit){
+fun CustomButton(text: String, width: Int, onClick: ()-> Unit){
     Button(
         modifier = Modifier
-            .width(200.dp),
+            .width(width.dp),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = Color(150, 154, 255)),
-        shape = RoundedCornerShape(30)
+        shape = RoundedCornerShape(20)
     ){
         Text(
             text = text.uppercase(),
             style = TextStyle(
-                fontSize = 20.sp,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
             )
         )

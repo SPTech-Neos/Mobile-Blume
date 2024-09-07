@@ -144,7 +144,7 @@ fun Register(modifier: Modifier) {
                 )
             }
 
-            CustomButton("Próximo", {})
+            CustomButton("Próximo", 200, {})
             CancelButton(text = "Cancelar", 40)
         }
 
