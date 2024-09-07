@@ -38,7 +38,12 @@ class RegisterActivity : ComponentActivity() {
 
 @Composable
 fun RegisterScreen(modifier: Modifier = Modifier){
-    Register(modifier)
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.Top
+    ) {
+        Register(modifier)
+    }
 }
 @Preview(showBackground = true, showSystemUi = true)
 @Composable

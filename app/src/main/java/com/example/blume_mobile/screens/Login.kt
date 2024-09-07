@@ -1,7 +1,9 @@
 package com.example.blume_mobile.screens
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,70 +32,85 @@ import com.example.blume_mobile.components.Inputs.InputEmail
 import com.example.blume_mobile.components.Inputs.InputPassword
 import com.example.blume_mobile.components.Inputs.InputText
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
+import com.example.blume_mobile.activties.RegisterActivity
 
 @Composable
 fun Login(){
 
     var email by remember{ mutableStateOf("") }
     var senha by remember{ mutableStateOf("") }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(Color(250, 250, 250))
-        ,
-        verticalArrangement = Arrangement.SpaceAround
-    ){
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.3f)
-            ,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-                
-        ){
-            Image(
-                painter = painterResource(
-                    id = R.mipmap.blumelogotipo
-                ),
-                contentDescription = "Logo Blume",
-                modifier = Modifier.size(240.dp)
-            )
-        }
+    val contexto = LocalContext.current
+    
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .padding(60.dp)
+                .background(Color(250, 250, 250))
             ,
-            verticalArrangement = Arrangement.Top,
-        ) {
-            Text("Entre na sua conta:")
-            Spacer(modifier = Modifier.height(40.dp))
+            verticalArrangement = Arrangement.SpaceAround
+        ){
             Column(
-                modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.3f)
+                ,
                 horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                InputEmail(textValue = email, placeholder = "example@email.com", label = "Email")
-                InputText(textValue = senha, 8, "senha", "Senha", "sS3nh@a1")
-                CustomButton("Entrar", 400, {})
+                verticalArrangement = Arrangement.Center
 
-                Spacer(modifier = Modifier.height(120.dp))
-                Row(
-
-                ){
-                    Text("Não tem conta ainda?")
-                    Text(" Crie uma conta!", style = TextStyle(
-                        color = Color(150, 154, 250)
-                    ))
-
-                }
+            ){
+                Image(
+                    painter = painterResource(
+                        id = R.mipmap.blumelogotipo
+                    ),
+                    contentDescription = "Logo Blume",
+                    modifier = Modifier.size(240.dp)
+                )
             }
 
-        }
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .padding(60.dp)
+                ,
+                verticalArrangement = Arrangement.Top,
+            ) {
+                Text("Entre na sua conta:")
+                Spacer(modifier = Modifier.height(40.dp))
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    InputEmail(textValue = email, placeholder = "example@email.com", label = "Email")
+                    InputText(textValue = senha, 8, "senha", "Senha", "sS3nh@a1")
+                    CustomButton("Entrar", 400, {})
+
+                    Spacer(modifier = Modifier.height(120.dp))
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ){
+                        Text("Não tem conta ainda?")
+                        Text(" Crie uma conta!",
+                            Modifier.clickable(enabled = true) {
+                                val nextScreen = Intent(contexto, RegisterActivity::class.java)
+
+                                contexto.startActivity(nextScreen)
+                            },
+                            style = TextStyle(
+                                color = Color(150, 154, 250),
+                                fontSize = 15.sp
+                            )
+                        )
+
+                    }
+                }
+
+            }
 
     }
 

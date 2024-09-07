@@ -23,9 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -56,98 +58,98 @@ fun Register(modifier: Modifier) {
         modifier = Modifier
             .fillMaxHeight()
             .fillMaxWidth(),
-        verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.Top
     ) {
-        Box(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Image(
-                painter = painterResource(
-                    id = R.mipmap.subtract
-                ),
-                contentDescription = "fundo roxo lua",
-                modifier = modifier.size(
-                    width = 1200.dp,
-                    height = 153.dp
-                )
-            )
-
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.15f),
-                verticalArrangement = Arrangement.Bottom,
+                    .fillMaxHeight()
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Title(text = "CADASTRO")
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                        .paint(
+                            // Replace with your image id
+                            painterResource(id = R.mipmap.subtract),
+                            contentScale = ContentScale.FillBounds
+                        )
+                ) {
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.15f),
+                        verticalArrangement = Arrangement.Bottom,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Title(text = "CADASTRO")
+                    }
+                }
+                Column(
+                    modifier = Modifier.fillMaxHeight(0.93f),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Bottom
+                ){
+                    Text(
+                        text = "OBRIGATÓRIO",
+                        style = TextStyle(
+                            fontSize = 15.sp,
+                            color = Color.Black,
+                            fontWeight = FontWeight.Bold,
+                        ),
+                    )
+                    Column(
+                        modifier = Modifier.fillMaxHeight(0.83f),
+                        verticalArrangement = Arrangement.Center
+                    ){
+
+                        InputText(
+                            textValue = nome,
+                            5,
+                            "Text",
+                            "Nome completo",
+                            "Ex: Kevin Rodrigues da Silva"
+                        )
+
+                        InputEmail(
+                            textValue = email,
+                            "Ex: example@email.com",
+                            "Email",
+                        )
+
+                        InputText(
+                            textValue = senha,
+                            8,
+                            "Senha",
+                            "Senha",
+                            "Ex: sS3nh@a1"
+                        )
+
+                        InputText(
+                            textValue = confirmarSenha,
+                            8,
+                            "Senha",
+                            "Confirmar senha",
+                            "Ex: sS3nh@a1"
+                        )
+
+                        InputCpf(
+                            textValue = cpf,
+                            "Ex: 000.000.000-00",
+                            "CPF"
+                        )
+
+                        InputPhone(
+                            textValue = telefone,
+                            "Ex: (11) 93335-7637",
+                            "Telefone",
+                        )
+                    }
+
+                    CustomButton("Próximo", 200, {})
+                    CancelButton(text = "Cancelar", 40)
+                }
             }
-        }
-        Column(
-            modifier = Modifier.fillMaxHeight(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Bottom
-        ){
-            Text(
-                text = "OBRIGATÓRIO",
-                style = TextStyle(
-                    fontSize = 15.sp,
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold,
-                ),
-            )
-            Column(
-                modifier = Modifier.fillMaxHeight(0.84f),
-                verticalArrangement = Arrangement.Center
-            ){
-
-                InputText(
-                    textValue = nome,
-                    5,
-                    "Text",
-                    "Nome completo",
-                    "Ex: Kevin Rodrigues da Silva"
-                )
-
-                InputEmail(
-                    textValue = email,
-                    "Ex: example@email.com",
-                    "Email",
-                )
-
-                InputText(
-                    textValue = senha,
-                    8,
-                    "Senha",
-                    "Senha",
-                    "Ex: sS3nh@a1"
-                )
-
-                InputText(
-                    textValue = confirmarSenha,
-                    8,
-                    "Senha",
-                    "Confirmar senha",
-                    "Ex: sS3nh@a1"
-                )
-
-                InputCpf(
-                    textValue = cpf,
-                    "Ex: 000.000.000-00",
-                    "CPF"
-                )
-
-                InputPhone(
-                    textValue = telefone,
-                    "Ex: (11) 93335-7637",
-                    "Telefone",
-                )
-            }
-
-            CustomButton("Próximo", 200, {})
-            CancelButton(text = "Cancelar", 40)
-        }
-
     }
 }
 

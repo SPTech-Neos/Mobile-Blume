@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.blume_mobile.screens.Login
 import com.example.blume_mobile.ui.theme.BlumeMobileTheme
 
 class LoginActivity : ComponentActivity() {
@@ -20,8 +21,7 @@ class LoginActivity : ComponentActivity() {
         setContent {
             BlumeMobileTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    LoginScreen(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -31,17 +31,14 @@ class LoginActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun LoginScreen(modifier: Modifier) {
+    Login()
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
     BlumeMobileTheme {
-        Greeting("Android")
+        LoginScreen(Modifier)
     }
 }
