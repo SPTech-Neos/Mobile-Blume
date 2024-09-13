@@ -7,4 +7,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="client100">#D4D6FF</color>
+    <color name="employee100">#96FFA0</color>
 </resources>

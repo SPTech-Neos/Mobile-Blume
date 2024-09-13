@@ -1,54 +1,38 @@
 package com.example.blume_mobile.components.Inputs
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.focusable
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.CircleShape
+
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableDoubleStateOf
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.toLowerCase
+import com.example.blume_mobile.ui.theme.poppins
+
 
 fun validTextError(text: String, qtdCaracteres: Int): Boolean{
-    if(text.isNotBlank() && text.length < qtdCaracteres){
-        return true
-    }
-
-    return false
+    return text.isNotBlank() && text.length < qtdCaracteres
 }
 
 @Composable
 fun Input(textValue: String, type: String, label: String, placeholder: String, qtdCaracteres: Int){
+
     var showText by remember {
         mutableStateOf(true)
     }
@@ -102,10 +86,9 @@ fun Input(textValue: String, type: String, label: String, placeholder: String, q
         label = {Text(
             modifier = Modifier,
             text = label,
-            style = TextStyle(
-                fontSize = 12.sp,
-                color = Color.Black
-            ),
+            fontFamily = poppins,
+            fontWeight = FontWeight.Light,
+            fontSize = 12.sp
         )},
         trailingIcon = {
             if(!showText){

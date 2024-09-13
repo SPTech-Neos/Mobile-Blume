@@ -1,12 +1,10 @@
-package com.example.blume_mobile.ui.theme
+package com.example.blume_mobile.screens.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.blume_mobile.R
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -33,27 +31,4 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
     */
-
 )
-
-val josefin = FontFamily(
-    Font(R.font.josefin_sans, FontWeight.Light)
-)
-
-val poppins = FontFamily(
-    Font(R.font.poppins, FontWeight.Light),
-    Font(R.font.poppins_bold, FontWeight.Bold),
-    Font(R.font.poppins_semibold, FontWeight.SemiBold),
-)
-
-
-
-//val JosefinTypography = Typography(
-//    bodyLarge = TextStyle(
-//        fontFamily = FontFamily.,
-//        fontWeight = FontWeight.Normal,
-//        fontSize = 16.sp,
-//        lineHeight = 24.sp,
-//        letterSpacing = 0.5.sp
-//    )
-//)

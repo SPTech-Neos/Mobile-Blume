@@ -1,18 +1,12 @@
 package com.example.blume_mobile.screens
 
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,20 +15,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.blume_mobile.R
+import com.example.blume_mobile.Register2Activity
 import com.example.blume_mobile.components.Buttons.CancelButton
 import com.example.blume_mobile.components.Buttons.CustomButton
 import com.example.blume_mobile.components.Inputs.InputCpf
@@ -46,13 +37,13 @@ import com.example.blume_mobile.components.Titles.Title
 @Composable
 fun Register(modifier: Modifier) {
 
-
     var nome by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
     var confirmarSenha by remember { mutableStateOf("") }
     var cpf by remember { mutableStateOf("") }
     var telefone by remember { mutableStateOf("") }
+    val contexto = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -68,9 +59,9 @@ fun Register(modifier: Modifier) {
             ) {
                 Box(
                     modifier = Modifier.fillMaxWidth()
+                        .fillMaxHeight(0.2f)
                         .paint(
-                            // Replace with your image id
-                            painterResource(id = R.mipmap.subtract),
+                            painterResource(id = R.drawable.arch_top),
                             contentScale = ContentScale.FillBounds
                         )
                 ) {
@@ -78,7 +69,7 @@ fun Register(modifier: Modifier) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .fillMaxHeight(0.15f),
+                            .fillMaxHeight(),
                         verticalArrangement = Arrangement.Bottom,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -146,8 +137,13 @@ fun Register(modifier: Modifier) {
                         )
                     }
 
-                    CustomButton("Próximo", 200, {})
-                    CancelButton(text = "Cancelar", 40)
+                    CustomButton("Próximo", 200){
+                        val nextScreen = Intent(contexto, Register2Activity::class.java)
+
+                        contexto.startActivity(nextScreen)
+                    }
+                    CancelButton(text = "Cancelar", 40){}
+
                 }
             }
     }

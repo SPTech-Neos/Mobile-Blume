@@ -1,6 +1,7 @@
 package com.example.blume_mobile.components.Inputs
 
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -11,13 +12,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
-import com.example.blume_mobile.utils.CpfMask
-import com.example.blume_mobile.utils.PhoneMask
+import com.example.blume_mobile.utils.mask.CpfMask
 
 @Composable
 fun InputCpf(textValue: String, placeholder: String, label: String){
@@ -72,9 +72,10 @@ fun InputCpf(textValue: String, placeholder: String, label: String){
         )
         },
         visualTransformation = CpfMask(),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
         supportingText = {
             Text(text = errorMessage, style = TextStyle(color = Color.Red))
-        },
+        },  
         isError = isError,
     )
 

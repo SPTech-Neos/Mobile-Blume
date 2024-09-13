@@ -29,10 +29,11 @@ import androidx.compose.ui.unit.dp
 import com.example.blume_mobile.R
 import com.example.blume_mobile.components.Buttons.CustomButton
 import com.example.blume_mobile.components.Inputs.InputEmail
-import com.example.blume_mobile.components.Inputs.InputPassword
 import com.example.blume_mobile.components.Inputs.InputText
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
+import com.example.blume_mobile.ChooseRegisterActivity
+import com.example.blume_mobile.FeedActivity
 import com.example.blume_mobile.activties.RegisterActivity
 
 @Composable
@@ -43,74 +44,78 @@ fun Login(){
     val contexto = LocalContext.current
     
 
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(Color(250, 250, 250))
+        ,
+        verticalArrangement = Arrangement.SpaceAround
+    ){
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.3f)
+            ,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+
+        ){
+            Image(
+                painter = painterResource(
+                    id = R.mipmap.blumelogotipo
+                ),
+                contentDescription = "Logo Blume",
+                modifier = Modifier.size(240.dp)
+            )
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(Color(250, 250, 250))
+                .padding(60.dp)
             ,
-            verticalArrangement = Arrangement.SpaceAround
-        ){
+            verticalArrangement = Arrangement.Top,
+        ) {
+            Text("Entre na sua conta:")
+            Spacer(modifier = Modifier.height(40.dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.3f)
-                ,
+                    .fillMaxHeight(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-
-            ){
-                Image(
-                    painter = painterResource(
-                        id = R.mipmap.blumelogotipo
-                    ),
-                    contentDescription = "Logo Blume",
-                    modifier = Modifier.size(240.dp)
-                )
-            }
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .padding(60.dp)
-                ,
-                verticalArrangement = Arrangement.Top,
             ) {
-                Text("Entre na sua conta:")
-                Spacer(modifier = Modifier.height(40.dp))
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    InputEmail(textValue = email, placeholder = "example@email.com", label = "Email")
-                    InputText(textValue = senha, 8, "senha", "Senha", "sS3nh@a1")
-                    CustomButton("Entrar", 400, {})
+                InputEmail(textValue = email, placeholder = "example@email.com", label = "Email")
+                InputText(textValue = senha, 8, "senha", "Senha", "sS3nh@a1")
+                CustomButton("Entrar", 400){
+                    val nextScreen = Intent(contexto, FeedActivity::class.java)
 
-                    Spacer(modifier = Modifier.height(120.dp))
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ){
-                        Text("Não tem conta ainda?")
-                        Text(" Crie uma conta!",
-                            Modifier.clickable(enabled = true) {
-                                val nextScreen = Intent(contexto, RegisterActivity::class.java)
-
-                                contexto.startActivity(nextScreen)
-                            },
-                            style = TextStyle(
-                                color = Color(150, 154, 250),
-                                fontSize = 15.sp
-                            )
-                        )
-
-                    }
+                    contexto.startActivity(nextScreen)
                 }
 
+                Spacer(modifier = Modifier.height(120.dp))
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    Text("Não tem conta ainda?")
+                    Text(" Crie uma conta!",
+                        Modifier.clickable(enabled = true) {
+                            val nextScreen = Intent(contexto, ChooseRegisterActivity::class.java)
+
+                            contexto.startActivity(nextScreen)
+                        },
+                        style = TextStyle(
+                            color = Color(150, 154, 250),
+                            fontSize = 15.sp
+                        )
+                    )
+
+                }
             }
+
+        }
 
     }
 
