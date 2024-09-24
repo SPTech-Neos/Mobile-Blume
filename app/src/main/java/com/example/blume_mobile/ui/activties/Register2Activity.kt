@@ -1,6 +1,5 @@
-package com.example.blume_mobile
+package com.example.blume_mobile.ui.activties
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,39 +9,33 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.blume_mobile.ui.activties.RegisterActivity
+import com.example.blume_mobile.ui.screens.RegisterOpcional
 import com.example.blume_mobile.ui.theme.BlumeMobileTheme
 
-class MainActivity : ComponentActivity() {
+class Register2Activity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
             BlumeMobileTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Main(
-                        modifier = Modifier.padding(innerPadding),
-                    )
+                    RegisterOpcionalScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
     }
 }
 
-
 @Composable
-fun Main(modifier: Modifier = Modifier) {
-
+fun RegisterOpcionalScreen(modifier: Modifier) {
+    RegisterOpcional()
 }
 
-@Preview(showSystemUi = true, showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun PreviewMain() {
+fun Register2Preview() {
     BlumeMobileTheme {
-        Main()
+        RegisterOpcionalScreen(Modifier)
     }
 }
-

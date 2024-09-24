@@ -1,6 +1,5 @@
-package com.example.blume_mobile
+package com.example.blume_mobile.ui.activties
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,21 +9,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.blume_mobile.ui.activties.RegisterActivity
+import com.example.blume_mobile.ui.screens.ChooseRegister
 import com.example.blume_mobile.ui.theme.BlumeMobileTheme
 
-class MainActivity : ComponentActivity() {
+class ChooseRegisterActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
             BlumeMobileTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Main(
-                        modifier = Modifier.padding(innerPadding),
+                    Greeting(
+                        name = "Android",
+                        modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
@@ -32,17 +30,15 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 @Composable
-fun Main(modifier: Modifier = Modifier) {
-
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    ChooseRegister()
 }
 
-@Preview(showSystemUi = true, showBackground = true)
+@Preview(showBackground = true)
 @Composable
-fun PreviewMain() {
+fun GreetingPreview2() {
     BlumeMobileTheme {
-        Main()
+        Greeting("Android")
     }
 }
-

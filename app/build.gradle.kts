@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation("androidx.compose.ui:ui-text-google-fonts:1.6.8")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)

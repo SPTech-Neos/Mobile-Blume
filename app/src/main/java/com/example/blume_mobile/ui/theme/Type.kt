@@ -46,6 +46,9 @@ val poppins = FontFamily(
     Font(R.font.poppins_semibold, FontWeight.SemiBold),
 )
 
+val unica = FontFamily(
+    Font(R.font.unica_one, FontWeight.Bold)
+)
 
 
 //val JosefinTypography = Typography(
