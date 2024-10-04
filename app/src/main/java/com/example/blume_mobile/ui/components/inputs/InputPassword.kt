@@ -1,4 +1,4 @@
-package com.example.blume_mobile.ui.components.Inputs
+package com.example.blume_mobile.ui.components.inputs
 
 import androidx.compose.runtime.Composable
 

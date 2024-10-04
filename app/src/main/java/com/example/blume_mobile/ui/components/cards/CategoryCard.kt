@@ -25,7 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.blume_mobile.R
-import com.example.blume_mobile.ui.theme.Black700
+import com.example.blume_mobile.ui.theme.Gray700
 import com.example.blume_mobile.ui.theme.Green50
 import com.example.blume_mobile.ui.theme.Violet50
 import com.example.blume_mobile.ui.theme.Violet500

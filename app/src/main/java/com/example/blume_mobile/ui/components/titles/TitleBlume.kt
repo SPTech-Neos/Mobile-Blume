@@ -1,4 +1,4 @@
-package com.example.blume_mobile.ui.components.Titles
+package com.example.blume_mobile.ui.components.titles
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

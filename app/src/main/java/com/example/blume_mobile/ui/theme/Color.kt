@@ -10,7 +10,6 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val Black700 = Color(0xFF303030)
 
 val Green50 = Color(0xFF96FFA0)
 
@@ -18,3 +17,5 @@ val Violet50 = Color(0xFFD4D6FF)
 val Violet500 = Color(0xFF7F5DE2)
 
 val Yellow50 = Color(0xFFF2D17B)
+val Gray100 = Color(0xFFFAFAFA)
+val Gray700 = Color(0xFF070707)

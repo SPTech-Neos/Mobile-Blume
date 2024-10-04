@@ -1,6 +1,7 @@
 package com.example.blume_mobile.ui.screens
 
 import android.content.Intent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,7 @@ import com.example.blume_mobile.R
 import com.example.blume_mobile.ui.activties.RegisterActivity
 import com.example.blume_mobile.ui.components.cards.ChooseProfileClient
 import com.example.blume_mobile.ui.components.cards.ChooseProfileEmployee
+import com.example.blume_mobile.ui.theme.Gray100
 import com.example.blume_mobile.ui.theme.poppins
 import org.w3c.dom.Text
 
@@ -36,6 +38,7 @@ fun ChooseRegister(){
             .fillMaxWidth()
             .fillMaxHeight()
             .padding(top = 30.dp)
+            .background(Gray100)
         ,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally

@@ -1,4 +1,4 @@
-package com.example.blume_mobile.utils.masks
+package com.example.blume_mobile.ui.masks
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping

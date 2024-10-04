@@ -4,20 +4,25 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.blume_mobile.ui.components.navigation.BottomNav
-import com.example.blume_mobile.ui.screens.Feed
+import com.example.blume_mobile.ui.screens.FeedScreen
 import com.example.blume_mobile.ui.theme.BlumeMobileTheme
+import com.example.blume_mobile.ui.viewModels.FeedScreenViewModel
+import kotlinx.coroutines.DelicateCoroutinesApi
+
 
 class FeedActivity : ComponentActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,8 +35,9 @@ class FeedActivity : ComponentActivity() {
                     Scaffold(
                         bottomBar = { BottomNav() }
                     ) { innerPadding ->
-                        FeedActivity(
-                            name = "Android",
+                        val viewModel by viewModels<FeedScreenViewModel>()
+                        Feed(
+                            viewModel = viewModel,
                             modifier = Modifier.padding(innerPadding)
                         )
                     }
@@ -42,8 +48,8 @@ class FeedActivity : ComponentActivity() {
 }
 
 @Composable
-fun FeedActivity(name: String, modifier: Modifier = Modifier) {
-    Feed()
+fun Feed(viewModel: FeedScreenViewModel, modifier: Modifier = Modifier) {
+    FeedScreen(viewModel)
 }
 
 @Preview(showBackground = true, showSystemUi = true)

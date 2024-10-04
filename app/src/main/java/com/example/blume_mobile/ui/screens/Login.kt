@@ -15,10 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,19 +25,28 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.blume_mobile.R
-import com.example.blume_mobile.ui.components.Buttons.CustomButton
-import com.example.blume_mobile.ui.components.Inputs.InputEmail
-import com.example.blume_mobile.ui.components.Inputs.InputText
+import com.example.blume_mobile.ui.components.buttons.CustomButton
+import com.example.blume_mobile.ui.components.inputs.InputEmail
+import com.example.blume_mobile.ui.components.inputs.InputText
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import com.example.blume_mobile.ui.activties.ChooseRegisterActivity
 import com.example.blume_mobile.ui.activties.FeedActivity
+import com.example.blume_mobile.ui.states.LoginScreenUiState
+import com.example.blume_mobile.ui.viewModels.LoginScreenViewModel
 
 @Composable
-fun Login(){
+fun LoginScreen(viewModel: LoginScreenViewModel){
 
-    var email by remember{ mutableStateOf("") }
-    var senha by remember{ mutableStateOf("") }
+    val state by viewModel.uiState.collectAsState()
+    LoginScreen(state = state)
+}
+
+@Composable
+fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState()){
+
+    val email = state.email
+    val password = state.password
     val contexto = LocalContext.current
     
 
@@ -85,8 +92,8 @@ fun Login(){
                     .fillMaxHeight(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                InputEmail(textValue = email, placeholder = "example@email.com", label = "Email")
-                InputText(textValue = senha, 8, "senha", "Senha", "sS3nh@a1")
+                InputEmail(text = email, placeholder = "example@email.com", label = "Email", state.onEmailChange)
+                InputText(textValue = password, 8, "senha", "Senha", "sS3nh@a1", state.onPasswordChange)
                 CustomButton("Entrar", 400){
                     val nextScreen = Intent(contexto, FeedActivity::class.java)
 
@@ -123,5 +130,5 @@ fun Login(){
 @Preview
 @Composable
 fun LoginPreview(){
-    Login()
+    LoginScreen(LoginScreenUiState())
 }

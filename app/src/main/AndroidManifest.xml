@@ -7,6 +7,7 @@
     />
     <application
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/blume"
@@ -42,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activties.MainActivity"
             android:exported="true"
             android:label="Blume"
             android:theme="@style/Theme.BlumeMobile" />

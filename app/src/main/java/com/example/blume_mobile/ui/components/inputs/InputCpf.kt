@@ -1,4 +1,4 @@
-package com.example.blume_mobile.ui.components.Inputs
+package com.example.blume_mobile.ui.components.inputs
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -17,7 +17,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
-import com.example.blume_mobile.utils.masks.CpfMask
+import com.example.blume_mobile.ui.masks.CpfMask
 
 @Composable
 fun InputCpf(textValue: String, placeholder: String, label: String){

@@ -1,7 +1,7 @@
-package com.example.blume_mobile.ui.components.Inputs
+package com.example.blume_mobile.ui.components.inputs
 
+import android.util.Patterns
 import androidx.compose.foundation.clickable
-
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
@@ -17,27 +17,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import com.example.blume_mobile.ui.theme.poppins
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
-
-fun validTextError(text: String, qtdCaracteres: Int): Boolean{
-    return text.isNotBlank() && text.length < qtdCaracteres
+fun validEmail(email: String): Boolean{
+    return false
 }
 
 @Composable
-fun Input(textValue: String, type: String, label: String, placeholder: String, qtdCaracteres: Int){
-
+fun InputEmail(text: String, placeholder: String, label: String, onChangeValue: (String) -> Unit = {}){
     var showText by remember {
         mutableStateOf(true)
-    }
-    var text by remember {
-        mutableStateOf(textValue)
     }
     var isError by remember {
         mutableStateOf(false)
@@ -46,50 +38,47 @@ fun Input(textValue: String, type: String, label: String, placeholder: String, q
         mutableStateOf("")
     }
 
-    if(validTextError(text, qtdCaracteres)){
-        isError = true
-        errorMessage = "Digite no mínimo $qtdCaracteres caracteres"
 
+    if(text.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(text).matches()){
+        isError = true
+        errorMessage = "Insira um email válido!"
     }else{
         isError = false
         errorMessage = ""
     }
 
-    if(type.lowercase() == "senha") {
-        showText = false
-        if (isError) {
-            errorMessage += ", sua senha deve conter também 1 letra maiúscula, 1 número e um caracter especial"
-        }
-    }
-
-
     OutlinedTextField(
         modifier = Modifier,
         value = text,
-        onValueChange = { text = it },
+        onValueChange = { onChangeValue(it) },
         maxLines = 1,
         colors = OutlinedTextFieldDefaults.colors(
-          focusedBorderColor = Color(150, 154, 255),
-          focusedTextColor = Color(150, 154, 255),
-          focusedLabelColor = Color(150, 154, 255),
+            focusedBorderColor = Color(150, 154, 255),
+            focusedTextColor = Color(150, 154, 255),
+            focusedLabelColor = Color(150, 154, 255),
 
-        ),
-        placeholder = {Text(
+            ),
+        placeholder = {
+            Text(
             modifier = Modifier,
             text = placeholder,
             style = TextStyle(
                 fontSize = 12.sp,
                 color = Color.Gray
             ),
-        )},
+        )
+        },
         shape = RoundedCornerShape(12.dp),
-        label = {Text(
+        label = {
+            Text(
             modifier = Modifier,
             text = label,
-            fontFamily = poppins,
-            fontWeight = FontWeight.Light,
-            fontSize = 12.sp
-        )},
+            style = TextStyle(
+                fontSize = 12.sp,
+                color = Color.Black
+            ),
+        )
+        },
         trailingIcon = {
             if(!showText){
                 Icon(
@@ -106,10 +95,4 @@ fun Input(textValue: String, type: String, label: String, placeholder: String, q
         },
         isError = isError,
     )
-}
-
-@Composable
-@Preview
-fun InputPreview(){
-    Input("Kevin", "Teste", "Senha","Ex: Kevin Rodrigues da Silva", 8)
 }

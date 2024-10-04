@@ -2,6 +2,7 @@ package com.example.blume_mobile.ui.screens
 
 
 import android.content.Intent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,13 +27,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.blume_mobile.R
 import com.example.blume_mobile.ui.activties.Register2Activity
-import com.example.blume_mobile.ui.components.Buttons.CancelButton
-import com.example.blume_mobile.ui.components.Buttons.CustomButton
-import com.example.blume_mobile.ui.components.Inputs.InputCpf
-import com.example.blume_mobile.ui.components.Inputs.InputEmail
-import com.example.blume_mobile.ui.components.Inputs.InputPhone
-import com.example.blume_mobile.ui.components.Inputs.InputText
-import com.example.blume_mobile.ui.components.Titles.Title
+import com.example.blume_mobile.ui.components.buttons.CancelButton
+import com.example.blume_mobile.ui.components.buttons.CustomButton
+import com.example.blume_mobile.ui.components.inputs.InputCpf
+import com.example.blume_mobile.ui.components.inputs.InputEmail
+import com.example.blume_mobile.ui.components.inputs.InputPhone
+import com.example.blume_mobile.ui.components.inputs.InputText
+import com.example.blume_mobile.ui.components.titles.Title
+import com.example.blume_mobile.ui.theme.Gray100
 
 @Composable
 fun Register(modifier: Modifier) {
@@ -48,7 +50,8 @@ fun Register(modifier: Modifier) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .background(Gray100),
         verticalArrangement = Arrangement.Top
     ) {
             Column(
@@ -103,7 +106,7 @@ fun Register(modifier: Modifier) {
                         )
 
                         InputEmail(
-                            textValue = email,
+                            text = email,
                             "Ex: example@email.com",
                             "Email",
                         )

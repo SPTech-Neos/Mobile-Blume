@@ -1,4 +1,4 @@
-package com.example.blume_mobile.ui.components.Buttons
+package com.example.blume_mobile.ui.components.buttons
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

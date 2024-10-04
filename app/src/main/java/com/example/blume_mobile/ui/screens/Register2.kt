@@ -1,6 +1,7 @@
 package com.example.blume_mobile.ui.screens
 
 import android.content.Intent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,11 +28,12 @@ import androidx.compose.ui.unit.sp
 import com.example.blume_mobile.R
 import com.example.blume_mobile.ui.activties.LoginActivity
 import com.example.blume_mobile.ui.activties.RegisterActivity
-import com.example.blume_mobile.ui.components.Buttons.CancelButton
-import com.example.blume_mobile.ui.components.Buttons.CustomButton
-import com.example.blume_mobile.ui.components.Inputs.InputText
-import com.example.blume_mobile.ui.components.Titles.Title
+import com.example.blume_mobile.ui.components.buttons.CancelButton
+import com.example.blume_mobile.ui.components.buttons.CustomButton
+import com.example.blume_mobile.ui.components.inputs.InputText
+import com.example.blume_mobile.ui.components.titles.Title
 import com.example.blume_mobile.ui.theme.BlumeMobileTheme
+import com.example.blume_mobile.ui.theme.Gray100
 
 @Composable
 fun RegisterOpcional(){
@@ -47,6 +49,7 @@ fun RegisterOpcional(){
         Modifier
             .fillMaxWidth()
             .fillMaxHeight()
+            .background(Gray100)
         ,
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally

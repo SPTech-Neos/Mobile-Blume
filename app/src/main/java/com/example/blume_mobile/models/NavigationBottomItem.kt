@@ -1,4 +1,4 @@
-package com.example.blume_mobile.model
+package com.example.blume_mobile.models
 
 import androidx.compose.ui.graphics.painter.Painter
 

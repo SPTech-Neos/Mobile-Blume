@@ -1,4 +1,4 @@
-package com.example.blume_mobile.ui.components.Titles
+package com.example.blume_mobile.ui.components.titles
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
