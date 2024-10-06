@@ -21,16 +21,23 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.blume_mobile.ui.masks.PlaceholderTransformation
+import com.example.blume_mobile.ui.theme.Gray100
+import com.example.blume_mobile.ui.theme.Gray500
+import com.example.blume_mobile.ui.theme.Gray700
+import com.example.blume_mobile.ui.theme.josefin
 
-fun validEmail(email: String): Boolean{
+fun validEmail(email: String): Boolean {
     return false
 }
 
 @Composable
-fun InputEmail(text: String, placeholder: String, label: String, onChangeValue: (String) -> Unit = {}){
-    var showText by remember {
-        mutableStateOf(true)
-    }
+fun InputEmail(
+    text: String,
+    placeholder: String,
+    label: String,
+    onChangeValue: (String) -> Unit = {}
+) {
     var isError by remember {
         mutableStateOf(false)
     }
@@ -38,11 +45,10 @@ fun InputEmail(text: String, placeholder: String, label: String, onChangeValue: 
         mutableStateOf("")
     }
 
-
-    if(text.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(text).matches()){
+    if (text.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(text).matches()) {
         isError = true
         errorMessage = "Insira um email válido!"
-    }else{
+    } else {
         isError = false
         errorMessage = ""
     }
@@ -56,40 +62,35 @@ fun InputEmail(text: String, placeholder: String, label: String, onChangeValue: 
             focusedBorderColor = Color(150, 154, 255),
             focusedTextColor = Color(150, 154, 255),
             focusedLabelColor = Color(150, 154, 255),
-
-            ),
+            cursorColor = Color(150, 154, 255),
+            errorTextColor = Color.Red,
+            unfocusedTextColor = Gray500,
+        ),
         placeholder = {
             Text(
-            modifier = Modifier,
-            text = placeholder,
-            style = TextStyle(
-                fontSize = 12.sp,
-                color = Color.Gray
-            ),
-        )
+                modifier = Modifier,
+                text = placeholder,
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    color = Gray700
+                ),
+            )
         },
         shape = RoundedCornerShape(12.dp),
         label = {
             Text(
-            modifier = Modifier,
-            text = label,
-            style = TextStyle(
-                fontSize = 12.sp,
-                color = Color.Black
-            ),
-        )
+                modifier = Modifier,
+                text = label,
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    color = Gray700,
+                    fontFamily = josefin
+                ),
+            )
         },
-        trailingIcon = {
-            if(!showText){
-                Icon(
-                    Icons.Default.Lock,
-                    contentDescription = "",
-                    tint = Color.Black,
-                    modifier = Modifier.clickable { showText = true }
-                )
-            }
-        },
-        visualTransformation = if(showText) VisualTransformation.None else PasswordVisualTransformation(),
+        visualTransformation = if (text.isEmpty())
+            PlaceholderTransformation("example@email.com")
+        else VisualTransformation.None,
         supportingText = {
             Text(text = errorMessage, style = TextStyle(color = Color.Red))
         },

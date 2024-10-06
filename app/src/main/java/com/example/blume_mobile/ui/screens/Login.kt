@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import com.example.blume_mobile.ui.activties.ChooseRegisterActivity
 import com.example.blume_mobile.ui.activties.FeedActivity
 import com.example.blume_mobile.ui.states.LoginScreenUiState
+import com.example.blume_mobile.ui.theme.Gray700
 import com.example.blume_mobile.ui.viewModels.LoginScreenViewModel
 
 @Composable
@@ -80,11 +82,16 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState()){
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .padding(60.dp)
+                .padding(30.dp)
             ,
             verticalArrangement = Arrangement.Top,
         ) {
-            Text("Entre na sua conta:")
+            Box(
+                Modifier.padding(horizontal = 30.dp)
+            ){
+                Text("Entre na sua conta:", color = Gray700)
+            }
+
             Spacer(modifier = Modifier.height(40.dp))
             Column(
                 modifier = Modifier
@@ -93,8 +100,8 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState()){
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 InputEmail(text = email, placeholder = "example@email.com", label = "Email", state.onEmailChange)
-                InputText(textValue = password, 8, "senha", "Senha", "sS3nh@a1", state.onPasswordChange)
-                CustomButton("Entrar", 400){
+                InputText(textValue = password, 8, "senha", "Senha", "********", state.onPasswordChange)
+                CustomButton("Entrar", 280){
                     val nextScreen = Intent(contexto, FeedActivity::class.java)
 
                     contexto.startActivity(nextScreen)
@@ -102,10 +109,11 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState()){
 
                 Spacer(modifier = Modifier.height(120.dp))
                 Row(
+                    Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ){
-                    Text("Não tem conta ainda?")
+                    Text("Não tem conta ainda?", color = Gray700)
                     Text(" Crie uma conta!",
                         Modifier.clickable(enabled = true) {
                             val nextScreen = Intent(contexto, ChooseRegisterActivity::class.java)

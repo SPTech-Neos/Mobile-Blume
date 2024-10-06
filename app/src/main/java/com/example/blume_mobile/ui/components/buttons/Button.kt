@@ -26,7 +26,8 @@ fun CustomButton(text: String, width: Int, onClick: ()-> Unit){
             text = text.uppercase(),
             style = TextStyle(
                 fontSize = 15.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.White
             )
         )
     }
