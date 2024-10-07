@@ -35,7 +35,8 @@
             android:name=".ui.activties.LoginActivity"
             android:exported="true"
             android:label="Blume"
-            android:theme="@style/Theme.BlumeMobile">
+            android:theme="@style/Theme.BlumeMobile"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.blume_mobile.R
+import com.example.blume_mobile.ui.theme.Gray700
 import com.example.blume_mobile.ui.theme.Violet50
 import com.example.blume_mobile.ui.theme.Green50
 import com.example.blume_mobile.ui.theme.poppins
@@ -74,7 +75,8 @@ fun ChooseProfileClient(onClick: () -> Unit){
         ){
             Text("Cliente", style = TextStyle(
                 fontFamily = poppins,
-                fontWeight = FontWeight.SemiBold)
+                fontWeight = FontWeight.SemiBold),
+                color = Gray700
             )
         }
     }
@@ -106,7 +108,7 @@ fun ChooseProfileEmployee(onClick : () -> Unit ){
                 .offset(0.dp, (-30).dp)
                 .zIndex(1f)
                 .paint(
-                    painterResource(id = R.mipmap.employee_choose),
+                    painterResource(id = R.drawable.employee_choose),
                     contentScale = ContentScale.FillBounds,
                 )
         ){}
@@ -122,7 +124,8 @@ fun ChooseProfileEmployee(onClick : () -> Unit ){
         ){
             Text("Estabelecimento", style = TextStyle(
                 fontFamily = poppins,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                color = Gray700
             ))
         }
     }
@@ -134,7 +137,7 @@ fun ChoosePreview(){
     Row(
         Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
     ){
-        ChooseProfileClient({})
-        ChooseProfileEmployee({})
+        ChooseProfileClient(){}
+        ChooseProfileEmployee(){}
     }
 }

@@ -25,6 +25,7 @@ import com.example.blume_mobile.ui.activties.RegisterActivity
 import com.example.blume_mobile.ui.components.cards.ChooseProfileClient
 import com.example.blume_mobile.ui.components.cards.ChooseProfileEmployee
 import com.example.blume_mobile.ui.theme.Gray100
+import com.example.blume_mobile.ui.theme.Gray700
 import com.example.blume_mobile.ui.theme.poppins
 import org.w3c.dom.Text
 
@@ -32,12 +33,10 @@ import org.w3c.dom.Text
 fun ChooseRegister(){
     val contexto = LocalContext.current
 
-
     Column(
         Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .padding(top = 30.dp)
             .background(Gray100)
         ,
         verticalArrangement = Arrangement.Center,
@@ -45,7 +44,7 @@ fun ChooseRegister(){
     ){
         Column(
             Modifier
-                .fillMaxHeight(0.55f)
+                .fillMaxHeight(0.6f)
                 .fillMaxWidth()
             ,
             verticalArrangement = Arrangement.SpaceAround,
@@ -53,8 +52,8 @@ fun ChooseRegister(){
         ){
             Column(
                 Modifier
-                    .fillMaxWidth(0.7f)
-                    .fillMaxHeight(0.3f)
+                    .fillMaxWidth(0.75f)
+                    .fillMaxHeight(0.32f)
                 ,
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -65,14 +64,16 @@ fun ChooseRegister(){
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp,
                         textAlign = TextAlign.Center,
-                        fontFamily = poppins
+                        fontFamily = poppins,
+                        color = Gray700
                     )
                 )
                 Text(
                     stringResource(R.string.choose_register_text),
                     style = TextStyle(
                         textAlign = TextAlign.Center,
-                        fontFamily = poppins
+                        fontFamily = poppins,
+                        color = Gray700
                     )
                 )
             }
@@ -94,7 +95,6 @@ fun ChooseRegister(){
                 }
 
                 ChooseProfileEmployee(
-
                 ){
 
                 }
