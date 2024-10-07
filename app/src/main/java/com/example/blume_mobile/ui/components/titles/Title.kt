@@ -16,17 +16,19 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.blume_mobile.ui.theme.poppins
 
 @Composable
 fun Title(text: String){
     Row(
-        horizontalArrangement = Arrangement.SpaceAround,
+        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth(0.8f)
+        modifier = Modifier.fillMaxWidth(0.8f),
+
     ){
         Box(
             modifier = Modifier
-                .width(65.dp)
+                .width(45.dp)
                 .height(2.dp)
                 .background(Color(150, 154, 255))
         ){}
@@ -34,15 +36,16 @@ fun Title(text: String){
         Text(
             text = text.uppercase(),
             style = TextStyle(
-                fontSize = 30.sp,
+                fontSize = 25.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold,
+                fontFamily = poppins
             ),
         )
 
         Box(
             modifier = Modifier
-                .width(65.dp)
+                .width(45.dp)
                 .height(2.dp)
                 .background(Color(150, 154, 255))
         ){}

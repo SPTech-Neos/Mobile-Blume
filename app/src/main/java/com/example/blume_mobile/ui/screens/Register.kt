@@ -8,8 +8,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.blume_mobile.R
 import com.example.blume_mobile.ui.activties.Register2Activity
@@ -34,17 +38,26 @@ import com.example.blume_mobile.ui.components.inputs.InputEmail
 import com.example.blume_mobile.ui.components.inputs.InputPhone
 import com.example.blume_mobile.ui.components.inputs.InputText
 import com.example.blume_mobile.ui.components.titles.Title
+import com.example.blume_mobile.ui.states.RegisterScreenUiState
 import com.example.blume_mobile.ui.theme.Gray100
+import com.example.blume_mobile.ui.viewModels.RegisterScreenViewModel
 
 @Composable
-fun Register(modifier: Modifier) {
+fun Register(viewModel: RegisterScreenViewModel){
+    val state by viewModel.uiState.collectAsState()
 
-    var nome by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var senha by remember { mutableStateOf("") }
-    var confirmarSenha by remember { mutableStateOf("") }
-    var cpf by remember { mutableStateOf("") }
-    var telefone by remember { mutableStateOf("") }
+    Register(state = state)
+}
+
+@Composable
+fun Register(state: RegisterScreenUiState) {
+
+    val nome = state.name
+    val email = state.email
+    val senha = state.password
+    val confirmarSenha = state.confirmPassword
+    val cpf = state.cpf
+    val telefone = state.phone
     val contexto = LocalContext.current
 
     Column(
@@ -61,7 +74,8 @@ fun Register(modifier: Modifier) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Box(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .fillMaxHeight(0.2f)
                         .paint(
                             painterResource(id = R.drawable.arch_top),
@@ -71,18 +85,18 @@ fun Register(modifier: Modifier) {
 
                     Column(
                         modifier = Modifier
+                            .padding(top = 40.dp)
                             .fillMaxWidth()
-                            .fillMaxHeight(),
-                        verticalArrangement = Arrangement.Bottom,
+                            .heightIn(100.dp, 150.dp),
+                        verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Title(text = "CADASTRO")
                     }
                 }
                 Column(
-                    modifier = Modifier.fillMaxHeight(0.93f),
+                    modifier = Modifier.fillMaxHeight(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Bottom
                 ){
                     Text(
                         text = "OBRIGATÓRIO",
@@ -93,8 +107,9 @@ fun Register(modifier: Modifier) {
                         ),
                     )
                     Column(
-                        modifier = Modifier.fillMaxHeight(0.83f),
-                        verticalArrangement = Arrangement.Center
+                        modifier = Modifier.fillMaxHeight(0.95f),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Bottom
                     ){
 
                         InputText(
@@ -102,50 +117,59 @@ fun Register(modifier: Modifier) {
                             5,
                             "Text",
                             "Nome completo",
-                            "Ex: Kevin Rodrigues da Silva"
+                            "Ex: Kevin Rodrigues da Silva" ,
+                            state.onNameChange
                         )
 
                         InputEmail(
                             text = email,
                             "Ex: example@email.com",
                             "Email",
+                            state.onEmailChange
                         )
+
 
                         InputText(
                             textValue = senha,
                             8,
                             "Senha",
                             "Senha",
-                            "Ex: sS3nh@a1"
+                            "Ex: sS3nh@a1",
+                            state.onPasswordChange
                         )
+
 
                         InputText(
                             textValue = confirmarSenha,
                             8,
                             "Senha",
                             "Confirmar senha",
-                            "Ex: sS3nh@a1"
+                            "Ex: sS3nh@a1",
+                            state.onConfirmPasswordChange
                         )
 
                         InputCpf(
-                            textValue = cpf,
+                            text = cpf,
                             "Ex: 000.000.000-00",
-                            "CPF"
+                            "CPF",
+                            state.onCpfChange
                         )
 
                         InputPhone(
-                            textValue = telefone,
+                            text = telefone,
                             "Ex: (11) 93335-7637",
                             "Telefone",
+                            state.onPhoneChange
                         )
+
+                        CustomButton("Próximo", 200){
+                            val nextScreen = Intent(contexto, Register2Activity::class.java)
+
+                            contexto.startActivity(nextScreen)
+                        }
+                        CancelButton(text = "Cancelar", 40){}
                     }
 
-                    CustomButton("Próximo", 200){
-                        val nextScreen = Intent(contexto, Register2Activity::class.java)
-
-                        contexto.startActivity(nextScreen)
-                    }
-                    CancelButton(text = "Cancelar", 40){}
 
                 }
             }
@@ -156,5 +180,5 @@ fun Register(modifier: Modifier) {
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun RegisterPreview(){
-    Register(modifier = Modifier)
+    Register(state = RegisterScreenUiState())
 }

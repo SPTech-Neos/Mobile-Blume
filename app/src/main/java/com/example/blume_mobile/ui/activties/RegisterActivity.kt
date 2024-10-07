@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.blume_mobile.ui.screens.Register
 import com.example.blume_mobile.ui.theme.BlumeMobileTheme
+import com.example.blume_mobile.ui.viewModels.RegisterScreenViewModel
 
 class RegisterActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,8 +29,10 @@ class RegisterActivity : ComponentActivity() {
         setContent {
             BlumeMobileTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    val viewModel by viewModels<RegisterScreenViewModel>()
                     RegisterScreen(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
+                        viewModel = viewModel
                     )
                 }
             }
@@ -37,18 +41,13 @@ class RegisterActivity : ComponentActivity() {
 }
 
 @Composable
-fun RegisterScreen(modifier: Modifier = Modifier){
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.Top
-    ) {
-        Register(modifier)
-    }
+fun RegisterScreen(modifier: Modifier = Modifier, viewModel: RegisterScreenViewModel){
+    Register(viewModel)
 }
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun RegisterScreenPreview() {
     BlumeMobileTheme {
-        RegisterScreen()
+        RegisterScreen(viewModel = RegisterScreenViewModel())
     }
 }

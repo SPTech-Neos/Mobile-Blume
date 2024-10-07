@@ -132,11 +132,11 @@ fun Input(
         },
         visualTransformation =
         if (text.isEmpty()) PlaceholderTransformation(placeholder) else
-            if (showPassword) {
-                VisualTransformation.None
+            if (!showPassword && type.lowercase() == "senha") {
+                PasswordVisualTransformation()
 
             } else {
-                PasswordVisualTransformation()
+                VisualTransformation.None
             },
         supportingText = {
             Text(text = errorMessage, style = TextStyle(color = Color.Red))
