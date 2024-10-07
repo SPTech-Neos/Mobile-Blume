@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -29,7 +32,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import com.example.blume_mobile.R
+import com.example.blume_mobile.ui.activties.ChooseRegisterActivity
+import com.example.blume_mobile.ui.activties.LoginActivity
 import com.example.blume_mobile.ui.activties.Register2Activity
 import com.example.blume_mobile.ui.components.buttons.CancelButton
 import com.example.blume_mobile.ui.components.buttons.CustomButton
@@ -64,19 +70,22 @@ fun Register(state: RegisterScreenUiState) {
         modifier = Modifier
             .fillMaxHeight()
             .fillMaxWidth()
-            .background(Gray100),
+            .background(Gray100)
+            ,
         verticalArrangement = Arrangement.Top
     ) {
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .imePadding()
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(0.2f)
+                        .heightIn(100.dp, 150.dp)
                         .paint(
                             painterResource(id = R.drawable.arch_top),
                             contentScale = ContentScale.FillBounds
@@ -167,7 +176,11 @@ fun Register(state: RegisterScreenUiState) {
 
                             contexto.startActivity(nextScreen)
                         }
-                        CancelButton(text = "Cancelar", 40){}
+                        CancelButton(text = "Cancelar", 40){
+                            val previous = Intent(contexto, ChooseRegisterActivity::class.java)
+
+                            contexto.startActivity(previous)
+                        }
                     }
 
 

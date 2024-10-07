@@ -52,7 +52,9 @@
             android:name=".ui.activties.RegisterActivity"
             android:exported="true"
             android:label="Blume"
-            android:theme="@style/Theme.BlumeMobile" />
+            android:theme="@style/Theme.BlumeMobile"
+            android:windowSoftInputMode="adjustResize"
+            />
 
         <meta-data
             android:name="preloaded_fonts"

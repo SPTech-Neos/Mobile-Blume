@@ -63,7 +63,7 @@ fun CancelButton(text: String, width: Int, onClick: () -> Unit){
 
                 Row(
                     Modifier.clickable(enabled = true) {
-                    onClick
+                    onClick()
                 }
                 ){
                     Column(
