@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
@@ -33,8 +34,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import com.example.blume_mobile.ui.activties.ChooseRegisterActivity
 import com.example.blume_mobile.ui.activties.FeedActivity
+import com.example.blume_mobile.ui.components.titles.TitleBlume
 import com.example.blume_mobile.ui.states.LoginScreenUiState
 import com.example.blume_mobile.ui.theme.Gray700
+import com.example.blume_mobile.ui.theme.poppins
 import com.example.blume_mobile.ui.viewModels.LoginScreenViewModel
 
 @Composable
@@ -60,22 +63,29 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState()){
         ,
         verticalArrangement = Arrangement.SpaceAround
     ){
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.3f)
             ,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.spacedBy(20.dp, alignment = Alignment.CenterHorizontally),
+            verticalAlignment = Alignment.CenterVertically
 
         ){
-            Image(
-                painter = painterResource(
-                    id = R.mipmap.blumelogotipo
-                ),
-                contentDescription = "Logo Blume",
-                modifier = Modifier.size(240.dp)
-            )
+            Column(
+                Modifier.heightIn(100.dp, 150.dp),
+                verticalArrangement = Arrangement.Bottom
+            ){
+                Image(painter = painterResource(R.drawable.logopart1), contentDescription = "Figura geométrica da logo")
+            }
+            TitleBlume()
+            Column(
+                Modifier
+                    .heightIn(100.dp, 150.dp)
+                ,
+            ){
+                Image(painter = painterResource(R.drawable.logopart2), contentDescription = "Figura geométrica da logo")
+            }
         }
 
         Column(
@@ -87,9 +97,15 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState()){
             verticalArrangement = Arrangement.Top,
         ) {
             Box(
-                Modifier.padding(horizontal = 30.dp)
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
             ){
-                Text("Entre na sua conta:", color = Gray700)
+                Text(
+                    "Entre na sua conta:",
+                    color = Gray700,
+                    fontSize = 20.sp,
+                    fontFamily = poppins,
+                )
             }
 
             Spacer(modifier = Modifier.height(40.dp))
