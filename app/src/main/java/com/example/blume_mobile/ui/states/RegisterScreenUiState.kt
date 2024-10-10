@@ -1,5 +1,7 @@
 package com.example.blume_mobile.ui.states
 
+import android.net.Uri
+
 data class RegisterScreenUiState(
     val name: String = "",
     val email: String = "",
@@ -12,6 +14,8 @@ data class RegisterScreenUiState(
     val number: String = "",
     val complement: String = "",
     val countryState: String = "",
+    val url: Uri? = null,
+    val onUrlChange: (Uri) -> Unit = {},
     val onNameChange: (String) -> Unit = {},
     val onEmailChange: (String) -> Unit = {},
     val onPasswordChange: (String) -> Unit = {},

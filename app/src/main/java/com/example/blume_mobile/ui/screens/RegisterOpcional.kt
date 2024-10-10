@@ -55,6 +55,7 @@ fun RegisterOpcional(state: RegisterScreenUiState){
     val number = state.number
     val complement = state.complement
     val countryState = state.countryState
+    val url = state.url
     val contexto = LocalContext.current
 
 
@@ -86,7 +87,7 @@ fun RegisterOpcional(state: RegisterScreenUiState){
             ){
                 Title(text = "Cadastro")
                 Stepper(position = 2)
-                PhotoSelector()
+                PhotoSelector(url, state.onUrlChange)
                 Text("OPCIONAL",
                     style = TextStyle(
                         fontSize = 20.sp,

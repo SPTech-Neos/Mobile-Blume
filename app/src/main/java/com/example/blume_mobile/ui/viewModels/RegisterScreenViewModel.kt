@@ -1,5 +1,7 @@
 package com.example.blume_mobile.ui.viewModels
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModel
 import com.example.blume_mobile.ui.states.RegisterScreenUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -69,6 +71,12 @@ class RegisterScreenViewModel: ViewModel() {
                 onCountryStateChange = {
                     _uiState.value = _uiState.value.copy(
                         countryState = it
+                    )
+                },
+                onUrlChange = {
+
+                    _uiState.value = _uiState.value.copy(
+                        url = it
                     )
                 }
             )

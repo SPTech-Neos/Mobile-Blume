@@ -114,12 +114,10 @@ fun UploadPicker(onClick: () -> Unit = {}) {
 }
 
 @Composable
-fun PhotoSelector() {
-    var url: Uri? by remember { mutableStateOf(null) }
-
+fun PhotoSelector(urlState: Uri?, onUrlChange:(Uri) -> Unit = {}) {
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         //When the user has selected a photo, its URL is returned here
-        url = uri
+        onUrlChange(uri!!)
     }
 
     Row(
@@ -134,7 +132,7 @@ fun PhotoSelector() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
-            ImagePreview(url)
+            ImagePreview(urlState)
             Text(
                 "Foto de Perfil", style = TextStyle(
                     color = Gray700,
@@ -149,7 +147,7 @@ fun PhotoSelector() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
-            if (url == null) {
+            if (urlState == null) {
                 Text(
                     "nenhum arquivo selecionado", style = TextStyle(
                         fontFamily = poppins,
@@ -162,7 +160,7 @@ fun PhotoSelector() {
             UploadPicker(){
                 launcher.launch(
                     PickVisualMediaRequest(
-                    mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly
+                        mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly
                     )
                 )
             }
@@ -174,5 +172,5 @@ fun PhotoSelector() {
 @Preview
 @Composable
 fun PhotoPickerPreview() {
-    PhotoSelector()
+    PhotoSelector(null)
 }
