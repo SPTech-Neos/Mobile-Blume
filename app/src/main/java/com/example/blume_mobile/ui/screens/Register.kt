@@ -43,6 +43,7 @@ import com.example.blume_mobile.ui.components.inputs.InputCpf
 import com.example.blume_mobile.ui.components.inputs.InputEmail
 import com.example.blume_mobile.ui.components.inputs.InputPhone
 import com.example.blume_mobile.ui.components.inputs.InputText
+import com.example.blume_mobile.ui.components.stepper.Stepper
 import com.example.blume_mobile.ui.components.titles.Title
 import com.example.blume_mobile.ui.states.RegisterScreenUiState
 import com.example.blume_mobile.ui.theme.Gray100
@@ -85,7 +86,7 @@ fun Register(state: RegisterScreenUiState) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(100.dp, 150.dp)
+                        .heightIn(100.dp, 130.dp)
                         .paint(
                             painterResource(id = R.drawable.arch_top),
                             contentScale = ContentScale.FillBounds
@@ -94,29 +95,31 @@ fun Register(state: RegisterScreenUiState) {
 
                     Column(
                         modifier = Modifier
-                            .padding(top = 40.dp)
+                            .padding(top = 30.dp)
                             .fillMaxWidth()
-                            .heightIn(100.dp, 150.dp),
+                            .heightIn(100.dp),
                         verticalArrangement = Arrangement.Center,
+
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Title(text = "CADASTRO")
                     }
                 }
                 Column(
-                    modifier = Modifier.fillMaxHeight(),
                     horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ){
+                    Stepper()
                     Text(
                         text = "OBRIGATÓRIO",
                         style = TextStyle(
-                            fontSize = 15.sp,
+                            fontSize = 24.sp,
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
                         ),
                     )
                     Column(
-                        modifier = Modifier.fillMaxHeight(0.95f),
+                        modifier = Modifier,
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Bottom
                     ){

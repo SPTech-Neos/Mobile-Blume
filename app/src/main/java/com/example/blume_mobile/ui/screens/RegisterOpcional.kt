@@ -9,11 +9,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.blume_mobile.R
 import com.example.blume_mobile.ui.activties.LoginActivity
@@ -31,17 +32,29 @@ import com.example.blume_mobile.ui.activties.RegisterActivity
 import com.example.blume_mobile.ui.components.buttons.CancelButton
 import com.example.blume_mobile.ui.components.buttons.CustomButton
 import com.example.blume_mobile.ui.components.inputs.InputText
+import com.example.blume_mobile.ui.components.stepper.Stepper
 import com.example.blume_mobile.ui.components.titles.Title
+import com.example.blume_mobile.ui.photoPicker.PhotoSelector
+import com.example.blume_mobile.ui.states.RegisterScreenUiState
 import com.example.blume_mobile.ui.theme.BlumeMobileTheme
 import com.example.blume_mobile.ui.theme.Gray100
+import com.example.blume_mobile.ui.theme.poppins
+import com.example.blume_mobile.ui.viewModels.RegisterScreenViewModel
 
 @Composable
-fun RegisterOpcional(){
-    val cep by remember { mutableStateOf("") }
-    val logradouro by remember { mutableStateOf("") }
-    val numero by remember { mutableStateOf("") }
-    val complemento by remember { mutableStateOf("") }
-    val estado by remember { mutableStateOf("") }
+fun RegisterOpcional(viewModel: RegisterScreenViewModel){
+    val state by viewModel.uiState.collectAsState()
+
+    RegisterOpcional(state = state)
+}
+
+@Composable
+fun RegisterOpcional(state: RegisterScreenUiState){
+    val cep = state.postalCode
+    val publicPlace = state.publicPlace
+    val number = state.number
+    val complement = state.complement
+    val countryState = state.countryState
     val contexto = LocalContext.current
 
 
@@ -51,13 +64,13 @@ fun RegisterOpcional(){
             .fillMaxHeight()
             .background(Gray100)
         ,
-        verticalArrangement = Arrangement.Top,
+        verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Column(
             Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.95f)
+                .fillMaxHeight()
             ,
             verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -65,29 +78,23 @@ fun RegisterOpcional(){
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.15f)
+                    .fillMaxHeight(0.32f)
+                    .padding(top = 30.dp)
                 ,
-                verticalArrangement = Arrangement.Bottom,
+                verticalArrangement = Arrangement.spacedBy(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Title(text = "Cadastro")
+                Stepper(position = 2)
+                PhotoSelector()
                 Text("OPCIONAL",
                     style = TextStyle(
-                        fontSize = 15.sp,
+                        fontSize = 20.sp,
                         color = Color.Black,
+                        fontFamily = poppins,
                         fontWeight = FontWeight.Bold,
                     ),
                 )
-
-            }
-
-            Spacer(modifier = Modifier.fillMaxWidth(0.2f))
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.15f)
-                ,
-            ){
 
             }
 
@@ -96,39 +103,44 @@ fun RegisterOpcional(){
                 5,
                 "Text",
                 "CEP",
-                "00000-000"
+                "00000-000",
+                state.onPostalCodeChange
             )
 
             InputText(
-                textValue = logradouro,
+                textValue = publicPlace,
                 5,
                 "Text",
                 "Logradouro",
                 "Ex: Rua Coração de Maçã",
+                state.onPublicPlaceChange
             )
 
             InputText(
-                textValue = numero,
+                textValue = number,
                 8,
                 "Text",
                 "Número",
-                "Ex: 211"
+                "Ex: 211",
+                state.onNumberChange
             )
 
             InputText(
-                textValue = complemento,
+                textValue = complement,
                 8,
                 "Text",
                 "Complemento",
-                "ex: Bloco C"
+                "ex: Bloco C",
+                state.onComplementChange
             )
 
             InputText(
-                textValue = estado,
+                textValue = countryState,
                 8,
                 "Text",
                 "Estado",
-                "Ex: SP"
+                "Ex: SP",
+                state.onCountryStateChange
             )
 
             Box(
@@ -137,7 +149,7 @@ fun RegisterOpcional(){
                     .fillMaxHeight()
                     .paint(
                         // Replace with your image id
-                        painterResource(id = R.mipmap.subtractreverse),
+                        painterResource(id = R.drawable.arch_bottom),
                         contentScale = ContentScale.FillBounds,
                         alignment = Alignment.TopEnd
                     )
@@ -168,6 +180,6 @@ fun RegisterOpcional(){
 @Composable
 fun RegisterOpPreview() {
     BlumeMobileTheme {
-        RegisterOpcional()
+        RegisterOpcional(RegisterScreenViewModel())
     }
 }

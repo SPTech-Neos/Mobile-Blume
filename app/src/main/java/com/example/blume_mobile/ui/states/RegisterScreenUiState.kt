@@ -11,7 +11,7 @@ data class RegisterScreenUiState(
     val publicPlace: String = "",
     val number: String = "",
     val complement: String = "",
-    val state: String = "",
+    val countryState: String = "",
     val onNameChange: (String) -> Unit = {},
     val onEmailChange: (String) -> Unit = {},
     val onPasswordChange: (String) -> Unit = {},
@@ -22,6 +22,6 @@ data class RegisterScreenUiState(
     val onPublicPlaceChange: (String) -> Unit = {},
     val onNumberChange: (String) -> Unit = {},
     val onComplementChange: (String) -> Unit = {},
-    val onStateChange: (String) -> Unit = {},
+    val onCountryStateChange: (String) -> Unit = {},
 ) {
 }

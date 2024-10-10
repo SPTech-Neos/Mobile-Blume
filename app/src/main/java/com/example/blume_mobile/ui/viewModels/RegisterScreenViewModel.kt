@@ -66,9 +66,9 @@ class RegisterScreenViewModel: ViewModel() {
                         complement = it
                     )
                 },
-                onStateChange = {
+                onCountryStateChange = {
                     _uiState.value = _uiState.value.copy(
-                        state = it
+                        countryState = it
                     )
                 }
             )

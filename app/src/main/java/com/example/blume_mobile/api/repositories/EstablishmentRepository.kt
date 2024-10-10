@@ -8,9 +8,9 @@ import retrofit2.http.Path
 
 interface EstablishmentRepository {
 
-    @GET("/establishments")
+    @GET("establishments")
     suspend fun getAllEstablishments(): Response<List<Establishment>>
 
-    @GET("/{id}")
+    @GET("{id}")
     suspend fun getById(@Path("id") id: Int): Response<List<Establishment>>
 }

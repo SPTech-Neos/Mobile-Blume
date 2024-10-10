@@ -33,7 +33,7 @@ class FeedScreenViewModel: ViewModel() {
                 }
 
             }catch (e: Exception){
-                Log.e("api", "Erro na chamada: ${e.message}")
+                Log.e("api", "Erro na chamada: ${e.message} e ${e.cause}")
             }
 
         }

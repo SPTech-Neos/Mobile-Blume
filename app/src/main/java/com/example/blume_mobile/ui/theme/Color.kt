@@ -14,6 +14,7 @@ val Pink40 = Color(0xFF7D5260)
 val Green50 = Color(0xFF96FFA0)
 
 val Violet50 = Color(0xFFD4D6FF)
+val Violet300 = Color(0xFF8F93EC)
 val Violet500 = Color(0xFF7F5DE2)
 
 val Yellow50 = Color(0xFFF2D17B)

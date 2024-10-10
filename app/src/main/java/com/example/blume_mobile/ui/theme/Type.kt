@@ -50,6 +50,9 @@ val unica = FontFamily(
     Font(R.font.unica_one, FontWeight.Bold)
 )
 
+val inter = FontFamily(
+    Font(R.font.inter_semibold, FontWeight.SemiBold)
+)
 
 //val JosefinTypography = Typography(
 //    bodyLarge = TextStyle(
