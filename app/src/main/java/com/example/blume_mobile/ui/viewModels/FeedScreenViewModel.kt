@@ -32,7 +32,7 @@ class FeedScreenViewModel: ViewModel() {
         viewModelScope.launch {
 
             try {
-                val getEstablishment = api.getAllEstablishments()
+                val getEstablishment = api.getAllActiveEstablishments()
 
                 if(getEstablishment.isSuccessful){
                     if(getEstablishment.body() != null || getEstablishment.body()!!.isNotEmpty()){

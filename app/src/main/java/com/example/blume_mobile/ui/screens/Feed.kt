@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -51,10 +53,10 @@ fun FeedScreen(viewModel: FeedScreenViewModel) {
 
 @Composable
 fun FeedScreen(state: FeedScreenUiState) {
-    val nomeEstab = state.establishments
+    val establishments = state.establishments
     val text = state.searchedText
 
-    Log.i("teste api", "resultado na tela $nomeEstab")
+    Log.i("teste api", "resultado na tela $establishments")
 
     LazyColumn(
         Modifier
@@ -137,6 +139,39 @@ fun FeedScreen(state: FeedScreenUiState) {
                     )
                 )
 
+                LazyRow(
+                    Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.7f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(horizontal = 2.dp)
+                ) {
+                    if(establishments.isNotEmpty()){
+                        items(establishments){e ->
+                            RatedCard(title = e.name, category = e.description, profile = e.imgUrl)
+                        }
+                    }
+                }
+            }
+        }
+
+        item {
+            Column(
+                Modifier
+                    .fillMaxWidth(0.9f)
+                    .fillMaxHeight(0.4f),
+                verticalArrangement = Arrangement.spacedBy(30.dp)
+            ) {
+                Text(
+                    "Produtos bem avaliados: ",
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = poppins,
+                        color = Gray700
+                    )
+                )
+
                 Row(
                     Modifier
                         .fillMaxWidth()
@@ -144,9 +179,35 @@ fun FeedScreen(state: FeedScreenUiState) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
-                    if (nomeEstab.isNotEmpty()) {
-                        RatedCard(nomeEstab[0].name, "Categoria")
-                    }
+
+                }
+            }
+        }
+
+        item {
+            Column(
+                Modifier
+                    .fillMaxWidth(0.9f)
+                    .fillMaxHeight(0.4f),
+                verticalArrangement = Arrangement.spacedBy(30.dp)
+            ) {
+                Text(
+                    "Serviços bem avaliados: ",
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = poppins,
+                        color = Gray700
+                    )
+                )
+
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.7f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+
                     RatedCard("Nome salão", "Categoria")
                 }
             }
