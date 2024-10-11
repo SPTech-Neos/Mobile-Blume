@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.blume_mobile.ui.components.Star
 import com.example.blume_mobile.ui.theme.Gray100
 import com.example.blume_mobile.ui.theme.Gray700
 import com.example.blume_mobile.ui.theme.poppins
@@ -64,9 +65,7 @@ fun EstablishmentCard(){
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 10.sp,
                 color = Gray700
-    
-            )
-            )
+            ))
     
             Text("Categoria", style = TextStyle(
                 fontFamily = poppins,
@@ -76,7 +75,7 @@ fun EstablishmentCard(){
     
             ))
     
-            Icon(Icons.Rounded.Star, contentDescription = "Avaliação", tint = Gray700)
+            Star()
         }
     }
 

@@ -25,7 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.blume_mobile.R
-import com.example.blume_mobile.models.NavigationBottomItem
+import com.example.blume_mobile.models.ui.NavigationBottomItem
 
 @Composable
 fun BottomNav(){
