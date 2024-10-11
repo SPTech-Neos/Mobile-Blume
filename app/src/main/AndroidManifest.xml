@@ -30,7 +30,8 @@
             android:name=".ui.activties.Register2Activity"
             android:exported="false"
             android:label="@string/title_activity_register2"
-            android:theme="@style/Theme.BlumeMobile" />
+            android:theme="@style/Theme.BlumeMobile"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ui.activties.LoginActivity"
             android:exported="true"

@@ -5,11 +5,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.Icon
@@ -33,7 +40,11 @@ import com.example.blume_mobile.ui.components.titles.TitleBlume
 import com.example.blume_mobile.ui.components.banner.Banner
 import com.example.blume_mobile.ui.components.cards.CategoryCard
 import com.example.blume_mobile.ui.components.cards.EntityCard
+import com.example.blume_mobile.ui.components.cards.EstablishmentCard
+import com.example.blume_mobile.ui.components.searchbar.SearchBar
 import com.example.blume_mobile.ui.states.FeedScreenUiState
+import com.example.blume_mobile.ui.theme.Gray100
+import com.example.blume_mobile.ui.theme.Gray700
 import com.example.blume_mobile.ui.theme.Green50
 import com.example.blume_mobile.ui.theme.Violet50
 import com.example.blume_mobile.ui.theme.Violet500
@@ -43,176 +54,141 @@ import com.example.blume_mobile.ui.viewModels.FeedScreenViewModel
 
 
 @Composable
-fun FeedScreen(viewModel: FeedScreenViewModel){
+fun FeedScreen(viewModel: FeedScreenViewModel) {
     val state by viewModel.uiState.collectAsState()
 
     FeedScreen(state = state)
 }
 
 @Composable
-fun FeedScreen(state: FeedScreenUiState){
+fun FeedScreen(state: FeedScreenUiState) {
     val nomeEstab = state.establishments
+    val text = state.searchedText
 
     Log.i("teste api", "resultado na tela $nomeEstab")
 
-    Column(
+    LazyColumn(
         Modifier
             .fillMaxWidth()
-            .fillMaxHeight()
-            .background(Color(250, 250, 250))
+            .fillMaxHeight(0.95f)
+            .background(Gray100)
         ,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(30.dp),
+        contentPadding = PaddingValues(top = 50.dp, bottom = 100.dp)
     ) {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.1f)
-            ,
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ){
-            TitleBlume()
-        }
-
-        Banner(
-            "Teste",
-            painterResource(id = R.drawable.messy_bun_cuate),
-            Violet500,
-            "andamento"
-        )
-
-        Column(
-            Modifier
-                .fillMaxWidth(0.9f)
-                .fillMaxHeight(0.28f)
-            ,
-            verticalArrangement = Arrangement.SpaceAround
-        ){
-            Text("Categorias populares: ",
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = poppins
-                )
-            )
-
+        item {
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.7f)
-                ,
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceAround
-            ){
-                CategoryCard("Cabelos", Violet50)
-                CategoryCard("Unhas", Green50)
-                CategoryCard("Barba", Yellow50)
+                    .fillMaxHeight(0.1f),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TitleBlume()
             }
         }
 
-        Column(
-            Modifier
-                .fillMaxWidth(0.9f)
-                .fillMaxHeight(0.4f)
-            ,
-            verticalArrangement = Arrangement.SpaceAround
-        ){
-            Text("Lugares bem avaliados: ",
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = poppins
-                )
-            )
-
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.7f)
-                ,
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceAround
-            ){
-                if(nomeEstab.isNotEmpty()){
-                    EntityCard(nomeEstab[0].name, "Categoria")
-                }
-                EntityCard("Nome salão", "Categoria")
-            }
+        item {
+            SearchBar(value = text, handleChange = state.onSearch)
         }
 
-        Column(
-            Modifier
-                .fillMaxWidth(0.9f)
-                .fillMaxHeight(0.4f)
-            ,
-            verticalArrangement = Arrangement.SpaceAround
-        ){
-            Text("Estabelecimentos: ",
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = poppins
-                )
+        item {
+            Banner(
+                "Teste",
+                painterResource(id = R.drawable.messy_bun_cuate),
+                Violet500,
+                "andamento"
             )
+        }
 
-            Row(
+        item {
+            Column(
                 Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.8f)
-                ,
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceAround
-            ){
+                    .fillMaxWidth(0.9f)
+                    .fillMaxHeight(0.28f),
+                verticalArrangement = Arrangement.spacedBy(30.dp)
+            ) {
+                Text(
+                    "Categorias populares: ",
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = poppins,
+                        color = Gray700
+                    )
+                )
+
                 Row(
                     Modifier
-                        .fillMaxWidth(0.98f)
-                        .fillMaxHeight()
-                        .background(Color(250, 250, 250))
-                        .shadow(
-                            elevation = 2.dp,
-                            shape = RoundedCornerShape(2.dp)
-                        ),
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.7f),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceAround
-                ){
-                    Box(
-                        Modifier
-                            .size(40.dp)
-                            .clip(RoundedCornerShape(100.dp))
-                    ){
-                        Box(
-                            Modifier
-                                .size(50.dp)
-                                .background(Color.Gray)
-                                .clip(RoundedCornerShape(100.dp))
-                        ){
-                        }
-                    }
-
-                    Text("Nome estabelecimento", style = TextStyle(
-                        fontFamily = poppins,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 12.sp
-
-                        )
-                    )
-
-                    Text("Categoria", style = TextStyle(
-                        fontFamily = poppins,
-                        fontWeight = FontWeight.Light,
-                        fontSize = 12.sp
-
-                        )
-                    )
-
-                    Icon(Icons.Rounded.Star, contentDescription = "Avaliação")
+                ) {
+                    CategoryCard("Cabelos", Violet50)
+                    CategoryCard("Unhas", Green50)
+                    CategoryCard("Barba", Yellow50)
                 }
+            }
+        }
+
+        item {
+            Column(
+                Modifier
+                    .fillMaxWidth(0.9f)
+                    .fillMaxHeight(0.4f),
+                verticalArrangement = Arrangement.spacedBy(30.dp)
+            ) {
+                Text(
+                    "Lugares bem avaliados: ",
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = poppins,
+                        color = Gray700
+                    )
+                )
+
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.7f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    if (nomeEstab.isNotEmpty()) {
+                        EntityCard(nomeEstab[0].name, "Categoria")
+                    }
+                    EntityCard("Nome salão", "Categoria")
+                }
+            }
+        }
+
+        item {
+            Column(
+                Modifier
+                    .fillMaxWidth(0.9f)
+                    .fillMaxHeight(),
+            ) {
+                Text(
+                    "Estabelecimentos: ",
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = poppins,
+                        color = Gray700
+                    )
+                )
 
             }
         }
 
+        items(2) {
+            EstablishmentCard()
+        }
     }
 }
 
 @Preview()
 @Composable
-fun FeedPreview(){
+fun FeedPreview() {
     FeedScreen(FeedScreenUiState())
 }

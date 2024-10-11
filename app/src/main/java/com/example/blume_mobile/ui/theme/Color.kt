@@ -18,6 +18,8 @@ val Violet300 = Color(0xFF8F93EC)
 val Violet500 = Color(0xFF7F5DE2)
 
 val Yellow50 = Color(0xFFF2D17B)
+
 val Gray100 = Color(0xFFFAFAFA)
-val Gray700 = Color(0xFF070707)
+val Gray200 = Color(0xFFD6D6D6)
 val Gray500 = Color(0xFF808080)
+val Gray700 = Color(0xFF070707)

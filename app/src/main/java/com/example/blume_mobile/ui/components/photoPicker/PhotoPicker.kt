@@ -1,4 +1,4 @@
-package com.example.blume_mobile.ui.photoPicker
+package com.example.blume_mobile.ui.components.photoPicker
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -116,8 +116,9 @@ fun UploadPicker(onClick: () -> Unit = {}) {
 @Composable
 fun PhotoSelector(urlState: Uri?, onUrlChange:(Uri) -> Unit = {}) {
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        //When the user has selected a photo, its URL is returned here
-        onUrlChange(uri!!)
+        if(uri != null){
+            onUrlChange(uri)
+        }
     }
 
     Row(

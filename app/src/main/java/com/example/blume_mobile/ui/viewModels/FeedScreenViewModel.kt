@@ -3,6 +3,7 @@ package com.example.blume_mobile.ui.viewModels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.blume_mobile.api.retrofit.RetrofitService
 import com.example.blume_mobile.ui.states.FeedScreenUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +19,16 @@ class FeedScreenViewModel: ViewModel() {
 
 
     init {
+        _uiState.update { current ->
+            current.copy(
+                    onSearch = {
+                        _uiState.value = _uiState.value.copy(
+                            searchedText = it
+                        )
+                    }
+            )
+        }
+
         viewModelScope.launch {
 
             try {

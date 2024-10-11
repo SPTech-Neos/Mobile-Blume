@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
@@ -38,7 +39,8 @@ fun CategoryCard(
     color: Color
 ){
     Box(
-        Modifier.size(100.dp)
+        Modifier
+            .size(100.dp)
     ){
         Box(
             Modifier
@@ -71,7 +73,8 @@ fun CategoryCard(
         ){
             Text(title, style = TextStyle(
                 fontFamily = poppins,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                color = Gray700
 
             ))
         }

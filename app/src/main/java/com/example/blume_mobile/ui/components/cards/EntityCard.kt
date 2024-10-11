@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,62 +24,70 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.blume_mobile.ui.theme.Gray700
 import com.example.blume_mobile.ui.theme.poppins
 
 @Composable
 fun EntityCard(title: String, category: String){
-    Row(
-        Modifier
-            .size(
-                width = 160.dp,
-                height = 90.dp
-            )
-            .background(Color(250, 250, 250))
-            .shadow(
-                elevation = 1.dp,
-                shape = RoundedCornerShape(2.dp)
-            ),
-    ){
-        Column(
+    Surface(
+        shape = RoundedCornerShape(8.dp),
+        shadowElevation = 3.dp
+    ) {
+        Row(
             Modifier
-                .fillMaxHeight()
-                .fillMaxWidth(0.45f),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceAround
+                .size(
+                    width = 153.dp,
+                    height = 65.dp
+                )
+                .background(Color(250, 250, 250))
+
         ){
-            Box(
-                Modifier.size(40.dp)
-                    .clip(RoundedCornerShape(100.dp))
+            Column(
+                Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth(0.45f),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceAround
             ){
                 Box(
-                    Modifier.size(50.dp).background(Color.Gray)
+                    Modifier
+                        .size(35.dp)
                         .clip(RoundedCornerShape(100.dp))
                 ){
+                    Box(
+                        Modifier
+                            .size(50.dp)
+                            .background(Color.Gray)
+                            .clip(RoundedCornerShape(100.dp))
+                    ){
+                    }
                 }
             }
-        }
-
-        Column(
-            Modifier
-                .fillMaxHeight()
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Center
-        ){
-            Text(title, style = TextStyle(
-                fontFamily = poppins,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 12.sp
-
+    
+            Column(
+                Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Center
+            ){
+                Text(title, style = TextStyle(
+                    fontFamily = poppins,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 10.sp,
+                    color = Gray700
+    
+                    )
                 )
-            )
-            Text(category, style = TextStyle(
-                fontFamily = poppins,
-                fontWeight = FontWeight.Light,
-                fontSize = 8.sp
-
+                Text(category, style = TextStyle(
+                    fontFamily = poppins,
+                    fontWeight = FontWeight.Light,
+                    fontSize = 10.sp,
+                    color = Gray700
+                    )
                 )
-            )
+            }
+    
         }
 
     }

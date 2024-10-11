@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -34,7 +37,7 @@ import com.example.blume_mobile.ui.components.buttons.CustomButton
 import com.example.blume_mobile.ui.components.inputs.InputText
 import com.example.blume_mobile.ui.components.stepper.Stepper
 import com.example.blume_mobile.ui.components.titles.Title
-import com.example.blume_mobile.ui.photoPicker.PhotoSelector
+import com.example.blume_mobile.ui.components.photoPicker.PhotoSelector
 import com.example.blume_mobile.ui.states.RegisterScreenUiState
 import com.example.blume_mobile.ui.theme.BlumeMobileTheme
 import com.example.blume_mobile.ui.theme.Gray100
@@ -64,6 +67,8 @@ fun RegisterOpcional(state: RegisterScreenUiState){
             .fillMaxWidth()
             .fillMaxHeight()
             .background(Gray100)
+            .verticalScroll(rememberScrollState())
+            .imePadding()
         ,
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
