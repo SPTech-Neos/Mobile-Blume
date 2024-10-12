@@ -1,4 +1,7 @@
 package com.example.blume_mobile.models
 
-class ServiceCategory {
+data class ServiceCategory(
+    val id: Int? = null,
+    val name: String = ""
+) {
 }

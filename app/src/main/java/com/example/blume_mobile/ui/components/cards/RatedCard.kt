@@ -120,9 +120,9 @@ fun RatedCard(
                     ) {
                         items(5){ index ->
                             if(index < avaliationInt){
-                                Star(true)
+                                Star(10, true)
                             }else{
-                                Star()
+                                Star(10)
                             }
                         }
 

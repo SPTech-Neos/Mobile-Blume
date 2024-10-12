@@ -54,16 +54,19 @@ fun FeedScreen(viewModel: FeedScreenViewModel) {
 @Composable
 fun FeedScreen(state: FeedScreenUiState) {
     val establishments = state.establishments
+    val products = state.bestProducts
+    val services = state.bestServices
+    val bestEstablishment = state.bestEstablishments
     val text = state.searchedText
 
     Log.i("teste api", "resultado na tela $establishments")
+    Log.i("teste api", "resultado na tela $services")
 
     LazyColumn(
         Modifier
             .fillMaxWidth()
             .fillMaxHeight(0.95f)
-            .background(Gray100)
-        ,
+            .background(Gray100),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(30.dp),
         contentPadding = PaddingValues(top = 50.dp, bottom = 100.dp)
@@ -147,8 +150,8 @@ fun FeedScreen(state: FeedScreenUiState) {
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     contentPadding = PaddingValues(horizontal = 2.dp)
                 ) {
-                    if(establishments.isNotEmpty()){
-                        items(establishments){e ->
+                    if (bestEstablishment.isNotEmpty()) {
+                        items(bestEstablishment) { e ->
                             RatedCard(title = e.name, category = e.description, profile = e.imgUrl)
                         }
                     }
@@ -172,14 +175,19 @@ fun FeedScreen(state: FeedScreenUiState) {
                     )
                 )
 
-                Row(
+                LazyRow(
                     Modifier
                         .fillMaxWidth()
                         .fillMaxHeight(0.7f),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceAround
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(horizontal = 2.dp)
                 ) {
-
+                    if (products.isNotEmpty()) {
+                        items(products) { p ->
+                            RatedCard(title = p.name, category = p.brand, profile = p.imgUrl)
+                        }
+                    }
                 }
             }
         }
@@ -200,15 +208,23 @@ fun FeedScreen(state: FeedScreenUiState) {
                     )
                 )
 
-                Row(
+                LazyRow(
                     Modifier
                         .fillMaxWidth()
                         .fillMaxHeight(0.7f),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceAround
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(horizontal = 2.dp)
                 ) {
-
-                    RatedCard("Nome salão", "Categoria")
+                    if (services.isNotEmpty()) {
+                        items(services) { s ->
+                            RatedCard(
+                                title = s.specification,
+                                category = s.serviceType.serviceCategory.name,
+                                profile = s.imgUrl
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -231,8 +247,10 @@ fun FeedScreen(state: FeedScreenUiState) {
             }
         }
 
-        items(2) {
-            EstablishmentCard()
+        if (establishments.isNotEmpty()) {
+            items(establishments) { e ->
+                EstablishmentCard(e.name, e.description, e.media!!, e.imgUrl)
+            }
         }
     }
 }

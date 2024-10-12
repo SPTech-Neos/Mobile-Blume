@@ -7,6 +7,8 @@ data class Service(
     val id: Int? = null,
     val specification: String = "",
     val aditumId: String = "",
-    val price: BigDecimal? = null,
-    val imgUrl: Uri? = null
+    val price: Double? = null,
+    val imgUrl: String? = null,
+    val serviceType: ServiceType,
+    val status: Status,
 )

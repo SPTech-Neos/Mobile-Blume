@@ -12,9 +12,10 @@ import com.example.blume_mobile.ui.theme.Violet300
 
 @Composable
 fun Star(
+    size: Int,
     selected: Boolean = false
 ){
     val color = if(selected) Violet300 else Gray700
 
-    Icon(Icons.Rounded.Star, contentDescription = "Avaliação", tint = color, modifier = Modifier.size(11.dp))
+    Icon(Icons.Rounded.Star, contentDescription = "Avaliação", tint = color, modifier = Modifier.size(size.dp))
 }

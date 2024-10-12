@@ -11,6 +11,9 @@ interface EstablishmentRepository {
     @GET("/establishments")
     suspend fun getAllActiveEstablishments(): Response<List<Establishment>>
 
+    @GET("/establishments/best-rating/{count}")
+    suspend fun getBestRateds(@Path("count") count: Int): Response<List<Establishment>>
+
     @GET("/{id}")
     suspend fun getById(@Path("id") id: Int): Response<List<Establishment>>
 }

@@ -13,7 +13,9 @@ import kotlinx.coroutines.launch
 
 class FeedScreenViewModel: ViewModel() {
 
-    private val api = RetrofitService.getApiEstablishments()
+    private val apiEstablishment = RetrofitService.getApiEstablishments()
+    private val apiProduct = RetrofitService.getApiProducts()
+    private val apiService = RetrofitService.getApiServices()
     private val _uiState: MutableStateFlow<FeedScreenUiState> = MutableStateFlow(FeedScreenUiState())
     val uiState get() = _uiState.asStateFlow()
 
@@ -29,26 +31,97 @@ class FeedScreenViewModel: ViewModel() {
             )
         }
 
-        viewModelScope.launch {
+        getAllEstablishments()
+        getAllProducts()
+        getAllServices()
+        getBestRateds()
+    }
 
+    private fun getAllEstablishments() {
+        viewModelScope.launch {
             try {
-                val getEstablishment = api.getAllActiveEstablishments()
+                val getEstablishment = apiEstablishment.getAllActiveEstablishments()
 
                 if(getEstablishment.isSuccessful){
                     if(getEstablishment.body() != null || getEstablishment.body()!!.isNotEmpty()){
                         _uiState.value = _uiState.value.copy(establishments = getEstablishment.body()!!)
-                        Log.i("api", "resultado da chamada: ${_uiState.value}")
+                        Log.i("apiEstablishment", "resultado da chamada: ${_uiState.value}")
                     }
                 }else {
-                    Log.e("api", "resultado da chamada: ${getEstablishment.message()}")
+                    Log.e("apiEstablishment", "resultado da chamada: ${getEstablishment.message()}")
                 }
 
             }catch (e: Exception){
-                Log.e("api", "Erro na chamada: ${e.message} e ${e.cause}")
+                Log.e("apiEstablishment", "Erro na chamada: ${e.message} e ${e.cause}")
+            }
+
+        }
+    }
+
+    private fun getBestRateds() {
+        viewModelScope.launch {
+            try {
+                val getEstablishment = apiEstablishment.getBestRateds(1)
+
+                if(getEstablishment.isSuccessful){
+                    if(getEstablishment.body() != null || getEstablishment.body()!!.isNotEmpty()){
+                        _uiState.value = _uiState.value.copy(bestEstablishments = getEstablishment.body()!!)
+                        Log.i("apiEstablishment", "resultado da chamada: ${_uiState.value}")
+                    }
+                }else {
+                    Log.e("apiEstablishment", "resultado da chamada: ${getEstablishment.message()}")
+                }
+
+            }catch (e: Exception){
+                Log.e("apiEstablishment", "Erro na chamada: ${e.message} e ${e.cause}")
+            }
+
+        }
+    }
+
+    private fun getAllProducts(){
+        viewModelScope.launch {
+            try {
+                val getProduct = apiProduct.getAllProducts()
+
+                if(getProduct.isSuccessful){
+                    if(getProduct.body() != null || getProduct.body()!!.isNotEmpty()){
+                        _uiState.value = _uiState.value.copy(bestProducts = getProduct.body()!!)
+                        Log.i("apiProduct", "resultado da chamada: ${_uiState.value}")
+                    }
+                }else {
+                    Log.e("apiProduct", "resultado da chamada: ${getProduct.message()}")
+                }
+
+            }catch (e: Exception){
+                Log.e("apiProduct", "Erro na chamada: ${e.message} e ${e.cause}")
             }
 
         }
 
     }
+
+    private fun getAllServices(){
+        viewModelScope.launch {
+            try {
+                val getService = apiService.getAllServices()
+
+                if(getService.isSuccessful){
+                    if(getService.body() != null || getService.body()!!.isNotEmpty()){
+                        _uiState.value = _uiState.value.copy(bestServices = getService.body()!!)
+                        Log.i("apiService", "resultado da chamada: ${_uiState.value}")
+                    }
+                }else {
+                    Log.e("apiService", "resultado da chamada: ${getService.message()}")
+                }
+
+            }catch (e: Exception){
+                Log.e("apiService", "Erro na chamada: ${e.message} e ${e.cause}")
+            }
+
+        }
+
+    }
+
 
 }
