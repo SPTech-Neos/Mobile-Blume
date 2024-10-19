@@ -11,6 +11,8 @@ data class FeedScreenUiState(
     val bestServices: List<Service> = emptyList(),
     val bestProducts: List<Product> = emptyList(),
     val popularCategories: List<ServiceCategory> = emptyList(),
+    val searchedBestEstablishments: List<Establishment> = emptyList(),
+    val searchedBestService: Service? = null,
     val searchedText: String = "",
     val onSearch: (String) -> Unit = {}
 ) {

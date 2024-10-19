@@ -1,5 +1,6 @@
 package com.example.blume_mobile.ui.screens
 
+import android.app.appsearch.SearchResult
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,8 +28,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 import com.example.blume_mobile.R
+import com.example.blume_mobile.data.sampleCategories
+import com.example.blume_mobile.data.sampleEstablishments
 import com.example.blume_mobile.ui.components.titles.TitleBlume
 import com.example.blume_mobile.ui.components.banner.Banner
+import com.example.blume_mobile.ui.components.cards.BestRated
 import com.example.blume_mobile.ui.components.cards.CategoryCard
 import com.example.blume_mobile.ui.components.cards.RatedCard
 import com.example.blume_mobile.ui.components.cards.EstablishmentCard
@@ -57,10 +61,14 @@ fun FeedScreen(state: FeedScreenUiState) {
     val products = state.bestProducts
     val services = state.bestServices
     val bestEstablishment = state.bestEstablishments
-    val text = state.searchedText
+    val searchedText = state.searchedText
+    val searchedEstablishment = state.searchedBestEstablishments
+    val sampleEstabs = sampleEstablishments
 
     Log.i("teste api", "resultado na tela $establishments")
+    Log.i("teste api", "resultado sampels na tela $sampleEstabs")
     Log.i("teste api", "resultado na tela $services")
+    Log.i("teste api", "resultado na tela $products")
 
     LazyColumn(
         Modifier
@@ -84,173 +92,186 @@ fun FeedScreen(state: FeedScreenUiState) {
         }
 
         item {
-            SearchBar(value = text, handleChange = state.onSearch)
+            SearchBar(value = searchedText, handleChange = state.onSearch)
         }
+        if (searchedText.isBlank()) {
 
-        item {
-            Banner(
-                "Teste",
-                painterResource(id = R.drawable.messy_bun_cuate),
-                Violet500,
-                "andamento"
-            )
-        }
 
-        item {
-            Column(
-                Modifier
-                    .fillMaxWidth(0.9f)
-                    .fillMaxHeight(0.28f),
-                verticalArrangement = Arrangement.spacedBy(30.dp)
-            ) {
-                Text(
-                    "Categorias populares: ",
-                    style = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = poppins,
-                        color = Gray700
-                    )
+            item {
+                Banner(
+                    "Teste",
+                    painterResource(id = R.drawable.messy_bun_cuate),
+                    Violet500,
+                    "andamento"
                 )
+            }
 
-                Row(
+            item {
+                Column(
                     Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.7f),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceAround
+                        .fillMaxWidth(0.9f)
+                        .fillMaxHeight(0.28f),
+                    verticalArrangement = Arrangement.spacedBy(30.dp)
                 ) {
-                    CategoryCard("Cabelos", Violet50)
-                    CategoryCard("Unhas", Green50)
-                    CategoryCard("Barba", Yellow50)
+                    Text(
+                        "Categorias populares: ",
+                        style = TextStyle(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = poppins,
+                            color = Gray700
+                        )
+                    )
+
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.7f),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceAround
+                    ) {
+                        CategoryCard("Cabelos", Violet50)
+                        CategoryCard("Unhas", Green50)
+                        CategoryCard("Barba", Yellow50)
+                    }
                 }
             }
-        }
 
-        item {
-            Column(
-                Modifier
-                    .fillMaxWidth(0.9f)
-                    .fillMaxHeight(0.4f),
-                verticalArrangement = Arrangement.spacedBy(30.dp)
-            ) {
-                Text(
-                    "Lugares bem avaliados: ",
-                    style = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = poppins,
-                        color = Gray700
-                    )
-                )
-
-                LazyRow(
+            item {
+                Column(
                     Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.7f),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    contentPadding = PaddingValues(horizontal = 2.dp)
+                        .fillMaxWidth(0.9f)
+                        .fillMaxHeight(0.4f),
+                    verticalArrangement = Arrangement.spacedBy(30.dp)
                 ) {
-                    if (bestEstablishment.isNotEmpty()) {
-                        items(bestEstablishment) { e ->
-                            RatedCard(title = e.name, category = e.description, profile = e.imgUrl)
+                    Text(
+                        "Lugares bem avaliados: ",
+                        style = TextStyle(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = poppins,
+                            color = Gray700
+                        )
+                    )
+
+                    LazyRow(
+                        Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.7f),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        contentPadding = PaddingValues(horizontal = 2.dp)
+                    ) {
+                        if (bestEstablishment.isNotEmpty()) {
+                            items(bestEstablishment) { e ->
+                                RatedCard(
+                                    title = e.name,
+                                    category = e.description,
+                                    profile = e.imgUrl
+                                )
+                            }
                         }
                     }
                 }
             }
-        }
 
-        item {
-            Column(
-                Modifier
-                    .fillMaxWidth(0.9f)
-                    .fillMaxHeight(0.4f),
-                verticalArrangement = Arrangement.spacedBy(30.dp)
-            ) {
-                Text(
-                    "Produtos bem avaliados: ",
-                    style = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = poppins,
-                        color = Gray700
-                    )
-                )
-
-                LazyRow(
+            item {
+                Column(
                     Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.7f),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    contentPadding = PaddingValues(horizontal = 2.dp)
+                        .fillMaxWidth(0.9f)
+                        .fillMaxHeight(0.4f),
+                    verticalArrangement = Arrangement.spacedBy(30.dp)
                 ) {
-                    if (products.isNotEmpty()) {
-                        items(products) { p ->
-                            RatedCard(title = p.name, category = p.brand, profile = p.imgUrl)
+                    Text(
+                        "Produtos bem avaliados: ",
+                        style = TextStyle(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = poppins,
+                            color = Gray700
+                        )
+                    )
+
+                    LazyRow(
+                        Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.7f),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        contentPadding = PaddingValues(horizontal = 2.dp)
+                    ) {
+                        if (products.isNotEmpty()) {
+                            items(products) { p ->
+                                RatedCard(title = p.name, category = p.brand, profile = p.imgUrl)
+                            }
                         }
                     }
                 }
             }
-        }
 
-        item {
-            Column(
-                Modifier
-                    .fillMaxWidth(0.9f)
-                    .fillMaxHeight(0.4f),
-                verticalArrangement = Arrangement.spacedBy(30.dp)
-            ) {
-                Text(
-                    "Serviços bem avaliados: ",
-                    style = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = poppins,
-                        color = Gray700
-                    )
-                )
-
-                LazyRow(
+            item {
+                Column(
                     Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.7f),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    contentPadding = PaddingValues(horizontal = 2.dp)
+                        .fillMaxWidth(0.9f)
+                        .fillMaxHeight(0.4f),
+                    verticalArrangement = Arrangement.spacedBy(30.dp)
                 ) {
-                    if (services.isNotEmpty()) {
-                        items(services) { s ->
-                            RatedCard(
-                                title = s.specification,
-                                category = s.serviceType.serviceCategory.name,
-                                profile = s.imgUrl
-                            )
+                    Text(
+                        "Serviços bem avaliados: ",
+                        style = TextStyle(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = poppins,
+                            color = Gray700
+                        )
+                    )
+
+                    LazyRow(
+                        Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.7f),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        contentPadding = PaddingValues(horizontal = 2.dp)
+                    ) {
+                        if (services.isNotEmpty()) {
+                            items(services) { s ->
+                                RatedCard(
+                                    title = s.specification,
+                                    category = s.serviceType.serviceCategory.name,
+                                    profile = s.imgUrl
+                                )
+                            }
                         }
                     }
                 }
             }
-        }
 
-        item {
-            Column(
-                Modifier
-                    .fillMaxWidth(0.9f)
-                    .fillMaxHeight(),
-            ) {
-                Text(
-                    "Estabelecimentos: ",
-                    style = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = poppins,
-                        color = Gray700
+            item {
+                Column(
+                    Modifier
+                        .fillMaxWidth(0.9f)
+                        .fillMaxHeight(),
+                ) {
+                    Text(
+                        "Estabelecimentos: ",
+                        style = TextStyle(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = poppins,
+                            color = Gray700
+                        )
                     )
-                )
 
+                }
             }
-        }
 
-        if (establishments.isNotEmpty()) {
-            items(establishments) { e ->
-                EstablishmentCard(e.name, e.description, e.media!!, e.imgUrl)
+            if (establishments.isNotEmpty()) {
+                items(establishments) { e ->
+                    EstablishmentCard(e.name, e.description, e.media!!, e.imgUrl)
+                }
             }
+        } else {
+                if(searchedEstablishment.isNotEmpty()){
+                    items(searchedEstablishment) { e ->
+                        BestRated(name = e.name, categories = sampleCategories, profile = e.imgUrl!!)
+                    }
+                }
         }
     }
 }

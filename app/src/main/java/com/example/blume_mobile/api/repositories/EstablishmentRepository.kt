@@ -8,7 +8,7 @@ import retrofit2.http.Path
 
 interface EstablishmentRepository {
 
-    @GET("/establishments")
+    @GET("/establishments/active")
     suspend fun getAllActiveEstablishments(): Response<List<Establishment>>
 
     @GET("/establishments/best-rating/{count}")

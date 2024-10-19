@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.blume_mobile.api.retrofit.RetrofitService
+import com.example.blume_mobile.data.sampleEstablishments
+import com.example.blume_mobile.models.Establishment
 import com.example.blume_mobile.ui.states.FeedScreenUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,7 +27,8 @@ class FeedScreenViewModel: ViewModel() {
             current.copy(
                     onSearch = {
                         _uiState.value = _uiState.value.copy(
-                            searchedText = it
+                            searchedText = it,
+                            searchedBestEstablishments = searchEstablishments(it)
                         )
                     }
             )
@@ -122,6 +125,27 @@ class FeedScreenViewModel: ViewModel() {
         }
 
     }
+
+    private fun searchEstablishments(text: String): List<Establishment>{
+        val searchedByName = mutableListOf<Establishment>()
+        val searchedByDescription = mutableListOf<Establishment>()
+
+        if(text.isNotBlank()){
+            searchedByName.addAll(sampleEstablishments.filter { e ->
+                e.name.contains(text)
+            })
+
+            searchedByDescription.addAll(sampleEstablishments.filter { e ->
+                e.description.contains(text)
+            })
+        }
+
+        return listOf(
+            *searchedByName.toTypedArray(), *searchedByDescription.toTypedArray()
+        ).distinct()
+
+    }
+
 
 
 }
