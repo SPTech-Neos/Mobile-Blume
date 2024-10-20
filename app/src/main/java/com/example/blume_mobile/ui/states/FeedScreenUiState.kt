@@ -14,6 +14,8 @@ data class FeedScreenUiState(
     val searchedBestEstablishments: List<Establishment> = emptyList(),
     val searchedBestService: Service? = null,
     val searchedText: String = "",
-    val onSearch: (String) -> Unit = {}
+    val filtered: String = "Estabelecimentos",
+    val onSearch: (String) -> Unit = {},
+    val onClickFilter: (String) -> Unit = {}
 ) {
 }

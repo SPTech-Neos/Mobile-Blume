@@ -1,6 +1,7 @@
 package com.example.blume_mobile.ui.badge
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,14 +19,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.blume_mobile.ui.theme.Gray200
 import com.example.blume_mobile.ui.theme.Gray700
+import com.example.blume_mobile.ui.theme.Violet300
+import com.example.blume_mobile.ui.theme.Violet50
 import com.example.blume_mobile.ui.theme.poppins
 
 @Composable
 fun CategoryBadge(
     name: String,
-    width: Int
+    width: Int,
+    height: Int,
+    clickable: Boolean = false,
+    onClick: (String) -> Unit = {},
+    categorySelected: String = ""
 ){
-    val height = width / 2
+
+    val background = if(categorySelected == name) Violet300 else Gray200
+
     Surface(
         shape = RoundedCornerShape(8.dp),
         shadowElevation = 3.dp
@@ -35,8 +44,11 @@ fun CategoryBadge(
                 width = width.dp,
                 height = height.dp
             )
-                .background(Gray200)
+                .background(background)
                 .padding(horizontal = 6.dp)
+                .clickable(clickable){
+                    onClick(name)
+                }
             , contentAlignment = Alignment.Center
         ) {
             Text(

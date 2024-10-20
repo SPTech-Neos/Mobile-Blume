@@ -30,7 +30,13 @@ class FeedScreenViewModel: ViewModel() {
                             searchedText = it,
                             searchedBestEstablishments = searchEstablishments(it)
                         )
-                    }
+                    },
+
+                onClickFilter = {
+                    _uiState.value = _uiState.value.copy(
+                        filtered = it
+                    )
+                }
             )
         }
 

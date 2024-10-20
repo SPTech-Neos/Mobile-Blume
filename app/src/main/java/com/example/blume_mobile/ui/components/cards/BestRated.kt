@@ -50,7 +50,7 @@ fun BestRated(
                 .background(Gray100)
                 .padding(vertical = 10.dp)
             ,
-            verticalArrangement = Arrangement.spacedBy(15.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AsyncImage(
@@ -82,7 +82,7 @@ fun BestRated(
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 items(categories){ c ->
-                    CategoryBadge(name = c, width = 60)
+                    CategoryBadge(name = c, width = 60, height = 20)
                 }
             }
         }
