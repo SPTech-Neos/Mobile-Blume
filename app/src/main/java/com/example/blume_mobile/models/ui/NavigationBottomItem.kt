@@ -6,5 +6,6 @@ data class NavigationBottomItem(
     val title: String?,
     val selectedIcon: Painter?,
     val unselectedIcon: Painter?,
-    val hasNews: Boolean
+    val hasNews: Boolean,
+    val navigateName: String
 )

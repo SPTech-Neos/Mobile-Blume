@@ -2,12 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission
-        android:name="android.permission.INTERNET"
-    />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:enableOnBackInvokedCallback="true"
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/blume"
@@ -15,7 +14,13 @@
         android:roundIcon="@mipmap/blume_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BlumeMobile"
-        tools:targetApi="31">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="tiramisu">
+        <activity
+            android:name=".ui.activties.SearchActivity"
+            android:exported="false"
+            android:label="@string/title_activity_search"
+            android:theme="@style/Theme.BlumeMobile" />
         <activity
             android:name=".ui.activties.FeedActivity"
             android:exported="false"
@@ -31,7 +36,7 @@
             android:exported="false"
             android:label="@string/title_activity_register2"
             android:theme="@style/Theme.BlumeMobile"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.activties.LoginActivity"
             android:exported="true"
@@ -48,14 +53,14 @@
             android:name=".ui.activties.MainActivity"
             android:exported="true"
             android:label="Blume"
-            android:theme="@style/Theme.BlumeMobile" />
+            android:theme="@style/Theme.BlumeMobile"/>
+
         <activity
             android:name=".ui.activties.RegisterActivity"
             android:exported="true"
             android:label="Blume"
             android:theme="@style/Theme.BlumeMobile"
-            android:windowSoftInputMode="adjustResize"
-            />
+            android:windowSoftInputMode="adjustResize" />
 
         <meta-data
             android:name="preloaded_fonts"

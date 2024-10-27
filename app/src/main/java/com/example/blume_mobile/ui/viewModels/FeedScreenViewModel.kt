@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.blume_mobile.api.retrofit.RetrofitService
 import com.example.blume_mobile.data.sampleEstablishments
+import com.example.blume_mobile.data.sampleServices
 import com.example.blume_mobile.models.Establishment
+import com.example.blume_mobile.models.Service
 import com.example.blume_mobile.ui.states.FeedScreenUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,7 +30,9 @@ class FeedScreenViewModel: ViewModel() {
                     onSearch = {
                         _uiState.value = _uiState.value.copy(
                             searchedText = it,
-                            searchedBestEstablishments = searchEstablishments(it)
+                            searchedBestEstablishments = searchEstablishments(it),
+                            searchedBestServices = searchServices(it)
+
                         )
                     },
 
@@ -143,6 +147,26 @@ class FeedScreenViewModel: ViewModel() {
 
             searchedByDescription.addAll(sampleEstablishments.filter { e ->
                 e.description.contains(text)
+            })
+        }
+
+        return listOf(
+            *searchedByName.toTypedArray(), *searchedByDescription.toTypedArray()
+        ).distinct()
+
+    }
+
+    private fun searchServices(text: String): List<Service>{
+        val searchedByName = mutableListOf<Service>()
+        val searchedByDescription = mutableListOf<Service>()
+
+        if(text.isNotBlank()){
+            searchedByName.addAll(sampleServices.filter { s ->
+                s.specification.contains(text)
+            })
+
+            searchedByDescription.addAll(sampleServices.filter { s ->
+                s.serviceType.name.contains(text)
             })
         }
 

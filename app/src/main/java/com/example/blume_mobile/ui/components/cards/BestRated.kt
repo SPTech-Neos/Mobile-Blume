@@ -45,7 +45,7 @@ fun BestRated(
     ) {
         Column(
             Modifier
-                .width(155.dp)
+                .width(150.dp)
                 .height(130.dp)
                 .background(Gray100)
                 .padding(vertical = 10.dp)

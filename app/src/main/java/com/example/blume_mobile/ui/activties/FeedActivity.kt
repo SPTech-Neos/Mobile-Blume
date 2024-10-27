@@ -13,6 +13,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.example.blume_mobile.ui.components.navigation.BottomNav
 import com.example.blume_mobile.ui.screens.FeedScreen
 import com.example.blume_mobile.ui.theme.BlumeMobileTheme
@@ -33,7 +34,6 @@ class FeedActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Scaffold(
-                        bottomBar = { BottomNav() }
                     ) { innerPadding ->
                         val viewModel by viewModels<FeedScreenViewModel>()
                         Feed(
@@ -48,7 +48,7 @@ class FeedActivity : ComponentActivity() {
 }
 
 @Composable
-fun Feed(viewModel: FeedScreenViewModel, modifier: Modifier = Modifier) {
+fun Feed(viewModel: FeedScreenViewModel = FeedScreenViewModel(), modifier: Modifier = Modifier) {
     FeedScreen(viewModel)
 }
 

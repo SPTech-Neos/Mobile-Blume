@@ -94,4 +94,32 @@ val sampleEstablishments = listOf(
         endShift = "18:00:00",
         startShit = "10:00:00"
     ),
+    Establishment(
+        id = 1,
+        name = "Salão06",
+        description = "Salão de Beleza muito bonito e charmoso na avenida paulista",
+        cnpj = "50709903812/45",
+        local = local,
+        media = 2.0,
+        phone = phone,
+        imgUrl = "https://www.brognoli.com.br/blog/wp-content/uploads/2022/10/pexels-kaichieh-chan-8495948-scaled-1.jpg",
+        status = status,
+        aditumId = "teste1",
+        endShift = "18:00:00",
+        startShit = "10:00:00"
+    ),
+    Establishment(
+        id = 1,
+        name = "Salão05",
+        description = "Salão de Beleza muito bonito e charmoso na avenida paulista",
+        cnpj = "50709903812/45",
+        local = local,
+        media = 2.0,
+        phone = phone,
+        imgUrl = "https://www.brognoli.com.br/blog/wp-content/uploads/2022/10/pexels-kaichieh-chan-8495948-scaled-1.jpg",
+        status = status,
+        aditumId = "teste1",
+        endShift = "18:00:00",
+        startShit = "10:00:00"
+    ),
 )

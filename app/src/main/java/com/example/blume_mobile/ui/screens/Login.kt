@@ -35,6 +35,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import com.example.blume_mobile.ui.activties.ChooseRegisterActivity
 import com.example.blume_mobile.ui.activties.FeedActivity
+import com.example.blume_mobile.ui.activties.MainActivity
 import com.example.blume_mobile.ui.components.titles.TitleBlume
 import com.example.blume_mobile.ui.states.LoginScreenUiState
 import com.example.blume_mobile.ui.theme.Gray700
@@ -120,7 +121,7 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState()){
                 InputEmail(text = email, placeholder = "example@email.com", label = "Email", state.onEmailChange)
                 InputText(textValue = password, 8, "senha", "Senha", "********", state.onPasswordChange)
                 CustomButton("Entrar", 280){
-                    val nextScreen = Intent(contexto, FeedActivity::class.java)
+                    val nextScreen = Intent(contexto, MainActivity::class.java)
 
                     contexto.startActivity(nextScreen)
                 }

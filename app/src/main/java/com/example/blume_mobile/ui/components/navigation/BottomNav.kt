@@ -24,11 +24,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import com.example.blume_mobile.R
 import com.example.blume_mobile.models.ui.NavigationBottomItem
+import com.example.blume_mobile.ui.activties.Feed
+import com.example.blume_mobile.ui.activties.FeedActivity
+import com.example.blume_mobile.ui.activties.SearchActivity
+import com.example.blume_mobile.ui.screens.LoginScreen
+import com.example.blume_mobile.ui.screens.Register
+import com.example.blume_mobile.ui.screens.SearchResultEstablishments
 
 @Composable
-fun BottomNav(){
+fun BottomNav(nav: NavHostController){
+
 
     var selectedItemIndex by rememberSaveable {
         mutableStateOf(0)
@@ -40,28 +50,32 @@ fun BottomNav(){
             title = "Home",
             selectedIcon = painterResource(id = R.drawable.home_selected),
             unselectedIcon = painterResource(id = R.drawable.home),
-            hasNews = false
+            hasNews = false,
+            navigateName = "feed"
         ),
 
         NavigationBottomItem(
             title = "Pesquisar",
             selectedIcon = painterResource(id = R.drawable.search_selected),
             unselectedIcon = painterResource(id = R.drawable.search),
-            hasNews = false
+            hasNews = false,
+            navigateName = "search"
         ),
 
         NavigationBottomItem(
             title = "Pedidos",
             selectedIcon = painterResource(id = R.drawable.order_selected),
             unselectedIcon = painterResource(id = R.drawable.orders),
-            hasNews = false
+            hasNews = false,
+            navigateName = ""
         ),
 
         NavigationBottomItem(
             title = "Perfil",
             selectedIcon = painterResource(id = R.drawable.profile_selected),
             unselectedIcon = painterResource(id = R.drawable.profile),
-            hasNews = false
+            hasNews = false,
+            navigateName = ""
         )
     )
 
@@ -76,14 +90,14 @@ fun BottomNav(){
                     height = 48.dp
                 )
                 .zIndex(1f)
-                .offset(0.dp, -67.dp)
+                .offset(0.dp, -60.dp)
                 .paint(
                     painterResource(
                         id = R.drawable.halfmoon,
 
-                    ),
+                        ),
                     contentScale = ContentScale.FillBounds
-                    )
+                )
         ) {
             Box(
                 Modifier
@@ -118,7 +132,10 @@ fun BottomNav(){
                         selectedIconColor = Color(150, 154, 255)
                     ),
                     selected = selectedItemIndex == index,
-                    onClick = { selectedItemIndex = index },
+                    onClick = {
+                        selectedItemIndex = index
+                        nav.navigate(n.navigateName)
+                    },
                     icon = {
                         if (selectedItemIndex == index) {
                             Icon(
@@ -138,9 +155,9 @@ fun BottomNav(){
     }
 }
 
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun PreviewNav(){
-    BottomNav()
-}
+//
+//@Preview(showSystemUi = true, showBackground = true)
+//@Composable
+//fun PreviewNav(){
+//    BottomNav()
+//}
