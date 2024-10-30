@@ -25,7 +25,8 @@
             android:name=".ui.activties.FeedActivity"
             android:exported="false"
             android:label="@string/title_activity_feed"
-            android:theme="@style/Theme.BlumeMobile" />
+            android:theme="@style/Theme.BlumeMobile"
+            />
         <activity
             android:name=".ui.activties.ChooseRegisterActivity"
             android:exported="false"

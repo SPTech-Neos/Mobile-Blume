@@ -23,7 +23,6 @@ class FeedScreenViewModel: ViewModel() {
     private val _uiState: MutableStateFlow<FeedScreenUiState> = MutableStateFlow(FeedScreenUiState())
     val uiState get() = _uiState.asStateFlow()
 
-
     init {
         _uiState.update { current ->
             current.copy(

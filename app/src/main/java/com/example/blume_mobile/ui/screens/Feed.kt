@@ -87,7 +87,7 @@ fun FeedScreen(state: FeedScreenUiState) {
     Column(
         Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.95f)
+            .fillMaxHeight()
             .background(Gray100)
             .padding(top = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -107,7 +107,8 @@ fun FeedScreen(state: FeedScreenUiState) {
         SearchBar(value = searchedText, handleChange = state.onSearch)
         if (searchedText.isBlank()) {
             LazyColumn(
-                Modifier.padding(bottom = 0.dp)
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+                contentPadding = PaddingValues(vertical = 10.dp),
             ){
 
                 item {

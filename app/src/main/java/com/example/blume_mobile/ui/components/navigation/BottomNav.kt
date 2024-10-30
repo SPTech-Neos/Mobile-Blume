@@ -35,6 +35,7 @@ import com.example.blume_mobile.ui.activties.SearchActivity
 import com.example.blume_mobile.ui.screens.LoginScreen
 import com.example.blume_mobile.ui.screens.Register
 import com.example.blume_mobile.ui.screens.SearchResultEstablishments
+import com.example.blume_mobile.ui.theme.Gray100
 
 @Composable
 fun BottomNav(nav: NavHostController){
@@ -118,7 +119,7 @@ fun BottomNav(nav: NavHostController){
         }
 
         NavigationBar(
-            containerColor = Color(250, 250, 250),
+            containerColor = Gray100,
 
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))

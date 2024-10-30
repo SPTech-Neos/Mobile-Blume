@@ -48,7 +48,7 @@ fun SearchResultEstablishments(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(vertical = 10.dp),
-        modifier = Modifier.padding(bottom = 70.dp, start = 20.dp, end = 20.dp)
+        modifier = Modifier.padding(bottom = 20.dp, start = 20.dp, end = 20.dp)
     ) {
         establishments.forEachIndexed { index, e ->
             if (index == 0) {
@@ -104,7 +104,6 @@ fun SearchResultEstablishments(
 
 
         }
-        item { Spacer(modifier = Modifier.height(20.dp)) }
 
     }
 }
@@ -118,7 +117,7 @@ fun SearchResultServices(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(vertical = 10.dp),
-        modifier = Modifier.padding(bottom = 70.dp, start = 20.dp, end = 20.dp)
+        modifier = Modifier.padding(bottom = 20.dp, start = 20.dp, end = 20.dp)
     ) {
         services.forEachIndexed { index, s ->
             if (index == 0) {
@@ -174,7 +173,6 @@ fun SearchResultServices(
 
 
         }
-        item { Spacer(modifier = Modifier.height(20.dp)) }
 
     }
 }

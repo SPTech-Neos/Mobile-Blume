@@ -56,7 +56,7 @@ fun Navigation(navController: NavHostController){
         }
 
         composable("search"){
-            SearchScreen()
+            Search()
         }
 
     }
