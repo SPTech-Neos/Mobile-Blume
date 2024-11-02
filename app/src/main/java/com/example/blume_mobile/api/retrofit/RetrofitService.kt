@@ -1,5 +1,6 @@
 package com.example.blume_mobile.api.retrofit
 
+import com.example.blume_mobile.api.repositories.ClientRepository
 import com.example.blume_mobile.api.repositories.EstablishmentRepository
 import com.example.blume_mobile.api.repositories.ProductRepository
 import com.example.blume_mobile.api.repositories.ServiceRepository
@@ -28,6 +29,10 @@ object RetrofitService {
 
     fun getApiServices(): ServiceRepository {
         return getApi().create(ServiceRepository::class.java)
+    }
+
+    fun getApiClient(): ClientRepository {
+        return getApi().create(ClientRepository::class.java)
     }
 
 }

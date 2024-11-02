@@ -73,7 +73,7 @@ class FeedScreenViewModel: ViewModel() {
     private fun getBestRateds() {
         viewModelScope.launch {
             try {
-                val getEstablishment = apiEstablishment.getBestRateds(1)
+                val getEstablishment = apiEstablishment.getBestRateds(5)
 
                 if(getEstablishment.isSuccessful){
                     if(getEstablishment.body() != null || getEstablishment.body()!!.isNotEmpty()){

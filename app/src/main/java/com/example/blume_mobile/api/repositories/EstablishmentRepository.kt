@@ -1,7 +1,6 @@
 package com.example.blume_mobile.api.repositories
 
 import com.example.blume_mobile.models.Establishment
-import kotlinx.coroutines.flow.MutableStateFlow
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

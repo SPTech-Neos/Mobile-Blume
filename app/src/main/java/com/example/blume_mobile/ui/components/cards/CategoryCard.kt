@@ -22,6 +22,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -66,17 +67,21 @@ fun CategoryCard(
                 )
                 .clip(RoundedCornerShape(15))
                 .background(color)
-                .padding(bottom = 20.dp, start = 10.dp)
+                .padding(bottom = 20.dp, start = 10.dp, end = 5.dp)
             ,
 
             contentAlignment = Alignment.BottomStart
         ){
-            Text(title, style = TextStyle(
-                fontFamily = poppins,
-                fontWeight = FontWeight.SemiBold,
-                color = Gray700
-
-            ))
+            Text(
+                title,
+                style = TextStyle(
+                    fontFamily = poppins,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Gray700
+                ),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
         }
 
 

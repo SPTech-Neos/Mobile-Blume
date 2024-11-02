@@ -23,3 +23,5 @@ val Gray100 = Color(0xFFFAFAFA)
 val Gray200 = Color(0xFFD6D6D6)
 val Gray500 = Color(0xFF808080)
 val Gray700 = Color(0xFF070707)
+
+val RedError = Color(0xFFDC2432)

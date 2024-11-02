@@ -1,6 +1,7 @@
 package com.example.blume_mobile.ui.screens
 
 import android.content.Intent
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,7 +16,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -34,28 +36,30 @@ import com.example.blume_mobile.ui.components.inputs.InputText
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import com.example.blume_mobile.ui.activties.ChooseRegisterActivity
-import com.example.blume_mobile.ui.activties.FeedActivity
 import com.example.blume_mobile.ui.activties.MainActivity
 import com.example.blume_mobile.ui.components.titles.TitleBlume
 import com.example.blume_mobile.ui.states.LoginScreenUiState
 import com.example.blume_mobile.ui.theme.Gray700
+import com.example.blume_mobile.ui.theme.RedError
 import com.example.blume_mobile.ui.theme.poppins
 import com.example.blume_mobile.ui.viewModels.LoginScreenViewModel
 
 @Composable
 fun LoginScreen(viewModel: LoginScreenViewModel){
 
+    val contexto = LocalContext.current
     val state by viewModel.uiState.collectAsState()
-    LoginScreen(state = state)
+    LoginScreen(state = state, viewModel = viewModel)
 }
 
 @Composable
-fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState()){
+fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState(), viewModel: LoginScreenViewModel){
 
     val email = state.email
     val password = state.password
     val contexto = LocalContext.current
-    
+    val mensagem = state.error
+
 
     Column(
         modifier = Modifier
@@ -63,6 +67,7 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState()){
             .fillMaxHeight()
             .background(Color(250, 250, 250))
             .imePadding()
+            .verticalScroll(rememberScrollState())
         ,
         verticalArrangement = Arrangement.SpaceAround
     ){
@@ -99,9 +104,10 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState()){
             ,
             verticalArrangement = Arrangement.Top,
         ) {
-            Box(
+            Column(
                 modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Text(
                     "Entre na sua conta:",
@@ -109,9 +115,20 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState()){
                     fontSize = 20.sp,
                     fontFamily = poppins,
                 )
-            }
 
+                Text(
+                    mensagem,
+                    color = RedError,
+                    fontSize = 12.sp,
+                    fontFamily = poppins,
+                )
+
+
+            }
             Spacer(modifier = Modifier.height(40.dp))
+
+
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -121,10 +138,9 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState()){
                 InputEmail(text = email, placeholder = "example@email.com", label = "Email", state.onEmailChange)
                 InputText(textValue = password, 8, "senha", "Senha", "********", state.onPasswordChange)
                 CustomButton("Entrar", 280){
-                    val nextScreen = Intent(contexto, MainActivity::class.java)
-
-                    contexto.startActivity(nextScreen)
+                    viewModel.login(contexto)
                 }
+
 
                 Spacer(modifier = Modifier.height(120.dp))
                 Row(
@@ -157,5 +173,5 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState()){
 @Preview
 @Composable
 fun LoginPreview(){
-    LoginScreen(LoginScreenUiState())
+    LoginScreen(LoginScreenUiState(), LoginScreenViewModel())
 }
