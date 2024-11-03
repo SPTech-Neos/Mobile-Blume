@@ -2,6 +2,7 @@ package com.example.blume_mobile.ui.screens
 
 
 import android.content.Intent
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -53,8 +54,18 @@ import com.example.blume_mobile.ui.viewModels.RegisterScreenViewModel
 fun Register(viewModel: RegisterScreenViewModel){
     val state by viewModel.uiState.collectAsState()
 
-    Register(state = state)
+    RegisterVerification(state = state, viewModel)
 }
+
+@Composable
+fun RegisterVerification(state: RegisterScreenUiState, viewModel: RegisterScreenViewModel){
+    if(state.stepper == 1){
+        Register(state)
+    }else{
+        RegisterOpcional(state = state, viewModel = viewModel)
+    }
+}
+
 
 @Composable
 fun Register(state: RegisterScreenUiState) {
@@ -66,6 +77,8 @@ fun Register(state: RegisterScreenUiState) {
     val cpf = state.cpf
     val telefone = state.phone
     val contexto = LocalContext.current
+
+    Log.i("RegisterScreen", "name: ${state.name}")
 
     Column(
         modifier = Modifier
@@ -175,9 +188,8 @@ fun Register(state: RegisterScreenUiState) {
                         )
 
                         CustomButton("Próximo", 200){
-                            val nextScreen = Intent(contexto, Register2Activity::class.java)
-
-                            contexto.startActivity(nextScreen)
+                            state.moveStepper("next")
+                            Log.i("RegisterScreen", "name: ${state.stepper}")
                         }
                         CancelButton(text = "Cancelar", 40){
                             val previous = Intent(contexto, ChooseRegisterActivity::class.java)

@@ -42,6 +42,7 @@ class RegisterActivity : ComponentActivity() {
 
 @Composable
 fun RegisterScreen(modifier: Modifier = Modifier, viewModel: RegisterScreenViewModel){
+
     Register(viewModel)
 }
 @Preview(showBackground = true, showSystemUi = true)

@@ -1,4 +1,4 @@
-package com.example.blume_mobile.models
+package com.example.blume_mobile.models.address
 
 data class Address(
     val id: Int,

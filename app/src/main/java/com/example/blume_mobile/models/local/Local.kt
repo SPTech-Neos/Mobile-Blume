@@ -1,4 +1,6 @@
-package com.example.blume_mobile.models
+package com.example.blume_mobile.models.local
+
+import com.example.blume_mobile.models.address.Address
 
 data class Local(
     val id: Int,

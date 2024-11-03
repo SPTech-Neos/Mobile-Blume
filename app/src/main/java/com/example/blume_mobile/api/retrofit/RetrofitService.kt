@@ -1,7 +1,10 @@
 package com.example.blume_mobile.api.retrofit
 
+import com.example.blume_mobile.api.repositories.AddressRepository
 import com.example.blume_mobile.api.repositories.ClientRepository
 import com.example.blume_mobile.api.repositories.EstablishmentRepository
+import com.example.blume_mobile.api.repositories.LocalRepository
+import com.example.blume_mobile.api.repositories.PhoneRepository
 import com.example.blume_mobile.api.repositories.ProductRepository
 import com.example.blume_mobile.api.repositories.ServiceRepository
 import retrofit2.Retrofit
@@ -33,6 +36,18 @@ object RetrofitService {
 
     fun getApiClient(): ClientRepository {
         return getApi().create(ClientRepository::class.java)
+    }
+
+    fun getApiLocal(): LocalRepository {
+        return getApi().create(LocalRepository::class.java)
+    }
+
+    fun getApiAddress(): AddressRepository {
+        return getApi().create(AddressRepository::class.java)
+    }
+
+    fun getApiPhone(): PhoneRepository {
+        return getApi().create(PhoneRepository::class.java)
     }
 
 }

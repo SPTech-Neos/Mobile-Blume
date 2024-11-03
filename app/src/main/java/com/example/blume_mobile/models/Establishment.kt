@@ -1,5 +1,8 @@
 package com.example.blume_mobile.models
 
+import com.example.blume_mobile.models.local.Local
+import com.example.blume_mobile.models.phone.Phone
+
 data class Establishment(
     val id: Int,
     val aditumId: String,

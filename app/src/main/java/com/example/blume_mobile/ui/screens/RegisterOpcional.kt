@@ -1,6 +1,7 @@
 package com.example.blume_mobile.ui.screens
 
 import android.content.Intent
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -48,11 +49,11 @@ import com.example.blume_mobile.ui.viewModels.RegisterScreenViewModel
 fun RegisterOpcional(viewModel: RegisterScreenViewModel){
     val state by viewModel.uiState.collectAsState()
 
-    RegisterOpcional(state = state)
+    RegisterOpcional(state = state, viewModel)
 }
 
 @Composable
-fun RegisterOpcional(state: RegisterScreenUiState){
+fun RegisterOpcional(state: RegisterScreenUiState, viewModel: RegisterScreenViewModel){
     val cep = state.postalCode
     val publicPlace = state.publicPlace
     val number = state.number
@@ -60,6 +61,8 @@ fun RegisterOpcional(state: RegisterScreenUiState){
     val countryState = state.countryState
     val url = state.url
     val contexto = LocalContext.current
+
+    Log.i("RegisterScreen", "name: ${state.name}")
 
 
     Column(
@@ -124,7 +127,7 @@ fun RegisterOpcional(state: RegisterScreenUiState){
 
             InputText(
                 textValue = number,
-                8,
+                1,
                 "Text",
                 "Número",
                 "Ex: 211",
@@ -142,7 +145,7 @@ fun RegisterOpcional(state: RegisterScreenUiState){
 
             InputText(
                 textValue = countryState,
-                8,
+                2,
                 "Text",
                 "Estado",
                 "Ex: SP",
@@ -165,14 +168,11 @@ fun RegisterOpcional(state: RegisterScreenUiState){
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     CustomButton("Cadastrar", 200) {
-                        val nextScreen = Intent(contexto, LoginActivity::class.java)
-
-                        contexto.startActivity(nextScreen)
+                        viewModel.registerClient(contexto)
                     }
                     CancelButton(text = "Voltar", 25) {
-                        val nextScreen = Intent(contexto, RegisterActivity::class.java)
-
-                        contexto.startActivity(nextScreen)
+                        state.moveStepper("prev")
+                        Log.i("RegisterScreen", "name: ${state.stepper}")
                     }
                 }
             }
