@@ -8,6 +8,6 @@ import retrofit2.http.POST
 
 interface PhoneRepository {
 
-    @POST("/phones")
+    @POST("phones")
     suspend fun register(@Body request: PhoneRequest): Response<Phone>
 }

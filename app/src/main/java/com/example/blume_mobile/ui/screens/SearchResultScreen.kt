@@ -1,5 +1,6 @@
 package com.example.blume_mobile.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -43,6 +44,8 @@ fun SearchResultEstablishments(
     establishments: List<Establishment> = emptyList(),
 
 ) {
+    Log.i("text search", "establishment2: ${establishments}")
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -167,6 +170,78 @@ fun SearchResultServices(
                         name = s.specification,
                         categories = sampleCategories,
                         profile = s.imgUrl!!
+                    )
+                }
+            }
+
+
+        }
+
+    }
+}
+
+@Composable
+fun SearchResultProducts(
+    products: List<Product> = emptyList(),
+
+    ) {
+    Log.i("text search", "prodcts: ${products}")
+
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        contentPadding = PaddingValues(vertical = 10.dp),
+        modifier = Modifier.padding(bottom = 20.dp, start = 20.dp, end = 20.dp)
+    ) {
+        products.forEachIndexed { index, p ->
+            if (index == 0) {
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    Text(
+                        text = "MELHOR RESULTADO: ",
+                        style = TextStyle(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = poppins,
+                            fontSize = 16.sp,
+                            color = Gray700,
+                            textAlign = TextAlign.Center
+                        )
+                    )
+                }
+
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    Box(
+                        Modifier
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        BestRated(
+                            name = p.name,
+                            categories = sampleCategories,
+                            profile = p.imgUrl!!
+                        )
+                    }
+
+                }
+
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    Text(
+                        text = "OUTROS RESULTADOS: ",
+                        style = TextStyle(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = poppins,
+                            fontSize = 16.sp,
+                            color = Gray700,
+                            textAlign = TextAlign.Center
+                        )
+                    )
+                }
+            } else {
+                item(span = { GridItemSpan(1) }) {
+                    BestRated(
+                        name = p.name,
+                        categories = sampleCategories,
+                        profile = p.imgUrl!!
                     )
                 }
             }

@@ -7,6 +7,6 @@ import retrofit2.http.GET
 
 interface ServiceRepository {
 
-    @GET("/services")
+    @GET("services")
     suspend fun getAllServices(): Response<List<Service>>
 }

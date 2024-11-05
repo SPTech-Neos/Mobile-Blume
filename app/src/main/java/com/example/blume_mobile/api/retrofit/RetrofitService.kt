@@ -7,6 +7,7 @@ import com.example.blume_mobile.api.repositories.LocalRepository
 import com.example.blume_mobile.api.repositories.PhoneRepository
 import com.example.blume_mobile.api.repositories.ProductRepository
 import com.example.blume_mobile.api.repositories.ServiceRepository
+import com.example.blume_mobile.api.repositories.ServiceTypeRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -48,6 +49,10 @@ object RetrofitService {
 
     fun getApiPhone(): PhoneRepository {
         return getApi().create(PhoneRepository::class.java)
+    }
+
+    fun getApiServiceType(): ServiceTypeRepository {
+        return getApi().create(ServiceTypeRepository::class.java)
     }
 
 }

@@ -3,11 +3,10 @@ package com.example.blume_mobile.ui.viewModels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.blume_mobile.api.retrofit.RetrofitService
 import com.example.blume_mobile.data.sampleEstablishments
-import com.example.blume_mobile.data.sampleServices
 import com.example.blume_mobile.models.Establishment
+import com.example.blume_mobile.models.Product
 import com.example.blume_mobile.models.Service
 import com.example.blume_mobile.ui.states.FeedScreenUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +29,8 @@ class FeedScreenViewModel: ViewModel() {
                         _uiState.value = _uiState.value.copy(
                             searchedText = it,
                             searchedBestEstablishments = searchEstablishments(it),
-                            searchedBestServices = searchServices(it)
+                            searchedBestServices = searchServices(it),
+                            searchedBestProducts = searchProducts(it)
 
                         )
                     },
@@ -78,7 +78,7 @@ class FeedScreenViewModel: ViewModel() {
                 if(getEstablishment.isSuccessful){
                     if(getEstablishment.body() != null || getEstablishment.body()!!.isNotEmpty()){
                         _uiState.value = _uiState.value.copy(bestEstablishments = getEstablishment.body()!!)
-                        Log.i("apiEstablishment", "resultado da chamada: ${_uiState.value}")
+                        Log.i("apiEstablishment", "resultado da chamada best rateds: ${_uiState.value}")
                     }
                 }else {
                     Log.e("apiEstablishment", "resultado da chamada: ${getEstablishment.message()}")
@@ -120,7 +120,7 @@ class FeedScreenViewModel: ViewModel() {
 
                 if(getService.isSuccessful){
                     if(getService.body() != null || getService.body()!!.isNotEmpty()){
-                        _uiState.value = _uiState.value.copy(bestServices = getService.body()!!)
+                        _uiState.value = _uiState.value.copy(services = getService.body()!!)
                         Log.i("apiService", "resultado da chamada: ${_uiState.value}")
                     }
                 }else {
@@ -139,13 +139,39 @@ class FeedScreenViewModel: ViewModel() {
         val searchedByName = mutableListOf<Establishment>()
         val searchedByDescription = mutableListOf<Establishment>()
 
+        if(text.isNotBlank()) {
+                _uiState.value.establishments.forEach{ e ->
+                    if (e.name.contains(text, ignoreCase = true)){
+                        searchedByName.add(e)
+                    }
+
+                    if (e.description.contains(text, ignoreCase = true)){
+                        if(!searchedByName.contains(e)){
+                            searchedByDescription.add(e)
+                        }
+                    }
+
+                }
+
+
+        }
+
+        return listOf(
+            *searchedByName.toTypedArray(), *searchedByDescription.toTypedArray()
+        )
+    }
+
+    private fun searchServices(text: String): List<Service>{
+        val searchedByName = mutableListOf<Service>()
+        val searchedByDescription = mutableListOf<Service>()
+
         if(text.isNotBlank()){
-            searchedByName.addAll(sampleEstablishments.filter { e ->
-                e.name.contains(text)
+            searchedByName.addAll(_uiState.value.services.filter { s ->
+                s.specification.contains(text, ignoreCase = true)
             })
 
-            searchedByDescription.addAll(sampleEstablishments.filter { e ->
-                e.description.contains(text)
+            searchedByDescription.addAll(_uiState.value.services.filter { s ->
+                s.serviceType.name.contains(text, ignoreCase = true)
             })
         }
 
@@ -155,24 +181,33 @@ class FeedScreenViewModel: ViewModel() {
 
     }
 
-    private fun searchServices(text: String): List<Service>{
-        val searchedByName = mutableListOf<Service>()
-        val searchedByDescription = mutableListOf<Service>()
+    private fun searchProducts(text: String): List<Product>{
+        val searchedByName = mutableListOf<Product>()
+        val searchedByDescription = mutableListOf<Product>()
 
         if(text.isNotBlank()){
-            searchedByName.addAll(sampleServices.filter { s ->
-                s.specification.contains(text)
-            })
+            if(text.isNotBlank()) {
+                _uiState.value.bestProducts.forEach{ e ->
+                    if (e.name.contains(text, ignoreCase = true)){
+                        searchedByName.add(e)
+                    }
 
-            searchedByDescription.addAll(sampleServices.filter { s ->
-                s.serviceType.name.contains(text)
-            })
+                    if (e.brand.contains(text, ignoreCase = true)){
+                        if(!searchedByName.contains(e)){
+                            searchedByDescription.add(e)
+                        }
+                    }
+
+                }
+
+
+            }
+
         }
 
         return listOf(
             *searchedByName.toTypedArray(), *searchedByDescription.toTypedArray()
-        ).distinct()
-
+        )
     }
 
 

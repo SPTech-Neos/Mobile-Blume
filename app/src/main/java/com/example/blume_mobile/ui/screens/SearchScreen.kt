@@ -48,6 +48,8 @@ fun SearchScreen(
     val searchedText = state.searchedText
     val establishments = state.searchEstablishments
     val services = state.searchServices
+    val products = state.searchProducts
+    val serviceTypes = state.serviceTypes
 
     Column(
         Modifier
@@ -70,17 +72,15 @@ fun SearchScreen(
         }
 
         SearchBar(value = searchedText, handleChange = state.onSearch)
-        if (searchedText.isEmpty()) {
+        if (searchedText.isEmpty() && serviceTypes.isNotEmpty()) {
             LazyHorizontalGrid(
                 rows = GridCells.Fixed(3),
                 contentPadding = PaddingValues(horizontal = 30.dp),
                 horizontalArrangement = Arrangement.spacedBy(18.dp)
             ) {
 
-                itemsIndexed(state.serviceCategories) { index, s ->
+                itemsIndexed(serviceTypes) { index, s ->
                     Log.i("teste search", "resultado na tela $index")
-                    Log.i("teste search", "resultado na tela ${state.serviceCategories}")
-
                     if (index % 3 == 0) {
                         CategoryCard(title = s.name, color = Violet300)
                     } else if (index % 3 == 1) {
@@ -133,6 +133,12 @@ fun SearchScreen(
             if (services.isNotEmpty()) {
                 if (state.filtered == "Serviços") {
                     SearchResultServices(services = services)
+                }
+            }
+
+            if (products.isNotEmpty()) {
+                if (state.filtered == "Produtos") {
+                    SearchResultProducts(products = products)
                 }
             }
         }

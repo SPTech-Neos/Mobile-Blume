@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface ProductRepository {
 
-    @GET("/products")
+    @GET("products")
     suspend fun getAllProducts(): Response<List<Product>>
 }

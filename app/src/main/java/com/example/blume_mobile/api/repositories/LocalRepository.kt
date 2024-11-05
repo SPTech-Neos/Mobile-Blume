@@ -8,6 +8,6 @@ import retrofit2.http.POST
 
 interface LocalRepository {
 
-    @POST("/locals")
+    @POST("locals")
     suspend fun register(@Body request: LocalRequest): Response<Local>
 }

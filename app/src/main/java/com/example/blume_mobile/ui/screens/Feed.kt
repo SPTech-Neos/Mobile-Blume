@@ -71,12 +71,13 @@ fun FeedScreen(viewModel: FeedScreenViewModel) {
 @Composable
 fun FeedScreen(state: FeedScreenUiState) {
     val establishments = state.establishments
+    val services = state.services
     val products = state.bestProducts
-    val services = state.bestServices
     val bestEstablishment = state.bestEstablishments
     val searchedText = state.searchedText
     val searchedEstablishments = state.searchedBestEstablishments
     val searchedServices = state.searchedBestServices
+    val searchedProducts = state.searchedBestProducts
 
     Log.i("teste api", "resultado na tela $establishments")
     Log.i("teste api", "resultado na tela $services")
@@ -279,6 +280,9 @@ fun FeedScreen(state: FeedScreenUiState) {
                     }
                 }
 
+                Log.i("teste establishments", "resultado na tela $establishments")
+
+
                 if (establishments.isNotEmpty()) {
                     items(establishments) { e ->
                         EstablishmentCard(e.name, e.description, e.media!!, e.imgUrl)
@@ -328,6 +332,12 @@ fun FeedScreen(state: FeedScreenUiState) {
             if(searchedServices.isNotEmpty()){
                 if(state.filtered == "Serviços"){
                     SearchResultServices(services = searchedServices)
+                }
+            }
+
+            if(searchedProducts.isNotEmpty()){
+                if(state.filtered == "Produtos"){
+                    SearchResultProducts(products = searchedProducts)
                 }
             }
         }
