@@ -1,9 +1,9 @@
 package com.example.blume_mobile.ui.states
 
-import com.example.blume_mobile.models.Establishment
-import com.example.blume_mobile.models.Product
-import com.example.blume_mobile.models.Service
-import com.example.blume_mobile.models.ServiceCategory
+import com.example.blume_mobile.models.establishment.Establishment
+import com.example.blume_mobile.models.product.Product
+import com.example.blume_mobile.models.service.Service
+import com.example.blume_mobile.models.serviceCategory.ServiceCategory
 
 data class FeedScreenUiState(
     val establishments: List<Establishment> = emptyList(),

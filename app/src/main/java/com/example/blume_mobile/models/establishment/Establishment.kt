@@ -1,5 +1,6 @@
-package com.example.blume_mobile.models
+package com.example.blume_mobile.models.establishment
 
+import com.example.blume_mobile.models.status.Status
 import com.example.blume_mobile.models.local.Local
 import com.example.blume_mobile.models.phone.Phone
 

@@ -1,7 +1,7 @@
-package com.example.blume_mobile.models
+package com.example.blume_mobile.models.service
 
-import android.net.Uri
-import java.math.BigDecimal
+import com.example.blume_mobile.models.serviceType.ServiceType
+import com.example.blume_mobile.models.status.Status
 
 data class Service(
     val id: Int? = null,

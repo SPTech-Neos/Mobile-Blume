@@ -4,10 +4,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.blume_mobile.api.retrofit.RetrofitService
-import com.example.blume_mobile.data.sampleEstablishments
-import com.example.blume_mobile.models.Establishment
-import com.example.blume_mobile.models.Product
-import com.example.blume_mobile.models.Service
+import com.example.blume_mobile.models.establishment.Establishment
+import com.example.blume_mobile.models.product.Product
+import com.example.blume_mobile.models.service.Service
 import com.example.blume_mobile.ui.states.FeedScreenUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

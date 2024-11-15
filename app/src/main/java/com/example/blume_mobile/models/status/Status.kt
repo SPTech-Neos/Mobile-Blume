@@ -1,4 +1,4 @@
-package com.example.blume_mobile.models
+package com.example.blume_mobile.models.status
 
 import com.google.gson.annotations.SerializedName
 

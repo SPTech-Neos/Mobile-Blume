@@ -1,6 +1,6 @@
 package com.example.blume_mobile.data
 
-import com.example.blume_mobile.models.ServiceCategory
+import com.example.blume_mobile.models.serviceCategory.ServiceCategory
 
 val sampleCategories = listOf(
     "Salão de beleza",

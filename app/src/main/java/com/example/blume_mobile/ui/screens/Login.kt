@@ -37,6 +37,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import com.example.blume_mobile.ui.activties.ChooseRegisterActivity
 import com.example.blume_mobile.ui.activties.MainActivity
+import com.example.blume_mobile.ui.activties.OrderActivity
 import com.example.blume_mobile.ui.components.titles.TitleBlume
 import com.example.blume_mobile.ui.states.LoginScreenUiState
 import com.example.blume_mobile.ui.theme.Gray700
@@ -46,8 +47,6 @@ import com.example.blume_mobile.ui.viewModels.LoginScreenViewModel
 
 @Composable
 fun LoginScreen(viewModel: LoginScreenViewModel){
-
-    val contexto = LocalContext.current
     val state by viewModel.uiState.collectAsState()
     LoginScreen(state = state, viewModel = viewModel)
 }
@@ -151,7 +150,8 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState(), viewModel: Log
                     Text("Não tem conta ainda?", color = Gray700)
                     Text(" Crie uma conta!",
                         Modifier.clickable(enabled = true) {
-                            val nextScreen = Intent(contexto, ChooseRegisterActivity::class.java)
+//                            val nextScreen = Intent(contexto, ChooseRegisterActivity::class.java)
+                            val nextScreen = Intent(contexto, OrderActivity::class.java)
 
                             contexto.startActivity(nextScreen)
                         },

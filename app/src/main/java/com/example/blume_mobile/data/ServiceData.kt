@@ -1,9 +1,8 @@
 package com.example.blume_mobile.data
 
-import com.example.blume_mobile.models.Service
-import com.example.blume_mobile.models.ServiceCategory
-import com.example.blume_mobile.models.ServiceType
-import com.example.blume_mobile.models.Status
+import com.example.blume_mobile.models.service.Service
+import com.example.blume_mobile.models.serviceCategory.ServiceCategory
+import com.example.blume_mobile.models.serviceType.ServiceType
 
 val serviceCategory = ServiceCategory(
     id = 1,

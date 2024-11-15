@@ -1,10 +1,10 @@
 package com.example.blume_mobile.data
 
 import com.example.blume_mobile.models.address.Address
-import com.example.blume_mobile.models.Establishment
+import com.example.blume_mobile.models.establishment.Establishment
 import com.example.blume_mobile.models.local.Local
 import com.example.blume_mobile.models.phone.Phone
-import com.example.blume_mobile.models.Status
+import com.example.blume_mobile.models.status.Status
 
 val address = Address(
     id = 1,

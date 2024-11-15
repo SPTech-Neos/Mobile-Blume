@@ -1,22 +1,14 @@
 package com.example.blume_mobile.ui.screens
 
 import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,15 +19,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.blume_mobile.data.sampleCategories
-import com.example.blume_mobile.models.Establishment
-import com.example.blume_mobile.models.Product
-import com.example.blume_mobile.models.Service
-import com.example.blume_mobile.ui.badge.CategoryBadge
+import com.example.blume_mobile.models.establishment.Establishment
+import com.example.blume_mobile.models.product.Product
+import com.example.blume_mobile.models.service.Service
 import com.example.blume_mobile.ui.components.cards.BestRated
-import com.example.blume_mobile.ui.components.searchbar.SearchBar
-import com.example.blume_mobile.ui.components.titles.TitleBlume
-import com.example.blume_mobile.ui.states.FeedScreenUiState
-import com.example.blume_mobile.ui.theme.Gray100
 import com.example.blume_mobile.ui.theme.Gray700
 import com.example.blume_mobile.ui.theme.poppins
 
@@ -43,7 +30,7 @@ import com.example.blume_mobile.ui.theme.poppins
 fun SearchResultEstablishments(
     establishments: List<Establishment> = emptyList(),
 
-) {
+    ) {
     Log.i("text search", "establishment2: ${establishments}")
 
     LazyVerticalGrid(

@@ -72,7 +72,7 @@ fun Input(
 
 
     OutlinedTextField(
-        modifier = Modifier,
+            modifier = Modifier,
         value = text,
         onValueChange = { onChange(it) },
         maxLines = 1,

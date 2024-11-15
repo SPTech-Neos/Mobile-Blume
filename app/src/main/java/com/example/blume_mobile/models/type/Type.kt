@@ -1,4 +1,4 @@
-package com.example.blume_mobile.models
+package com.example.blume_mobile.models.type
 
 data class Type(
     val id: Int? = null,

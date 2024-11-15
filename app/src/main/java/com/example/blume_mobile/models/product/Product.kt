@@ -1,4 +1,8 @@
-package com.example.blume_mobile.models
+package com.example.blume_mobile.models.product
+
+import com.example.blume_mobile.models.productType.ProductType
+import com.example.blume_mobile.models.status.Status
+import com.example.blume_mobile.models.establishment.Establishment
 
 data class Product(
     val id: Int? = null,

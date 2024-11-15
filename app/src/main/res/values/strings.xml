@@ -13,4 +13,5 @@
     <string name="title_activity_choose_register">ChooseRegisterActivity</string>
     <string name="title_activity_feed">FeedActivity</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_order">OrderActivity</string>
 </resources>

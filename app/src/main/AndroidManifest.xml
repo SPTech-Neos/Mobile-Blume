@@ -5,9 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:enableOnBackInvokedCallback="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/blume"
         android:label="@string/app_name"
@@ -17,6 +17,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".ui.activties.OrderActivity"
+            android:exported="false"
+            android:label="@string/title_activity_order"
+            android:theme="@style/Theme.BlumeMobile" />
+        <activity
             android:name=".ui.activties.SearchActivity"
             android:exported="false"
             android:label="@string/title_activity_search"
@@ -25,8 +30,7 @@
             android:name=".ui.activties.FeedActivity"
             android:exported="false"
             android:label="@string/title_activity_feed"
-            android:theme="@style/Theme.BlumeMobile"
-            />
+            android:theme="@style/Theme.BlumeMobile" />
         <activity
             android:name=".ui.activties.ChooseRegisterActivity"
             android:exported="false"
@@ -54,8 +58,7 @@
             android:name=".ui.activties.MainActivity"
             android:exported="true"
             android:label="Blume"
-            android:theme="@style/Theme.BlumeMobile"/>
-
+            android:theme="@style/Theme.BlumeMobile" />
         <activity
             android:name=".ui.activties.RegisterActivity"
             android:exported="true"
