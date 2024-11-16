@@ -68,7 +68,7 @@ fun BottomNav(nav: NavHostController){
             selectedIcon = painterResource(id = R.drawable.order_selected),
             unselectedIcon = painterResource(id = R.drawable.orders),
             hasNews = false,
-            navigateName = ""
+            navigateName = "orders"
         ),
 
         NavigationBottomItem(
@@ -76,7 +76,7 @@ fun BottomNav(nav: NavHostController){
             selectedIcon = painterResource(id = R.drawable.profile_selected),
             unselectedIcon = painterResource(id = R.drawable.profile),
             hasNews = false,
-            navigateName = ""
+            navigateName = "profile"
         )
     )
 

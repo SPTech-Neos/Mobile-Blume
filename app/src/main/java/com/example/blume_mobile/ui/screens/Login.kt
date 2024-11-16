@@ -137,9 +137,12 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState(), viewModel: Log
                 InputEmail(text = email, placeholder = "example@email.com", label = "Email", state.onEmailChange)
                 InputText(textValue = password, 8, "senha", "Senha", "********", state.onPasswordChange)
                 CustomButton("Entrar", 280){
-                    viewModel.login(contexto)
-                }
+//                    viewModel.login(contexto)
+                    val nextScreen = Intent(contexto, MainActivity::class.java)
+//                            val nextScreen = Intent(contexto, OrderActivity::class.java)
 
+                    contexto.startActivity(nextScreen)
+                }
 
                 Spacer(modifier = Modifier.height(120.dp))
                 Row(
@@ -150,8 +153,8 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState(), viewModel: Log
                     Text("Não tem conta ainda?", color = Gray700)
                     Text(" Crie uma conta!",
                         Modifier.clickable(enabled = true) {
-//                            val nextScreen = Intent(contexto, ChooseRegisterActivity::class.java)
-                            val nextScreen = Intent(contexto, OrderActivity::class.java)
+                            val nextScreen = Intent(contexto, ChooseRegisterActivity::class.java)
+//                            val nextScreen = Intent(contexto, OrderActivity::class.java)
 
                             contexto.startActivity(nextScreen)
                         },

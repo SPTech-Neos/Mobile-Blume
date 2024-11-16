@@ -17,6 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.blume_mobile.ui.components.navigation.BottomNav
+import com.example.blume_mobile.ui.screens.Profile
 import com.example.blume_mobile.ui.theme.BlumeMobileTheme
 import com.example.blume_mobile.ui.theme.Gray100
 
@@ -52,6 +53,16 @@ fun Navigation(navController: NavHostController){
         composable("search"){
             Search()
         }
+
+        composable("orders"){
+            Orders()
+        }
+
+        composable("profile"){
+            Profile()
+        }
+
+
 
     }
 }

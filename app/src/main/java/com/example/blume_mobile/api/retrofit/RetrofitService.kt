@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitService {
 
-    private val BASE_URL = "http://192.168.82.67:8080/"
+    private val BASE_URL = "http://192.168.15.106:8080/"
 
     fun getApi(): Retrofit{
         return Retrofit.Builder()

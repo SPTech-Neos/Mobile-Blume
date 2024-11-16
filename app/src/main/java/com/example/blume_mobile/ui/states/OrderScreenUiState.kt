@@ -4,6 +4,8 @@ import com.example.blume_mobile.order.Order
 
 data class OrderScreenUiState(
     val orders: List<Order> = emptyList(),
-    val filterService: String = "Todos",
+    val filtered: String = "Todos",
+    val onClickFilter: (String) -> Unit = {}
+
 ) {
 }

@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.blume_mobile.ui.theme.Gray100
 import com.example.blume_mobile.ui.theme.Gray200
 import com.example.blume_mobile.ui.theme.Gray700
 import com.example.blume_mobile.ui.theme.Violet300
@@ -34,7 +35,7 @@ fun CategoryBadge(
 ){
 
     val background = if(categorySelected == name) Violet300 else Gray200
-
+    val textColor = if(categorySelected == name) Gray100 else Gray700
     Surface(
         shape = RoundedCornerShape(8.dp),
         shadowElevation = 3.dp
@@ -58,7 +59,7 @@ fun CategoryBadge(
                     fontFamily = poppins,
                     fontWeight = FontWeight(700),
                     textAlign = TextAlign.Center,
-                    color = Gray700
+                    color = textColor
                 ),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
