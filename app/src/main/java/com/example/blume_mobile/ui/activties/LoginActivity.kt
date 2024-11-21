@@ -11,11 +11,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.blume_mobile.models.di.UserSession
 import com.example.blume_mobile.ui.screens.LoginScreen
 import com.example.blume_mobile.ui.theme.BlumeMobileTheme
 import com.example.blume_mobile.ui.viewModels.LoginScreenViewModel
+import org.koin.android.ext.android.inject
 
 class LoginActivity : ComponentActivity() {
+    private val userSession: UserSession by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,7 +29,8 @@ class LoginActivity : ComponentActivity() {
                     val viewModel:LoginScreenViewModel  by viewModels()
                     LoginScreen(
                         modifier = Modifier.padding(innerPadding),
-                        viewModel = viewModel
+                        viewModel = viewModel,
+                        userSession = userSession
                     )
                 }
             }
@@ -35,14 +39,14 @@ class LoginActivity : ComponentActivity() {
 }
 
 @Composable
-fun LoginScreen(modifier: Modifier, viewModel: LoginScreenViewModel) {
-    LoginScreen(viewModel = viewModel)
+fun LoginScreen(modifier: Modifier, viewModel: LoginScreenViewModel, userSession: UserSession) {
+    LoginScreen(viewModel = viewModel, userSession = userSession)
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
     BlumeMobileTheme {
-        LoginScreen(Modifier, LoginScreenViewModel())
+        LoginScreen(Modifier, LoginScreenViewModel(), UserSession())
     }
 }

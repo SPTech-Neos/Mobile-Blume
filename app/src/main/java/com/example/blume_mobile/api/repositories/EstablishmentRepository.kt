@@ -13,6 +13,6 @@ interface EstablishmentRepository {
     @GET("establishments/best-rating/{count}")
     suspend fun getBestRateds(@Path("count") count: Int): Response<List<Establishment>>
 
-    @GET("/{id}")
+    @GET("{id}")
     suspend fun getById(@Path("id") id: Int): Response<List<Establishment>>
 }

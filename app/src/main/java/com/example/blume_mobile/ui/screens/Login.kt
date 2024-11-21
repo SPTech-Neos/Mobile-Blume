@@ -35,6 +35,7 @@ import com.example.blume_mobile.ui.components.inputs.InputEmail
 import com.example.blume_mobile.ui.components.inputs.InputText
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
+import com.example.blume_mobile.models.di.UserSession
 import com.example.blume_mobile.ui.activties.ChooseRegisterActivity
 import com.example.blume_mobile.ui.activties.MainActivity
 import com.example.blume_mobile.ui.activties.OrderActivity
@@ -46,13 +47,13 @@ import com.example.blume_mobile.ui.theme.poppins
 import com.example.blume_mobile.ui.viewModels.LoginScreenViewModel
 
 @Composable
-fun LoginScreen(viewModel: LoginScreenViewModel){
+fun LoginScreen(viewModel: LoginScreenViewModel, userSession: UserSession){
     val state by viewModel.uiState.collectAsState()
-    LoginScreen(state = state, viewModel = viewModel)
+    LoginScreen(state = state, viewModel = viewModel, userSession = userSession)
 }
 
 @Composable
-fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState(), viewModel: LoginScreenViewModel){
+fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState(), viewModel: LoginScreenViewModel, userSession: UserSession){
 
     val email = state.email
     val password = state.password
@@ -137,11 +138,10 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState(), viewModel: Log
                 InputEmail(text = email, placeholder = "example@email.com", label = "Email", state.onEmailChange)
                 InputText(textValue = password, 8, "senha", "Senha", "********", state.onPasswordChange)
                 CustomButton("Entrar", 280){
-//                    viewModel.login(contexto)
-                    val nextScreen = Intent(contexto, MainActivity::class.java)
-//                            val nextScreen = Intent(contexto, OrderActivity::class.java)
-
-                    contexto.startActivity(nextScreen)
+                    viewModel.login(contexto, userSession)
+//                    val nextScreen = Intent(contexto, MainActivity::class.java)
+//
+//                    contexto.startActivity(nextScreen)
                 }
 
                 Spacer(modifier = Modifier.height(120.dp))
@@ -176,5 +176,5 @@ fun LoginScreen(state: LoginScreenUiState = LoginScreenUiState(), viewModel: Log
 @Preview
 @Composable
 fun LoginPreview(){
-    LoginScreen(LoginScreenUiState(), LoginScreenViewModel())
+    LoginScreen(LoginScreenUiState(), LoginScreenViewModel(), userSession = UserSession())
 }

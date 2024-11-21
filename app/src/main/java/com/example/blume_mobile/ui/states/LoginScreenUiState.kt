@@ -9,6 +9,7 @@ data class LoginScreenUiState(
     val onEmailChange: (String) -> Unit = {},
     val onPasswordChange: (String) -> Unit = {},
     val loginSucessful: Boolean = false,
-    val error: String = ""
+    val error: String = "",
+    val idClientLogin: Int = 0
 ) {
 }

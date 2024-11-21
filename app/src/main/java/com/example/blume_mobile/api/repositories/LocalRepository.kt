@@ -7,7 +7,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface LocalRepository {
-
     @POST("locals")
     suspend fun register(@Body request: LocalRequest): Response<Local>
 }
