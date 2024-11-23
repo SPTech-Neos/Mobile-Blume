@@ -13,6 +13,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.blume_mobile.ui.components.navigation.BottomNav
 import com.example.blume_mobile.ui.screens.FeedScreen
@@ -38,7 +39,8 @@ class FeedActivity : ComponentActivity() {
                         val viewModel by viewModels<FeedScreenViewModel>()
                         Feed(
                             viewModel = viewModel,
-                            modifier = Modifier.padding(innerPadding)
+                            modifier = Modifier.padding(innerPadding),
+                            rememberNavController()
                         )
                     }
                 }
@@ -48,8 +50,8 @@ class FeedActivity : ComponentActivity() {
 }
 
 @Composable
-fun Feed(viewModel: FeedScreenViewModel = FeedScreenViewModel(), modifier: Modifier = Modifier) {
-    FeedScreen(viewModel)
+fun Feed(viewModel: FeedScreenViewModel = FeedScreenViewModel(), modifier: Modifier = Modifier, navController: NavController) {
+    FeedScreen(viewModel, navController)
 }
 
 @Preview(showBackground = true, showSystemUi = true)

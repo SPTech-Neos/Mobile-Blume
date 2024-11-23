@@ -37,18 +37,34 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 
 import com.example.blume_mobile.R
 import com.example.blume_mobile.data.sampleCategories
 import com.example.blume_mobile.data.sampleEstablishments
 import com.example.blume_mobile.data.sampleServices
+import com.example.blume_mobile.models.di.UserSession
+import com.example.blume_mobile.models.establishment.Establishment
+import com.example.blume_mobile.models.product.Product
+import com.example.blume_mobile.models.service.Service
+import com.example.blume_mobile.ui.activties.Feed
+import com.example.blume_mobile.ui.activties.Orders
+import com.example.blume_mobile.ui.activties.Search
 import com.example.blume_mobile.ui.badge.CategoryBadge
 import com.example.blume_mobile.ui.components.titles.TitleBlume
 import com.example.blume_mobile.ui.components.banner.Banner
 import com.example.blume_mobile.ui.components.cards.BestRated
 import com.example.blume_mobile.ui.components.cards.CategoryCard
-import com.example.blume_mobile.ui.components.cards.RatedCard
 import com.example.blume_mobile.ui.components.cards.EstablishmentCard
+import com.example.blume_mobile.ui.components.cards.EstablishmentRatedCard
+import com.example.blume_mobile.ui.components.cards.ServiceRatedCard
+import com.example.blume_mobile.ui.components.cards.ProductRatedCard
 import com.example.blume_mobile.ui.components.searchbar.SearchBar
 import com.example.blume_mobile.ui.states.FeedScreenUiState
 import com.example.blume_mobile.ui.theme.Gray100
@@ -59,17 +75,52 @@ import com.example.blume_mobile.ui.theme.Violet500
 import com.example.blume_mobile.ui.theme.Yellow50
 import com.example.blume_mobile.ui.theme.poppins
 import com.example.blume_mobile.ui.viewModels.FeedScreenViewModel
+import com.example.blume_mobile.ui.viewModels.ProfileScreenViewModel
+import com.google.gson.Gson
+
+
+//@Composable
+//fun Navigation(){
+//    val navController = rememberNavController()
+//
+//    NavHost(
+//        modifier = Modifier,
+//        navController = navController,
+//        startDestination = "feed",
+//
+//    ){
+//        composable("feed"){
+//            Feed(navController = navController)
+//        }
+//
+//        composable(route = "service_details?service={service}", arguments = listOf(
+//            navArgument(
+//                name = "service"
+//            ){
+//                type = NavType.StringType
+//                defaultValue = ""
+//            }
+//        )){
+//            val serviceJson = it.arguments?.getString("service")
+//            val serviceObj = Gson().fromJson(serviceJson, Service::class.java)
+//            ServiceDetails(service = serviceObj, navController = navController)
+//        }
+//
+//
+//
+//    }
+//}
 
 
 @Composable
-fun FeedScreen(viewModel: FeedScreenViewModel) {
+fun FeedScreen(viewModel: FeedScreenViewModel = FeedScreenViewModel(), navController: NavController) {
     val state by viewModel.uiState.collectAsState()
 
-    FeedScreen(state = state)
+    FeedScreen(state = state, navController = navController)
 }
 
 @Composable
-fun FeedScreen(state: FeedScreenUiState) {
+fun FeedScreen(state: FeedScreenUiState, navController: NavController) {
     val establishments = state.establishments
     val services = state.services
     val products = state.bestProducts
@@ -177,10 +228,9 @@ fun FeedScreen(state: FeedScreenUiState) {
                         ) {
                             if (bestEstablishment.isNotEmpty()) {
                                 items(bestEstablishment) { e ->
-                                    RatedCard(
-                                        title = e.name,
-                                        category = e.description,
-                                        profile = e.imgUrl
+                                    EstablishmentRatedCard(
+                                        navController = navController,
+                                        establishment = e
                                     )
                                 }
                             }
@@ -214,10 +264,9 @@ fun FeedScreen(state: FeedScreenUiState) {
                         ) {
                             if (products.isNotEmpty()) {
                                 items(products) { p ->
-                                    RatedCard(
-                                        title = p.name,
-                                        category = p.brand,
-                                        profile = p.imgUrl
+                                    ProductRatedCard(
+                                        navController = navController,
+                                        product = p
                                     )
                                 }
                             }
@@ -251,10 +300,9 @@ fun FeedScreen(state: FeedScreenUiState) {
                         ) {
                             if (services.isNotEmpty()) {
                                 items(services) { s ->
-                                    RatedCard(
-                                        title = s.specification,
-                                        category = s.serviceType.serviceCategory.name,
-                                        profile = s.imgUrl
+                                    ServiceRatedCard(
+                                        navController = navController,
+                                        service = s
                                     )
                                 }
                             }
@@ -348,5 +396,5 @@ fun FeedScreen(state: FeedScreenUiState) {
 @Preview()
 @Composable
 fun FeedPreview() {
-    FeedScreen(FeedScreenUiState())
+    FeedScreen(FeedScreenUiState(), rememberNavController())
 }

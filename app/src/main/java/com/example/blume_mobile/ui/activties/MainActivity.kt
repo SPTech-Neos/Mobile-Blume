@@ -14,16 +14,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.blume_mobile.models.di.UserSession
+import com.example.blume_mobile.models.establishment.Establishment
+import com.example.blume_mobile.models.product.Product
+import com.example.blume_mobile.models.service.Service
 import com.example.blume_mobile.ui.components.navigation.BottomNav
+import com.example.blume_mobile.ui.screens.EstablishmentDetails
+import com.example.blume_mobile.ui.screens.ProductDetails
 import com.example.blume_mobile.ui.screens.Profile
+import com.example.blume_mobile.ui.screens.ServiceDetails
 import com.example.blume_mobile.ui.theme.BlumeMobileTheme
 import com.example.blume_mobile.ui.theme.Gray100
 import com.example.blume_mobile.ui.viewModels.LoginScreenViewModel
 import com.example.blume_mobile.ui.viewModels.ProfileScreenViewModel
+import com.google.gson.Gson
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
@@ -56,7 +65,7 @@ fun Navigation(navController: NavHostController, userSession: UserSession, profi
         startDestination = "feed"
     ){
         composable("feed"){
-            Feed()
+            Feed(navController = navController)
         }
 
         composable("search"){
@@ -69,6 +78,49 @@ fun Navigation(navController: NavHostController, userSession: UserSession, profi
 
         composable("profile"){
                 Profile(userSession = userSession, viewModel = profileVM)
+        }
+
+        composable("feed"){
+            Feed(navController = navController)
+        }
+
+        composable(route = "service_details?service={service}", arguments = listOf(
+            navArgument(
+                name = "service"
+            ){
+                type = NavType.StringType
+                defaultValue = ""
+            }
+        )){
+            val serviceJson = it.arguments?.getString("service")
+            val serviceObj = Gson().fromJson(serviceJson, Service::class.java)
+            ServiceDetails(service = serviceObj, navController = navController)
+        }
+
+        composable(route = "product_details?product={product}", arguments = listOf(
+            navArgument(
+                name = "product"
+            ){
+                type = NavType.StringType
+                defaultValue = ""
+            }
+        )){
+            val productJson = it.arguments?.getString("product")
+            val productObj = Gson().fromJson(productJson, Product::class.java)
+            ProductDetails(product = productObj)
+        }
+
+        composable(route = "establishment_details?establishment={establishment}", arguments = listOf(
+            navArgument(
+                name = "establishment"
+            ){
+                type = NavType.StringType
+                defaultValue = ""
+            }
+        )){
+            val establishmentJson = it.arguments?.getString("establishment")
+            val establishmentObj = Gson().fromJson(establishmentJson, Establishment::class.java)
+            EstablishmentDetails(establishment = establishmentObj)
         }
 
 
