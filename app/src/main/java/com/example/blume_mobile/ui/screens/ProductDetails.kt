@@ -143,7 +143,7 @@ fun ProductDetails(product: Product){
                     ))
 
                     Row(
-                        Modifier.fillMaxWidth(0.8f)
+                        Modifier.fillMaxWidth()
                     ){
                         Text(text = "Marca: ", style = TextStyle(
                             fontSize = 16.sp,
@@ -163,7 +163,7 @@ fun ProductDetails(product: Product){
                     }
 
                     Row(
-                        Modifier.fillMaxWidth(0.8f)
+                        Modifier.fillMaxWidth()
                     ){
                         Text(text = "Categoria: ", style = TextStyle(
                             fontSize = 16.sp,
@@ -183,7 +183,7 @@ fun ProductDetails(product: Product){
                     }
 
                     Row(
-                        Modifier.fillMaxWidth(0.8f)
+                        Modifier.fillMaxWidth()
                     ){
                         Text(text = "Vendido por: ", style = TextStyle(
                             fontSize = 16.sp,
@@ -216,6 +216,7 @@ fun ProductDetails(product: Product){
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceAround
                     ) {
+                        Spacer(modifier = Modifier.width(20.dp))
                         Column(
                             Modifier.fillMaxWidth(0.5f),
                             verticalArrangement = Arrangement.spacedBy(10.dp),
