@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -250,7 +251,8 @@ fun EstablishmentDetails(establishment: Establishment, viewModel: EstablishmentD
                     Column(
                         Modifier
                             .fillMaxWidth()
-                            .fillMaxHeight()
+                            .fillMaxHeight(),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Column(
                             Modifier
@@ -306,7 +308,7 @@ fun EstablishmentDetails(establishment: Establishment, viewModel: EstablishmentD
                             Column(
                                 Modifier
                                     .fillMaxHeight()
-                                    .fillMaxWidth()
+                                    .fillMaxWidth(0.7f)
                                     .padding(start = 20.dp),
                                 verticalArrangement = Arrangement.Center
                             ) {
