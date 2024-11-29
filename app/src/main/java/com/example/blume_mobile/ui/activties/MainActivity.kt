@@ -30,6 +30,7 @@ import com.example.blume_mobile.ui.screens.Profile
 import com.example.blume_mobile.ui.screens.ServiceDetails
 import com.example.blume_mobile.ui.theme.BlumeMobileTheme
 import com.example.blume_mobile.ui.theme.Gray100
+import com.example.blume_mobile.ui.viewModels.EstablishmentDetailsViewModel
 import com.example.blume_mobile.ui.viewModels.LoginScreenViewModel
 import com.example.blume_mobile.ui.viewModels.ProfileScreenViewModel
 import com.google.gson.Gson
@@ -120,7 +121,8 @@ fun Navigation(navController: NavHostController, userSession: UserSession, profi
         )){
             val establishmentJson = it.arguments?.getString("establishment")
             val establishmentObj = Gson().fromJson(establishmentJson, Establishment::class.java)
-            EstablishmentDetails(establishment = establishmentObj)
+            val viewModel: EstablishmentDetailsViewModel = EstablishmentDetailsViewModel()
+            EstablishmentDetails(establishment = establishmentObj, viewModel = viewModel)
         }
 
 

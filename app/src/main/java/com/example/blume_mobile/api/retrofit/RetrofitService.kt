@@ -2,6 +2,7 @@ package com.example.blume_mobile.api.retrofit
 
 import com.example.blume_mobile.api.repositories.AddressRepository
 import com.example.blume_mobile.api.repositories.ClientRepository
+import com.example.blume_mobile.api.repositories.EmployeeRepository
 import com.example.blume_mobile.api.repositories.EstablishmentRepository
 import com.example.blume_mobile.api.repositories.LocalRepository
 import com.example.blume_mobile.api.repositories.PhoneRepository
@@ -13,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitService {
 
-    private val BASE_URL = "http://192.168.217.67:8080/"
+    private val BASE_URL = "http://192.168.15.106:8080/"
 
     fun getApi(): Retrofit{
         return Retrofit.Builder()
@@ -53,6 +54,10 @@ object RetrofitService {
 
     fun getApiServiceType(): ServiceTypeRepository {
         return getApi().create(ServiceTypeRepository::class.java)
+    }
+
+    fun getApiEmployees(): EmployeeRepository {
+        return getApi().create(EmployeeRepository::class.java)
     }
 
 }

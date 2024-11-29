@@ -5,6 +5,7 @@ import com.example.blume_mobile.models.establishment.Establishment
 import com.example.blume_mobile.models.local.Local
 import com.example.blume_mobile.models.phone.Phone
 import com.example.blume_mobile.models.status.Status
+import com.google.gson.annotations.SerializedName
 
 data class Employee(
     val id: Int,
@@ -13,8 +14,8 @@ data class Employee(
     val password: String,
     val imgUrl: String,
     val establishment: Establishment,
-    val local: Local,
-    val phone: Phone,
-    val status: Status,
+    @SerializedName("Local")val local: Local,
+    @SerializedName("Phone") val phone: Phone,
+    @SerializedName("Status")val status: Status,
     val employeeType: EmployeeType
 )
