@@ -1,6 +1,7 @@
 package com.example.blume_mobile.ui.components.cards
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -37,11 +38,16 @@ import com.example.blume_mobile.ui.theme.Gray700
 fun BestRated(
     name: String,
     categories: List<String>,
-    profile: String
+    profile: String,
+    badges: Boolean = true,
+    onClick: () -> Unit = {}
 ){
     Surface(
         shape = RoundedCornerShape(8.dp),
-        shadowElevation = 3.dp
+        shadowElevation = 3.dp,
+        modifier = Modifier.clickable(true){
+            onClick()
+        }
     ) {
         Column(
             Modifier
@@ -73,16 +79,18 @@ fun BestRated(
                 )
             )
 
-            LazyRow(
-                Modifier
-                    .fillMaxWidth()
-                    .height(80.dp)
-                ,
-                contentPadding = PaddingValues(horizontal = 10.dp),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-                items(categories){ c ->
-                    CategoryBadge(name = c, width = 60, height = 20)
+            if(badges){
+                LazyRow(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(80.dp)
+                    ,
+                    contentPadding = PaddingValues(horizontal = 10.dp),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    items(categories){ c ->
+                        CategoryBadge(name = c, width = 60, height = 20)
+                    }
                 }
             }
         }

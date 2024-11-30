@@ -46,6 +46,7 @@ import com.example.blume_mobile.ui.components.cards.BestRated
 import com.example.blume_mobile.ui.components.tab.Tab
 import com.example.blume_mobile.ui.components.titles.TitleBlume
 import com.example.blume_mobile.ui.states.EstablishmentScreenUiState
+import com.example.blume_mobile.ui.theme.Gray500
 import com.example.blume_mobile.ui.theme.Gray700
 import com.example.blume_mobile.ui.theme.Violet500
 import com.example.blume_mobile.ui.theme.poppins
@@ -55,7 +56,6 @@ import com.example.blume_mobile.ui.viewModels.EstablishmentDetailsViewModel
 fun EstablishmentDetails(establishment: Establishment, viewModel: EstablishmentDetailsViewModel) {
     val state by viewModel.uiState.collectAsState()
     Log.i("estab details", "${state.filtered}")
-
 
     Column(
         Modifier

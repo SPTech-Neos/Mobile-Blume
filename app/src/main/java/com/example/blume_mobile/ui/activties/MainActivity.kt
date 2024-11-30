@@ -33,6 +33,7 @@ import com.example.blume_mobile.ui.theme.Gray100
 import com.example.blume_mobile.ui.viewModels.EstablishmentDetailsViewModel
 import com.example.blume_mobile.ui.viewModels.LoginScreenViewModel
 import com.example.blume_mobile.ui.viewModels.ProfileScreenViewModel
+import com.example.blume_mobile.ui.viewModels.ServiceDetailsViewModel
 import com.google.gson.Gson
 import org.koin.android.ext.android.inject
 
@@ -95,7 +96,9 @@ fun Navigation(navController: NavHostController, userSession: UserSession, profi
         )){
             val serviceJson = it.arguments?.getString("service")
             val serviceObj = Gson().fromJson(serviceJson, Service::class.java)
-            ServiceDetails(service = serviceObj, navController = navController)
+            val viewModel: ServiceDetailsViewModel = ServiceDetailsViewModel()
+
+            ServiceDetails(service = serviceObj, navController = navController, viewModel = viewModel)
         }
 
         composable(route = "product_details?product={product}", arguments = listOf(
