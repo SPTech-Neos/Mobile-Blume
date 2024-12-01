@@ -13,6 +13,6 @@ data class Scheduling(
     val service: Service,
     val employee: Employee,
     val status: Status,
-    val dateTime: LocalDateTime
+    val dateTime: String
 ) {
 }
