@@ -30,8 +30,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.blume_mobile.R
+import com.example.blume_mobile.models.di.UserSession
+import com.example.blume_mobile.models.order.OrderRequest
 import com.example.blume_mobile.models.product.Product
 import com.example.blume_mobile.ui.components.buttons.CustomButton
 import com.example.blume_mobile.ui.components.titles.TitleBlume
@@ -39,9 +42,19 @@ import com.example.blume_mobile.ui.theme.Gray700
 import com.example.blume_mobile.ui.theme.Violet50
 import com.example.blume_mobile.ui.theme.Violet500
 import com.example.blume_mobile.ui.theme.poppins
+import com.example.blume_mobile.ui.viewModels.ProductDetailsViewModel
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
 @Composable
-fun ProductDetails(product: Product){
+fun ProductDetails(
+    product: Product,
+    viewModel: ProductDetailsViewModel,
+    navController: NavController,
+    user: UserSession
+){
     Column(
         Modifier
             .fillMaxSize(),
@@ -244,7 +257,25 @@ fun ProductDetails(product: Product){
                         }
 
                         CustomButton("Comprar", 300) {
+                            val currentInstant: Instant = Instant.now()
+                            val millis: Long = currentInstant.toEpochMilli()
+                            val date = Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                            val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+                            val time = LocalDateTime.now().format(formatter)
+                            val dateTime = date + "T" + time
+                            product.id?.let {
+                                viewModel.registerOrder(
+                                    OrderRequest(
+                                        fkStatus = 1,
+                                        dateTime = dateTime,
+                                        fkClient = user.id
+                                    ),
+                                    quatity = 1,
+                                    productId = it,
+                                )
+                            }
 
+                            navController.navigate("feed")
                         }
                     }
 

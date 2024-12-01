@@ -32,6 +32,7 @@ import com.example.blume_mobile.ui.theme.BlumeMobileTheme
 import com.example.blume_mobile.ui.theme.Gray100
 import com.example.blume_mobile.ui.viewModels.EstablishmentDetailsViewModel
 import com.example.blume_mobile.ui.viewModels.LoginScreenViewModel
+import com.example.blume_mobile.ui.viewModels.ProductDetailsViewModel
 import com.example.blume_mobile.ui.viewModels.ProfileScreenViewModel
 import com.example.blume_mobile.ui.viewModels.ServiceDetailsViewModel
 import com.google.gson.Gson
@@ -111,7 +112,9 @@ fun Navigation(navController: NavHostController, userSession: UserSession, profi
         )){
             val productJson = it.arguments?.getString("product")
             val productObj = Gson().fromJson(productJson, Product::class.java)
-            ProductDetails(product = productObj)
+            val viewModel: ProductDetailsViewModel = ProductDetailsViewModel()
+
+            ProductDetails(product = productObj, viewModel = viewModel, navController = navController, user = userSession)
         }
 
         composable(route = "establishment_details?establishment={establishment}", arguments = listOf(

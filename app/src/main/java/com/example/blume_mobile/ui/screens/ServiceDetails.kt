@@ -559,17 +559,11 @@ fun ServiceDetails(
 
                                     navController.navigate("feed")
                                 }
-
                             }
-
-
                         }
                     }
-
                 }
             }
-
         }
     }
-
 }

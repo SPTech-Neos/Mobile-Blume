@@ -6,6 +6,8 @@ import com.example.blume_mobile.api.repositories.EmployeeRepository
 import com.example.blume_mobile.api.repositories.EmployeeServices
 import com.example.blume_mobile.api.repositories.EstablishmentRepository
 import com.example.blume_mobile.api.repositories.LocalRepository
+import com.example.blume_mobile.api.repositories.MarketRepository
+import com.example.blume_mobile.api.repositories.OrderRepository
 import com.example.blume_mobile.api.repositories.PhoneRepository
 import com.example.blume_mobile.api.repositories.ProductRepository
 import com.example.blume_mobile.api.repositories.SchedulingRepository
@@ -68,6 +70,14 @@ object RetrofitService {
 
     fun getApiScheduling(): SchedulingRepository {
         return getApi().create(SchedulingRepository::class.java)
+    }
+
+    fun getApiOrder(): OrderRepository {
+        return getApi().create(OrderRepository::class.java)
+    }
+
+    fun getApiMarket(): MarketRepository {
+        return getApi().create(MarketRepository::class.java)
     }
 
 }
