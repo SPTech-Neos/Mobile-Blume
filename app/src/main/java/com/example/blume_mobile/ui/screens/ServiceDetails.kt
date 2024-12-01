@@ -18,15 +18,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -48,6 +48,8 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.blume_mobile.R
 import com.example.blume_mobile.data.sampleCategories
+import com.example.blume_mobile.models.di.UserSession
+import com.example.blume_mobile.models.schedule.SchedulingRequest
 import com.example.blume_mobile.models.service.Service
 import com.example.blume_mobile.ui.components.buttons.CustomButton
 import com.example.blume_mobile.ui.components.cards.BestRated
@@ -61,14 +63,46 @@ import com.example.blume_mobile.ui.theme.Violet50
 import com.example.blume_mobile.ui.theme.Violet500
 import com.example.blume_mobile.ui.theme.poppins
 import com.example.blume_mobile.ui.viewModels.ServiceDetailsViewModel
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+
+fun convertMillisToDate(millis: Long): String {
+    val date = Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC)
+        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+    return date
+}
+
+
+fun convertDateTime(date: String, hour: Int, minute: Int): String {
+    return date + "T" + "$hour:$minute:00"
+}
+
+fun convertMillisToString(millis: Long): String {
+//    val date = Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ISO_LOCAL_DATE)
+    val instant = Instant.ofEpochMilli(millis)
+    val formatter = DateTimeFormatter
+        .ofPattern(
+            "EEEE, dd MMMM yyyy",
+            Locale.getDefault()
+        ) // Exibe o nome do dia da semana, dia, mês e ano
+        .withZone(ZoneOffset.UTC)
+
+    return formatter.format(instant)
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ServiceDetails(
     service: Service,
     navController: NavController,
-    viewModel: ServiceDetailsViewModel
+    viewModel: ServiceDetailsViewModel,
+    user: UserSession
 ) {
     var showModal by remember {
         mutableStateOf(false)
@@ -85,6 +119,9 @@ fun ServiceDetails(
     var selectedEmployee by remember {
         mutableStateOf(0)
     }
+    var showCalendar by remember {
+        mutableStateOf(false)
+    }
 
     val currentTime = Calendar.getInstance()
 
@@ -93,6 +130,9 @@ fun ServiceDetails(
         initialMinute = currentTime.get(Calendar.MINUTE),
         is24Hour = true,
     )
+
+    val datePickerState = rememberDatePickerState()
+
 
     val state by viewModel.uiState.collectAsState()
     Log.i("select e", "${selectedEmployee}")
@@ -444,7 +484,7 @@ fun ServiceDetails(
                             }
 
                             Text(
-                                text = "Escolha a data e a hora que será realizado o seu serviço:: ",
+                                text = "Escolha a data e a hora que será realizado o seu serviço: ",
                                 style = TextStyle(
                                     fontSize = 12.sp,
                                     fontFamily = poppins,
@@ -457,16 +497,72 @@ fun ServiceDetails(
                             Column(
                                 Modifier
                                     .fillMaxWidth()
-                                    .fillMaxHeight(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                                ScheduleTimePicker(timePickerState)
+                                    .fillMaxHeight(0.5f),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(20.dp)
+                            ) {
+
+                                Text(
+                                    text = datePickerState.selectedDateMillis?.let {
+                                        convertMillisToString(it)
+
+                                    } ?: "Nenhuma data selecionada!", style = TextStyle(
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.W500,
+                                        color = Gray700,
+                                        textAlign = TextAlign.Center,
+                                        fontFamily = poppins,
+                                    )
+                                )
+                                if (showCalendar) {
+                                    ScheduleDtePicker(
+                                        state = datePickerState,
+                                        onDismiss = { showCalendar = false })
+                                }
+                                CustomButton(text = "Selecionar", width = 180) {
+                                    showCalendar = true
+                                }
+
                             }
 
                             Column(
                                 Modifier
                                     .fillMaxWidth()
-                                    .fillMaxHeight(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                                ScheduleDtePicker()
+                                    .fillMaxHeight(),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                ScheduleTimePicker(timePickerState)
+                                Log.i("serviceDetails hora", "${timePickerState.hour}")
+                                Log.i("serviceDetails minutos", "${timePickerState.minute}")
+
+                                CustomButton(text = "Confirmar", width = 180) {
+                                    val date = datePickerState.selectedDateMillis?.let {
+                                        convertDateTime(
+                                            convertMillisToDate(it), timePickerState.hour, timePickerState.minute
+                                        )
+                                    }
+
+                                    service.id?.let {
+                                        SchedulingRequest(
+                                            idService = it,
+                                            idClient = user.id,
+                                            idEmployee = selectedEmployee,
+                                            dateTime = date!!
+                                        )
+
+                                    }?.let {
+                                        viewModel.createScheduling(
+                                            it
+                                        )
+                                    }
+
+                                    navController.navigate("feed")
+                                }
+
                             }
+
+
                         }
                     }
 

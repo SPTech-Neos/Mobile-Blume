@@ -98,7 +98,7 @@ fun Navigation(navController: NavHostController, userSession: UserSession, profi
             val serviceObj = Gson().fromJson(serviceJson, Service::class.java)
             val viewModel: ServiceDetailsViewModel = ServiceDetailsViewModel()
 
-            ServiceDetails(service = serviceObj, navController = navController, viewModel = viewModel)
+            ServiceDetails(service = serviceObj, navController = navController, viewModel = viewModel, user = userSession)
         }
 
         composable(route = "product_details?product={product}", arguments = listOf(

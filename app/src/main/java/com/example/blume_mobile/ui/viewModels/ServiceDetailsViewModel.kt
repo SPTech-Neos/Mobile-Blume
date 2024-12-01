@@ -5,6 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.blume_mobile.api.retrofit.RetrofitService
+import com.example.blume_mobile.models.schedule.SchedulingRequest
 import com.example.blume_mobile.ui.states.ServiceDetailsUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,6 +16,30 @@ class ServiceDetailsViewModel: ViewModel() {
     private val _uiState: MutableStateFlow<ServiceDetailsUiState> = MutableStateFlow(ServiceDetailsUiState())
     val uiState = _uiState.asStateFlow()
     val apiEmployeeServices = RetrofitService.getApiEmployeeServices()
+    val apiScheduling = RetrofitService.getApiScheduling()
+
+    fun createScheduling(requestSchedule: SchedulingRequest){
+        viewModelScope.launch {
+            try {
+                val request = apiScheduling.registerScheduling(request = requestSchedule)
+
+                if (request.isSuccessful) {
+                    if (request.body() != null) {
+                        Log.i("apiScheduling", "resultado da chamada: ${request.body()}")
+
+                    }
+                } else {
+                    Log.e("apiScheduling", "resultado da chamada: ${request.message()}")
+
+                }
+
+            } catch (e: Exception) {
+
+                Log.e("apiScheduling", "Erro na chamada: ${e.message} e ${e.cause}")
+            }
+        }
+
+    }
 
     fun getEmployeesByService(id: Int){
         viewModelScope.launch {
