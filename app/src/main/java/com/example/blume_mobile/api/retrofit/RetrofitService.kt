@@ -1,6 +1,7 @@
 package com.example.blume_mobile.api.retrofit
 
 import com.example.blume_mobile.api.repositories.AddressRepository
+import com.example.blume_mobile.api.repositories.AditumRepository
 import com.example.blume_mobile.api.repositories.ClientRepository
 import com.example.blume_mobile.api.repositories.EmployeeRepository
 import com.example.blume_mobile.api.repositories.EmployeeServices
@@ -13,19 +14,44 @@ import com.example.blume_mobile.api.repositories.ProductRepository
 import com.example.blume_mobile.api.repositories.SchedulingRepository
 import com.example.blume_mobile.api.repositories.ServiceRepository
 import com.example.blume_mobile.api.repositories.ServiceTypeRepository
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitService {
 
     private val BASE_URL = "http://192.168.15.106:8080/"
+    private val PORTAL_ADITUM_URL = "https://portal-dev.aditum.com.br/"
+    private val PAYMENT_ADITUM_URL = "https://payment-dev.aditum.com.br/"
+
+    fun getPortalAditum(): Retrofit{
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(PORTAL_ADITUM_URL)
+            .build()
+    }
+
+    fun getTokenAditum(): AditumRepository{
+        return getPortalAditum().create(AditumRepository::class.java)
+    }
+
+    fun getAditumPayment(): Retrofit{
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(PAYMENT_ADITUM_URL)
+            .build()
+    }
+
+    fun getPaymentAditum(): AditumRepository{
+        return getAditumPayment().create(AditumRepository::class.java)
+    }
+
 
     fun getApi(): Retrofit{
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
     }
 
     fun getApiEstablishments(): EstablishmentRepository {

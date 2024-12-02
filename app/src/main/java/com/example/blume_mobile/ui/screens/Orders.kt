@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -20,6 +21,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.blume_mobile.models.di.UserSession
+import com.example.blume_mobile.models.market.Market
+import com.example.blume_mobile.models.schedule.Scheduling
 import com.example.blume_mobile.ui.badge.CategoryBadge
 import com.example.blume_mobile.ui.components.banner.BannerOrder
 import com.example.blume_mobile.ui.components.cards.OrderCard
@@ -32,13 +36,16 @@ import com.example.blume_mobile.ui.theme.poppins
 import com.example.blume_mobile.ui.viewModels.OrderScreenViewModel
 
 @Composable
-fun OrderScreen(viewModel: OrderScreenViewModel) {
+fun OrderScreen(viewModel: OrderScreenViewModel, userSession: UserSession) {
     val state by viewModel.uiState.collectAsState()
-    OrderScreen(state = state)
+    viewModel.getAllMarkets(userSession.id)
+    viewModel.getAllSchedulings(userSession.id)
+    OrderScreen(state = state, markets = state.markets, schedules = state.schedules)
 }
 
 @Composable
-fun OrderScreen(state: OrderScreenUiState) {
+fun OrderScreen(state: OrderScreenUiState, markets: List<Market>, schedules: List<Scheduling>) {
+
     Column(
         Modifier
             .fillMaxWidth()
@@ -99,8 +106,16 @@ fun OrderScreen(state: OrderScreenUiState) {
             horizontalAlignment = Alignment.CenterHorizontally,
             contentPadding = PaddingValues(vertical = 20.dp)
         ){
-            items(2){
-                OrderCard()
+            items(markets){
+                OrderCard(
+                    market = it
+                )
+            }
+
+            items(schedules){
+                OrderCard(
+                    scheduling = it
+                )
             }
 
         }

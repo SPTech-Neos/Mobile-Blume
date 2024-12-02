@@ -76,7 +76,7 @@ fun Navigation(navController: NavHostController, userSession: UserSession, profi
         }
 
         composable("orders"){
-            Orders()
+            Orders(userSession = userSession)
         }
 
         composable("profile"){

@@ -60,6 +60,7 @@ class LoginScreenViewModel() : ViewModel() {
                         Log.i("login", "resultado da chamada: ${getClient.body()}")
 
                         userSession.id = getClient.body()!!.id
+                        userSession.email = getClient.body()!!.email
 
 
                         val nextScreen = Intent(contexto, MainActivity::class.java)

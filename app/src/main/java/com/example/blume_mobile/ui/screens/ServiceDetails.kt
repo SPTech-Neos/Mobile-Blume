@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -48,6 +49,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.blume_mobile.R
 import com.example.blume_mobile.data.sampleCategories
+import com.example.blume_mobile.models.Aditum.PaymentRequest
 import com.example.blume_mobile.models.di.UserSession
 import com.example.blume_mobile.models.schedule.SchedulingRequest
 import com.example.blume_mobile.models.service.Service
@@ -104,7 +106,13 @@ fun ServiceDetails(
     viewModel: ServiceDetailsViewModel,
     user: UserSession
 ) {
+    val uriHandler = LocalUriHandler.current
+
     var showModal by remember {
+        mutableStateOf(false)
+    }
+
+    var showPayment by remember {
         mutableStateOf(false)
     }
 
@@ -557,11 +565,51 @@ fun ServiceDetails(
                                         )
                                     }
 
-                                    navController.navigate("feed")
+                                    val list = listOf(service.aditumId)
+
+                                    viewModel.getAditumToken(
+                                        PaymentRequest(
+                                        products = list,
+                                        maxInstallmentNumber = 1,
+                                        emailNotification = user.email,
+                                        phoneNotification = "11933357637",
+                                        supportMultipleTransactions = true
+                                    )
+                                    )
+
+//                                    navController.navigate("feed")
+                                    showDateTime = !showDateTime
+                                    showPayment = !showPayment
                                 }
                             }
                         }
                     }
+                } else if(showPayment){
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        shadowElevation = 3.dp
+                    ) {
+                        Column(
+                            Modifier
+                                .size(width = 300.dp, height = 350.dp)
+                                .background(Gray100)
+                                .padding(20.dp),
+                            verticalArrangement = Arrangement.spacedBy(30.dp, Alignment.CenterVertically),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text("Clique no botão abaixo para acessar seu link de pagamento pelo produto!", style = TextStyle(
+                                fontWeight = FontWeight.W200,
+                                textAlign = TextAlign.Center,
+                                color = Gray700,
+                                fontSize = 15.sp,
+                                fontFamily = poppins,
+                            ))
+                            CustomButton(text = "Acessar", width = 280) {
+                                uriHandler.openUri(state.aditumUri)
+                            }
+                        }
+                    }
+
                 }
             }
         }

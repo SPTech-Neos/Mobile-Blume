@@ -20,10 +20,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -33,11 +39,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.blume_mobile.R
+import com.example.blume_mobile.models.Aditum.AditumProduct
+import com.example.blume_mobile.models.Aditum.PaymentRequest
 import com.example.blume_mobile.models.di.UserSession
 import com.example.blume_mobile.models.order.OrderRequest
 import com.example.blume_mobile.models.product.Product
 import com.example.blume_mobile.ui.components.buttons.CustomButton
 import com.example.blume_mobile.ui.components.titles.TitleBlume
+import com.example.blume_mobile.ui.theme.Gray100
+import com.example.blume_mobile.ui.theme.Gray500
 import com.example.blume_mobile.ui.theme.Gray700
 import com.example.blume_mobile.ui.theme.Violet50
 import com.example.blume_mobile.ui.theme.Violet500
@@ -55,6 +65,12 @@ fun ProductDetails(
     navController: NavController,
     user: UserSession
 ){
+    val uriHandler = LocalUriHandler.current
+    val state by viewModel.uiState.collectAsState()
+    var showModal by remember {
+        mutableStateOf(false)
+    }
+
     Column(
         Modifier
             .fillMaxSize(),
@@ -275,12 +291,59 @@ fun ProductDetails(
                                 )
                             }
 
-                            navController.navigate("feed")
+                            val list = listOf(product.aditumId)
+
+                            viewModel.getAditumToken(PaymentRequest(
+                                products = list,
+                                maxInstallmentNumber = 1,
+                                emailNotification = user.email,
+                                phoneNotification = "11933357637",
+                                supportMultipleTransactions = true
+                            ))
+                            showModal = true
+//                            navController.navigate("feed")
                         }
                     }
 
                 }
 
+            }
+        }
+    }
+
+    if (showModal) {
+        if (state.aditumUri.isNotEmpty()) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .background(Gray500.copy(alpha = 0.5f)),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Surface(
+                    shape = RoundedCornerShape(8.dp),
+                    shadowElevation = 3.dp
+                ) {
+                    Column(
+                        Modifier
+                            .size(width = 300.dp, height = 350.dp)
+                            .background(Gray100)
+                            .padding(20.dp),
+                        verticalArrangement = Arrangement.spacedBy(30.dp, Alignment.CenterVertically),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text("Clique no botão abaixo para acessar seu link de pagamento pelo produto!", style = TextStyle(
+                            fontWeight = FontWeight.W200,
+                            textAlign = TextAlign.Center,
+                            color = Gray700,
+                            fontSize = 15.sp,
+                            fontFamily = poppins,
+                        ))
+                        CustomButton(text = "Acessar", width = 280) {
+                            uriHandler.openUri(state.aditumUri)
+                        }
+                    }
+                }
             }
         }
     }

@@ -21,6 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -79,13 +80,13 @@ fun OrderCard(
 
             Box(
                 Modifier.width(80.dp),
-                contentAlignment = Alignment.Center
             ){
                 Text(name!!, style = TextStyle(
                     fontFamily = poppins,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 10.sp,
-                    color = Gray700
+                    color = Gray700,
+                    textAlign = TextAlign.Start
                 )
                 )
             }
