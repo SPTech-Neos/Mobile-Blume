@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ServiceDetailsViewModel: ViewModel() {
-    private val _uiState: MutableStateFlow<ServiceDetailsUiState> = MutableStateFlow(ServiceDetailsUiState(aditumUri = "https://blume-dev.aditum.com.br/v2/checkout/"))
+    private val _uiState: MutableStateFlow<ServiceDetailsUiState> = MutableStateFlow(ServiceDetailsUiState(aditumUri = ""))
     val uiState = _uiState.asStateFlow()
     val apiEmployeeServices = RetrofitService.getApiEmployeeServices()
     val apiScheduling = RetrofitService.getApiScheduling()
@@ -31,7 +31,7 @@ class ServiceDetailsViewModel: ViewModel() {
                     if (request.body() != null) {
                         Log.i("apiAditumPayment", "resultado da chamada: ${request.body()}")
                         _uiState.value = _uiState.value.copy(
-                            aditumUri = _uiState.value.aditumUri + request.body()!!.id
+                            aditumUri = "https://blume-dev.aditum.com.br/v2/checkout/" + request.body()!!.id
                         )
                     }
                 } else {

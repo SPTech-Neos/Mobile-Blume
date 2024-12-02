@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitService {
 
-    private val BASE_URL = "http://192.168.15.106:8080/"
+    private val BASE_URL = "http://192.168.155.67:8080/"
     private val PORTAL_ADITUM_URL = "https://portal-dev.aditum.com.br/"
     private val PAYMENT_ADITUM_URL = "https://payment-dev.aditum.com.br/"
 

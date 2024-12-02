@@ -20,7 +20,7 @@ class ProductDetailsViewModel: ViewModel() {
     val apiTokenAditum = RetrofitService.getTokenAditum()
     val apiPaymentAditum = RetrofitService.getPaymentAditum()
 
-    private val _uiState: MutableStateFlow<ProductDetailsUiState> = MutableStateFlow(ProductDetailsUiState("https://blume-dev.aditum.com.br/v2/checkout/"))
+    private val _uiState: MutableStateFlow<ProductDetailsUiState> = MutableStateFlow(ProductDetailsUiState(""))
     val uiState = _uiState.asStateFlow()
 
     fun registerOrder(requestOrder: OrderRequest, quatity: Int, productId: Int){
@@ -83,7 +83,7 @@ class ProductDetailsViewModel: ViewModel() {
                     if (request.body() != null) {
                         Log.i("apiAditumPayment", "resultado da chamada: ${request.body()}")
                         _uiState.value = _uiState.value.copy(
-                            aditumUri = _uiState.value.aditumUri + request.body()!!.id
+                            aditumUri = "https://blume-dev.aditum.com.br/v2/checkout/" + request.body()!!.id
                         )
                     }
                 } else {
