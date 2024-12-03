@@ -200,10 +200,15 @@ class RegisterScreenViewModel : ViewModel() {
 
     fun registerPhone(contexto: Context, idLocal: Int) {
 
+        Log.i("number: ", _uiState.value.phone)
+        val areaCorde = _uiState.value.phone.substring(0, 2)
+        val phone = _uiState.value.phone.substring(2)
+        Log.i("number:", phone)
+
         val p = PhoneRequest(
-            number = _uiState.value.number,
+            number = phone,
             countryCode = "55",
-            areaCode = "11"
+            areaCode = areaCorde
         )
 
         val getPhoneApi = RetrofitService.getApiPhone()
